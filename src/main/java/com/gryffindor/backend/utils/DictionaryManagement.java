@@ -6,15 +6,10 @@ import com.gryffindor.backend.entities.Dictionary;
 import com.gryffindor.backend.entities.Word;
 
 public class DictionaryManagement {
-  public static final DictionaryManagement INSTANCE = new DictionaryManagement();
-  private final Dictionary dictionary;
+  public final Dictionary dictionary;
 
-  DictionaryManagement() {
+  public DictionaryManagement() {
     dictionary = new Dictionary();
-  }
-
-  public Dictionary getDictionary() {
-    return dictionary;
   }
 
   /** Nhập từ mới từ command line. */

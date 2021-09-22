@@ -7,12 +7,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
-import com.gryffindor.App;
 import com.gryffindor.Language;
+import com.gryffindor.backend.AppData;
 
 public class GoogleTranslator {
   public static String translate(String word_target, Language from, Language to) throws IOException {
-    String urlString = App.INSTANCE.config.getGoogleAPIUrl() + 
+    String urlString = AppData.INSTANCE.config.getGoogleAPIUrl() + 
                     "?q=" + URLEncoder.encode(word_target, "UTF-8") +
                     "&target=" + to.toShortString() + "&from=" + from.toShortString();
 
