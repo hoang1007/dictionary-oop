@@ -39,12 +39,12 @@ public class DictionaryManagement {
     scanner.close();
   }
 
-    /** Nhập từ mới từ file dictionaries.txt. */
+  /** Nhập từ mới từ file dictionaries.txt. */
   public void insertFromFile() throws IOException {
       //url file dictionaries.txt
       String url = "dictionaries.txt";
 
-      // Đọc dữ liệu từ File với BufferedReader
+      // Đọc dữ liệu từ File với BufferedReader.
       FileInputStream fileInputStream = null;
       BufferedReader bufferedReader = null;
       try {
@@ -52,7 +52,7 @@ public class DictionaryManagement {
           bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
           String line = bufferedReader.readLine();
           while (line != null) {
-              //Xử lí xâu từ file text truyền vào mảng Word
+              //Xử lí xâu từ file text truyền vào mảng Word.
               for (int i = 1; i < line.length(); i++) {
                   if ( line.charAt(i) == '\t') {
                       String word_target = line.substring(0, i - 1);
@@ -66,7 +66,7 @@ public class DictionaryManagement {
       } catch (IOException e) {
           e.printStackTrace();
       } finally {
-          // Đóng file
+          // Đóng file.
           bufferedReader.close();
           fileInputStream.close();
       }
