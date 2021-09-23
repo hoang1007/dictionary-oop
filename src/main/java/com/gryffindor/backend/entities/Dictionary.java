@@ -17,12 +17,13 @@ public class Dictionary {
 
   /**
    * Tìm một từ trong từ điển.
+   * 
    * @param word_target từ mới muốn tìm
    * @return trả về từ mới nếu tìm thấy, null nếu không tìm được
    */
   public Word searchWord(String word_target) {
     for (Word w : words) {
-      if (w.getWordTarget() == word_target) {
+      if (w.getWordTarget().equals(word_target)) {
         return w;
       }
     }
@@ -32,6 +33,7 @@ public class Dictionary {
 
   /**
    * Tìm tất cả từ đồng âm.
+   * 
    * @param word_target từ mới muốn tìm
    * @return danh sách các từ tìm được
    */
@@ -49,6 +51,7 @@ public class Dictionary {
 
   /**
    * Tìm tất cả các từ đồng nghĩa.
+   * 
    * @param word_explain nghĩa muốn tìm
    * @return danh sách các từ tìm được
    */
@@ -56,7 +59,7 @@ public class Dictionary {
     List<Word> synonyms = new ArrayList<>();
 
     for (Word w : words) {
-      if (w.getWordExplain() == word_explain) {
+      if (w.getWordExplain().equals(word_explain)) {
         synonyms.add(w);
       }
     }

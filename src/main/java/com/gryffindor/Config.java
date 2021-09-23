@@ -23,6 +23,11 @@ public class Config {
     googleAPIUrl = properties.getProperty("googleapiurl");
   }
 
+  /**
+   * get google API URL.
+   * 
+   * @return googleAPIUrl
+   */
   public String getGoogleAPIUrl() {
     return googleAPIUrl;
   }

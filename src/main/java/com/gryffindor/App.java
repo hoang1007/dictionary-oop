@@ -3,9 +3,11 @@ package com.gryffindor;
 import java.io.IOException;
 
 import com.gryffindor.backend.DictionaryCommandline;
+import com.gryffindor.backend.api.GoogleTranslator;
+import com.gryffindor.backend.utils.DictionaryManagement;
 
 /**
- * Our Dictionary App!
+ * Our Dictionary App.
  */
 public final class App {
   /**
@@ -15,6 +17,6 @@ public final class App {
    * @throws IOException
    */
   public static void main(String[] args) throws IOException {
-    new DictionaryCommandline().dictionaryBasic();
+
   }
 }

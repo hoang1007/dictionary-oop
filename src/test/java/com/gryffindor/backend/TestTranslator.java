@@ -15,6 +15,8 @@ public class TestTranslator {
 
   @Test
   public void testDetectTranslator() throws Exception {
-    assertEquals("Hoa", GoogleTranslator.translate("flower", Language.DETECT, Language.VIETNAMESE));
+    assertEquals("phương tiện giao thông", GoogleTranslator.translate("vehicle", Language.DETECT, Language.VIETNAMESE));
+    assertEquals("tôi", GoogleTranslator.translate("I", Language.DETECT, Language.VIETNAMESE));
   }
+
 }

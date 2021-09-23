@@ -1,6 +1,10 @@
 package com.gryffindor.backend.utils;
 
+import java.io.IOException;
 import java.util.Scanner;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
 
 import com.gryffindor.backend.entities.Dictionary;
 import com.gryffindor.backend.entities.Word;
@@ -8,13 +12,14 @@ import com.gryffindor.backend.entities.Word;
 public class DictionaryManagement {
   public final Dictionary dictionary;
 
+  private static Scanner scanner = new Scanner(System.in);
+
   public DictionaryManagement() {
     dictionary = new Dictionary();
   }
 
   /** Nhập từ mới từ command line. */
   public void insertFromCommandline() {
-    Scanner scanner = new Scanner(System.in);
     System.out.println("Nhap so tu moi muon them:");
 
     int n = scanner.nextInt();
@@ -31,7 +36,6 @@ public class DictionaryManagement {
 
       dictionary.addWord(new Word(word_target, word_explain));
     }
-    
-    scanner.close();
   }
+
 }

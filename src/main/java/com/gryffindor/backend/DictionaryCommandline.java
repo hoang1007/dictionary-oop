@@ -20,7 +20,6 @@ public class DictionaryCommandline {
 
   public void dictionaryBasic() {
     dictionaryManagement.insertFromCommandline();
-
     showAllWords();
   }
 }
