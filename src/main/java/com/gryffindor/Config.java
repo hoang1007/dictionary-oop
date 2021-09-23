@@ -1,16 +1,17 @@
 package com.gryffindor;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
 public class Config {
-  private String googleAPIUrl;
+  private String googleApiUrl;
+  private String style;
 
+  /** Khởi tạo config. */
   public Config() {
     Properties properties = new Properties();
-    try (InputStream is = new FileInputStream("src/resources/config.properties")) {
+    try (InputStream is = getClass().getResourceAsStream("/config.properties")) {
       properties.load(is);
 
       init(properties);
@@ -20,10 +21,15 @@ public class Config {
   }
 
   void init(Properties properties) {
-    googleAPIUrl = properties.getProperty("googleapiurl");
+    googleApiUrl = properties.getProperty("googleapiurl");
+    style = getClass().getResource("/styles/styles.css").toExternalForm();
   }
 
-  public String getGoogleAPIUrl() {
-    return googleAPIUrl;
+  public String getGoogleApiUrl() {
+    return googleApiUrl;
+  }
+
+  public String getStyle() {
+    return style;
   }
 }
