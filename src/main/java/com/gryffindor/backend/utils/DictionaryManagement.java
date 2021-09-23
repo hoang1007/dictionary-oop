@@ -1,20 +1,15 @@
 package com.gryffindor.backend.utils;
 
-import java.util.Scanner;
-
 import com.gryffindor.backend.entities.Dictionary;
 import com.gryffindor.backend.entities.Word;
 
+import java.util.Scanner;
+
 public class DictionaryManagement {
-  public static final DictionaryManagement INSTANCE = new DictionaryManagement();
-  private final Dictionary dictionary;
+  public final Dictionary dictionary;
 
-  DictionaryManagement() {
+  public DictionaryManagement() {
     dictionary = new Dictionary();
-  }
-
-  public Dictionary getDictionary() {
-    return dictionary;
   }
 
   /** Nhập từ mới từ command line. */
@@ -29,12 +24,12 @@ public class DictionaryManagement {
       System.out.println(String.format("Dang nhap tu thu %d...", i));
       System.out.println("Nhap tu moi:");
 
-      String word_target = scanner.nextLine();
+      String wordTarget = scanner.nextLine();
 
       System.out.println("Nhap nghia:");
-      String word_explain = scanner.nextLine();
+      String wordExplain = scanner.nextLine();
 
-      dictionary.addWord(new Word(word_target, word_explain));
+      dictionary.addWord(new Word(wordTarget, wordExplain));
     }
     
     scanner.close();
