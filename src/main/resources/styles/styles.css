@@ -1,0 +1,68 @@
+.padding-pane {
+  -fx-padding: 10px;
+}
+
+.text-pane {
+  -fx-background-radius: 20px;
+  -fx-background-color: aqua;
+  -fx-padding: 10px;
+  /* -fx-min-height: 200px; */
+}
+
+.nav-pane {
+  -fx-background-color:lightseagreen;
+  -fx-padding: 5px;
+}
+
+.root-pane {
+  /* -fx-padding: 10px; */
+}
+
+.search-box {
+  -fx-background-color: orange;
+  -fx-background-radius: 20px;
+  -fx-min-height: 60px;
+  -fx-font-family: "Helvetica Neue";
+  -fx-font-size: 24px;
+}
+
+.autocomplete-list {
+  -fx-font-family: "Helvetica Neue";
+  -fx-font-size: 16px;
+  -fx-background-radius: 4px;
+  -fx-background-color: transparent;
+}
+
+.autocomplete-list .list-cell:empty { 
+  -fx-background-color: transparent;
+}
+
+.autocomplete-list .list-item {
+  -fx-border-color: black;
+  -fx-border: 1px;
+}
+
+.word-header {
+  -fx-font-size: 40px;
+  -fx-font-family: "Roboto";
+  -fx-font-weight: 300;
+}
+
+.title-text {
+  -fx-font-size: 20px;
+  -fx-font-family: "Helvetica Neue", sans-serif;
+  -fx-letter-spacing: -1px;
+  -fx-line-height: 1;
+  -fx-text-align: center;
+  -fx-font-weight: bold;
+  -fx-fill: white;
+}
+
+.nav-button {
+  -fx-background-color: transparent;
+  -fx-min-width: 50%;
+}
+
+.nav-button:hover {
+  -fx-background-color: darkcyan;
+}
