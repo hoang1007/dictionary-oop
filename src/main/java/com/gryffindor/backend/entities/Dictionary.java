@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Dictionary {
-  private final List<Word> words;
+  private List<Word> words;
 
   public Dictionary() {
     words = new ArrayList<>();
@@ -13,6 +13,10 @@ public class Dictionary {
   /** Thêm từ mới vào từ điển. */
   public void addWord(Word word) {
     words.add(word);
+  }
+
+  public void setWords(List<Word> words) {
+    this.words = words;
   }
 
   /**
@@ -41,7 +45,7 @@ public class Dictionary {
     List<Word> wordFounds = new ArrayList<>();
 
     for (Word w : words) {
-      if (w.getWordTarget() == word_target) {
+      if (w.getWordTarget().equals(word_target)) {
         wordFounds.add(w);
       }
     }
@@ -71,4 +75,5 @@ public class Dictionary {
   public List<Word> getAllWords() {
     return words;
   }
+
 }

@@ -24,4 +24,9 @@ public class Word {
   public String getWordExplain() {
     return this.word_explain;
   }
+
+  @Override
+  public String toString() {
+    return this.word_target + " - " + this.word_explain;
+  }
 }

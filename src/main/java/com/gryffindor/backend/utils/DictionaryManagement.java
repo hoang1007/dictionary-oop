@@ -5,6 +5,7 @@ import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
+import java.util.List;
 
 import com.gryffindor.backend.entities.Dictionary;
 import com.gryffindor.backend.entities.Word;
@@ -36,6 +37,19 @@ public class DictionaryManagement {
 
       dictionary.addWord(new Word(word_target, word_explain));
     }
+  }
+
+  /**
+   * Xóa từ trong list words
+   */
+  public void deleteFromCommand() {
+    System.out.println("Nhap tu muon xoa: ");
+    String input = scanner.next();
+    List<Word> w = dictionary.searchWords(input);
+    List<Word> clone_words = dictionary.getAllWords();
+    System.out.println(clone_words.size());
+    clone_words.removeAll(w);
+    System.out.println(clone_words.size());
   }
 
 }
