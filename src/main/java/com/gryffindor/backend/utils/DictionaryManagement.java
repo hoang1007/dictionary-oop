@@ -47,9 +47,7 @@ public class DictionaryManagement {
     String input = scanner.next();
     List<Word> w = dictionary.searchWords(input);
     List<Word> clone_words = dictionary.getAllWords();
-    System.out.println(clone_words.size());
     clone_words.removeAll(w);
-    System.out.println(clone_words.size());
   }
 
 }
