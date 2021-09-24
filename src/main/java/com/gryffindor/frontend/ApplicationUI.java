@@ -20,6 +20,7 @@ public class ApplicationUI extends Application {
 
   @Override
   public void start(Stage primaryStage) throws Exception {
+    primaryStage.setTitle(title);
     primaryStage.setWidth(width);
     primaryStage.setHeight(height);
     
