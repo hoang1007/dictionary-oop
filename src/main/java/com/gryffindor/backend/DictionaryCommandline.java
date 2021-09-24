@@ -22,4 +22,8 @@ public class DictionaryCommandline {
     dictionaryManagement.insertFromCommandline();
     showAllWords();
   }
+
+  public void dictionarySearcher() {
+
+  }
 }

@@ -40,6 +40,43 @@ public class DictionaryManagement {
   }
 
   /**
+   * Nhạp dữ liệu vào dictionaries.txt
+   */
+  public void insertFromFile() {
+    String path = "src/main/java/com/gryffindor/backend/storage/dictionaries.txt";
+    FileWriter fileWriter = null;
+    BufferedWriter bufferedWriter = null;
+    try {
+      fileWriter = new FileWriter(path);
+      bufferedWriter = new BufferedWriter(fileWriter);
+      System.out.println("Nhập số từ muốn thêm: ");
+      int n = scanner.nextInt();
+      scanner.nextLine();
+      while (n-- > 0) {
+        System.out.println("Nhập từ tiếng anh: ");
+        String word_target = scanner.nextLine();
+        System.out.println("Nhập nghĩa: ");
+        String word_explain = scanner.nextLine();
+        String new_word = word_target + "\t" + word_explain;
+        bufferedWriter.write(new_word);
+        bufferedWriter.newLine();
+      }
+
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        bufferedWriter.close();
+        fileWriter.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+
+  /**
    * Xóa từ trong list words
    */
   public void deleteFromCommand() {

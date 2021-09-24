@@ -23,9 +23,6 @@ public final class App {
 
   public static void main(String[] args) throws IOException {
     DictionaryManagement dic = new DictionaryManagement();
-    dic.insertFromCommandline();
-    System.out.println(dic.toString());
-    dic.deleteFromCommand();
-    System.out.println(dic.toString());
+    dic.insertFromFile();
   }
 }
