@@ -22,7 +22,7 @@ public class Dictionary {
    */
   public Word searchWord(String word_target) {
     for (Word w : words) {
-      if (w.getWordTarget() == word_target) {
+      if (w.getWordTarget().equals(word_target)) {
         return w;
       }
     }
@@ -39,7 +39,7 @@ public class Dictionary {
     List<Word> wordFounds = new ArrayList<>();
 
     for (Word w : words) {
-      if (w.getWordTarget() == word_target) {
+      if (w.getWordTarget().equals(word_target)) {
         wordFounds.add(w);
       }
     }
@@ -56,7 +56,7 @@ public class Dictionary {
     List<Word> synonyms = new ArrayList<>();
 
     for (Word w : words) {
-      if (w.getWordExplain() == word_explain) {
+      if (w.getWordExplain().equals(word_explain)) {
         synonyms.add(w);
       }
     }

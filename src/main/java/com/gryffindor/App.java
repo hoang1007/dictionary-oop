@@ -10,11 +10,12 @@ import com.gryffindor.backend.DictionaryCommandline;
 public final class App {
   /**
    * Main method.
-   * 
+   *
    * @param args The arguments of the program.
    * @throws IOException
    */
   public static void main(String[] args) throws IOException {
-    new DictionaryCommandline().dictionaryBasic();
+    //new DictionaryCommandline().dictionaryBasic();
+    new DictionaryCommandline().dictionaryAdvance();
   }
 }

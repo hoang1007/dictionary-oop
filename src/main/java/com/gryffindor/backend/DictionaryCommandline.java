@@ -3,6 +3,8 @@ package com.gryffindor.backend;
 import com.gryffindor.backend.entities.Word;
 import com.gryffindor.backend.utils.DictionaryManagement;
 
+import java.io.IOException;
+
 public class DictionaryCommandline {
   private DictionaryManagement dictionaryManagement;
 
@@ -23,4 +25,13 @@ public class DictionaryCommandline {
 
     showAllWords();
   }
+
+  public void dictionaryAdvance() {
+      dictionaryManagement.insertFromFile();
+
+      showAllWords();
+
+      dictionaryManagement.dictionaryLookup();
+  }
+
 }

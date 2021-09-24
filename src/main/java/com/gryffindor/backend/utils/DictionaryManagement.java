@@ -40,9 +40,9 @@ public class DictionaryManagement {
   }
 
   /** Nhập từ mới từ file dictionaries.txt. */
-  public void insertFromFile() throws IOException {
+  public void insertFromFile() {
       //url file dictionaries.txt
-      String url = "dictionaries.txt";
+      String url = "D:\\IT\\Java\\Project\\Dictionary\\src\\resources\\dictionaries.txt";
 
       // Đọc dữ liệu từ File với BufferedReader.
       FileInputStream fileInputStream = null;
@@ -67,8 +67,24 @@ public class DictionaryManagement {
           e.printStackTrace();
       } finally {
           // Đóng file.
-          bufferedReader.close();
-          fileInputStream.close();
+          try {
+              bufferedReader.close();
+              fileInputStream.close();
+          } catch (IOException e) {
+              e.printStackTrace();
+          }
       }
-    }
+  }
+
+  /**   Tra cuu tu dien bang commandline. */
+  public void dictionaryLookup() {
+      System.out.println("Nhap tu can tra: ");
+      Scanner scanner = new Scanner(System.in);
+      String word_target = scanner.nextLine();
+      if (dictionary.searchWord(word_target) != null) {
+          System.out.println(word_target + " co nghia la: " + dictionary.searchWord(word_target));
+      } else {
+          System.out.println("Khong co tu " + word_target + " trong tu dien");
+      }
+  }
 }
