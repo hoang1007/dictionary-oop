@@ -16,11 +16,14 @@ public final class App {
    * @param args The arguments of the program.
    * @throws IOException
    */
-  private static Scanner scanner = new Scanner(System.in);
 
   public static void main(String[] args) throws IOException {
     DictionaryCommandline dic = new DictionaryCommandline();
     dic.getDictionaryManagement().insertFromFile();
     dic.showAllWords();
+    dic.getDictionaryManagement().insertFromCommandline();
+    dic.getDictionaryManagement().dictionaryExportToFile();
+    // error: font Vietnamese in function (insertFromCommandLine and
+    // insertFromFile)
   }
 }

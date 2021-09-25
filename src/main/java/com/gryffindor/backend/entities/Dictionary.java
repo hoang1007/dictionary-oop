@@ -27,7 +27,7 @@ public class Dictionary {
    */
   public Word searchWord(String word_target) {
     for (Word w : words) {
-      if (w.getWordTarget().equals(word_target)) {
+      if (w.getWordTarget().toLowerCase().equals(word_target.toLowerCase())) {
         return w;
       }
     }
@@ -45,7 +45,7 @@ public class Dictionary {
     List<Word> wordFounds = new ArrayList<>();
 
     for (Word w : words) {
-      if (w.getWordTarget().equals(word_target)) {
+      if (w.getWordTarget().toLowerCase().equals(word_target.toLowerCase())) {
         wordFounds.add(w);
       }
     }
