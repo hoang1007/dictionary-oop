@@ -26,18 +26,18 @@
   -fx-font-size: 24px;
 }
 
-.autocomplete-list {
+.search-list {
   -fx-font-family: "Helvetica Neue";
   -fx-font-size: 16px;
   -fx-background-radius: 4px;
   -fx-background-color: transparent;
 }
 
-.autocomplete-list .list-cell:empty { 
+.search-list .list-cell:empty { 
   -fx-background-color: transparent;
 }
 
-.autocomplete-list .list-item {
+.search-list .list-item {
   -fx-border-color: black;
   -fx-border: 1px;
 }
@@ -65,4 +65,8 @@
 
 .nav-button:hover {
   -fx-background-color: darkcyan;
+}
+
+.history-list .list-cell:empty {
+  -fx-background-color: transparent;
 }

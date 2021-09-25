@@ -7,6 +7,7 @@ import java.util.Properties;
 public class Config {
   private String googleApiUrl;
   private String style;
+  private String imagesPath;
 
   /** Khởi tạo config. */
   public Config() {
@@ -23,6 +24,7 @@ public class Config {
   void init(Properties properties) {
     googleApiUrl = properties.getProperty("googleapiurl");
     style = getClass().getResource("/styles/styles.css").toExternalForm();
+    imagesPath = getClass().getResource("/images").toExternalForm();
   }
 
   public String getGoogleApiUrl() {
@@ -31,5 +33,9 @@ public class Config {
 
   public String getStyle() {
     return style;
+  }
+
+  public String getImagesPath() {
+    return imagesPath;
   }
 }
