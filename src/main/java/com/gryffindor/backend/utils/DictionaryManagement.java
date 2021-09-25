@@ -5,7 +5,7 @@ import java.util.Scanner;
 import com.gryffindor.backend.entities.Dictionary;
 import com.gryffindor.backend.entities.Word;
 import java.io.*;
-//import java.io.FileInputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 
@@ -55,7 +55,7 @@ public class DictionaryManagement {
               //Xử lí xâu từ file text truyền vào mảng Word.
               for (int i = 1; i < line.length(); i++) {
                   if ( line.charAt(i) == '\t') {
-                      String word_target = line.substring(0, i - 1);
+                      String word_target = line.substring(0, i);
                       String word_explain = line.substring(i + 1);
                       dictionary.addWord(new Word(word_target, word_explain));
                       break;
@@ -82,7 +82,7 @@ public class DictionaryManagement {
       Scanner scanner = new Scanner(System.in);
       String word_target = scanner.nextLine();
       if (dictionary.searchWord(word_target) != null) {
-          System.out.println(word_target + " co nghia la: " + dictionary.searchWord(word_target));
+          System.out.println(word_target + " co nghia la: " + dictionary.searchWord(word_target).getWordExplain());
       } else {
           System.out.println("Khong co tu " + word_target + " trong tu dien");
       }
