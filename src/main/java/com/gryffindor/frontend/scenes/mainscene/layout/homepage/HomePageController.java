@@ -45,17 +45,25 @@ public class HomePageController implements IPageController {
   
   void setActionOnSearchBegin() {
     searchField.getSearchBox().setOnMouseClicked(event -> {
-      if (searchField.getSearchBox().getText().equals(searchField.searchTextHolder)) {
-        searchField.getSearchBox().setText("");
+      if (searchField.getSearchBox().getText().length() == 0) {
+        setHistoryList();
       }
     });
   }
 
   void setActionOnSearching() {
     searchField.getSearchBox().textProperty().addListener((observable, oldValue, newValue) -> {
+      // nếu search box trống
+      // hiện lịch sử tìm kiếm
+      if (searchField.getSearchBox().getText().length() == 0) {
+        setHistoryList();
+      // nếu không
+      // hiện từ gợi ý
+      } else {
+        searchField.getSearchListUtils().set(0, new Word(newValue, ""));
+      }
+    
       enableSearchList(true);
-
-      searchField.getSearchList().getItems().set(0, new Word(newValue, ""));
     });
   }
 
@@ -69,7 +77,8 @@ public class HomePageController implements IPageController {
     });
 
     searchField.getSearchList().setOnMouseClicked(event -> 
-        onSearchRequest(searchField.getSearchList().getSelectionModel().getSelectedItem().getWordTarget()));
+        onSearchRequest(searchField.getSearchList()
+        .getSelectionModel().getSelectedItem().getWordTarget()));
   }
 
   void enableSearchList(boolean enable) {
@@ -82,5 +91,11 @@ public class HomePageController implements IPageController {
     enableSearchList(false);
 
     System.out.println(wordTarget);
+  }
+
+  void setHistoryList() {
+    searchField.getSearchList().setVisible(true);
+
+    searchField.getSearchListUtils().set(0, new Word("Your history", ""));
   }
 }
