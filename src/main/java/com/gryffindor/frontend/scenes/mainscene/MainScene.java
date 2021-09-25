@@ -1,44 +1,41 @@
 package com.gryffindor.frontend.scenes.mainscene;
 
 import com.gryffindor.DictionaryApplication;
-import com.gryffindor.frontend.scenes.mainscene.entities.ExplainField;
-import com.gryffindor.frontend.scenes.mainscene.entities.NavigationBarField;
-import com.gryffindor.frontend.scenes.mainscene.entities.SearchField;
-import com.gryffindor.frontend.scenes.mainscene.entities.TranslateField;
+import com.gryffindor.frontend.scenes.mainscene.layout.homepage.HomePage;
+import com.gryffindor.frontend.scenes.mainscene.layout.navigationbar.NavigationBar;
 
 import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 
 /** Scene chính của ứng dụng. */
 public class MainScene {
   private final Scene mainScene;
-  private final VBox rootPane;
+  private final HBox rootPane;
 
-  private final NavigationBarField navigationBarField;
-  private final SearchField searchField;
-  private final TranslateField translateField;
-  private final ExplainField explainField;
+  private final NavigationBar navigationBarField;
+  private final HomePage homePage;
 
   /** Khởi tạo scene chính. */
   public MainScene() {
-    rootPane = new VBox();
+    rootPane = new HBox();
+    rootPane.setFillHeight(true);
     rootPane.getStyleClass().add("root-pane");
-    rootPane.setSpacing(5); // đặt khoảng cách giữa các child pane
 
-    navigationBarField = new NavigationBarField();
-    searchField = new SearchField();
-    translateField = new TranslateField();
-    explainField = new ExplainField();
+    homePage = new HomePage();
 
-    rootPane.getChildren().addAll(
-        navigationBarField.getPane(),
-        searchField.getPane(), 
-        translateField.getPane(), 
-        explainField.getPane()
-    );
+    navigationBarField = new NavigationBar();
+    navigationBarField.getController().setHomePage(homePage);
+    
+    setupLayout();
 
     mainScene = new Scene(rootPane);
     mainScene.getStylesheets().add(DictionaryApplication.INSTANCE.config.getStyle());
+  }
+
+  void setupLayout() {
+    rootPane.getChildren().addAll(navigationBarField.getPane(), homePage.getPane());
+    HBox.setHgrow(homePage.getPane(), Priority.ALWAYS);
   }
 
   public Scene getMainScene() {
