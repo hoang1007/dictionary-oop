@@ -10,6 +10,10 @@ public class DictionaryCommandline {
     dictionaryManagement = AppData.INSTANCE.dictionaryManagement;
   }
 
+  public DictionaryManagement getDictionaryManagement() {
+    return dictionaryManagement;
+  }
+
   public void showAllWords() {
     System.out.println("No | English | Vietnamese");
     int i = 1;

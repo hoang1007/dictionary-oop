@@ -3,10 +3,10 @@ package com.gryffindor.backend.utils;
 import java.io.IOException;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.BufferedWriter;
+import java.io.BufferedReader;
 import java.util.List;
 
 import com.gryffindor.backend.entities.Dictionary;
@@ -47,22 +47,17 @@ public class DictionaryManagement {
    * Nhạp dữ liệu vào dictionaries.txt
    */
   public void insertFromFile() {
-    FileWriter fileWriter = null;
-    BufferedWriter bufferedWriter = null;
+    FileReader fileReader = null;
+    BufferedReader bufferedReader = null;
     try {
-      fileWriter = new FileWriter(path);
-      bufferedWriter = new BufferedWriter(fileWriter);
-      System.out.println("Nhập số từ muốn thêm: ");
-      int n = scanner.nextInt();
-      scanner.nextLine();
-      while (n-- > 0) {
-        System.out.println("Nhập từ tiếng anh: ");
-        String word_target = scanner.nextLine();
-        System.out.println("Nhập nghĩa: ");
-        String word_explain = scanner.nextLine();
-        String new_word = word_target + "\t" + word_explain;
-        bufferedWriter.write(new_word);
-        bufferedWriter.newLine();
+      fileReader = new FileReader(path);
+      bufferedReader = new BufferedReader(fileReader);
+      String data;
+      while ((data = bufferedReader.readLine()) != null) {
+        String[] w = data.trim().split("-");
+        String word_target = w[0];
+        String word_explain = w[1];
+        dictionary.addWord(new Word(word_target, word_explain));
       }
 
     } catch (FileNotFoundException e) {
@@ -71,8 +66,8 @@ public class DictionaryManagement {
       e.printStackTrace();
     } finally {
       try {
-        bufferedWriter.close();
-        fileWriter.close();
+        bufferedReader.close();
+        fileReader.close();
       } catch (IOException e) {
         e.printStackTrace();
       }
@@ -80,7 +75,9 @@ public class DictionaryManagement {
   }
 
   /**
-   * tra từ trong từ điển.
+   * tra từ trong từ điển.Tìm chuẩn đúng các từ.
+   * 
+   * Example : my => return my NOT my mother ,...
    */
   public void dictionaryLookup() {
     FileReader fileReader = null;
@@ -94,10 +91,12 @@ public class DictionaryManagement {
       String data = null;
       while ((data = bufferedReader.readLine()) != null) {
         if (data.toLowerCase().contains(input.toLowerCase())) {
-          String[] text = data.trim().split("\t");
+          String[] text = data.trim().split("_");
           String word_target = text[0].trim();
           String word_explain = text[1].trim();
-          System.out.println(word_target + " | " + word_explain);
+          if (word_target.equals(input)) {
+            System.out.println(word_target + " | " + word_explain);
+          }
         }
       }
 
