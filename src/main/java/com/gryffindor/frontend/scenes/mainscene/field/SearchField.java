@@ -1,6 +1,7 @@
 package com.gryffindor.frontend.scenes.mainscene.field;
 
 import com.gryffindor.backend.entities.Word;
+import com.gryffindor.frontend.utils.BlockingListUtils;
 
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -12,9 +13,9 @@ public class SearchField implements IField {
   private TextField searchBox;
   /** Lịch sử tìm kiếm và gợi ý khi nhập. */
   private ListView<Word> searchList;
-  
-  public final String searchTextHolder = "Tap to search...";
 
+  private BlockingListUtils<Word> searchListUtils;
+  
   /** Khởi tạo SearchField. */
   public SearchField() {
     searchPane = new VBox();
@@ -27,15 +28,18 @@ public class SearchField implements IField {
   }
 
   void initSearchBox() {
-    searchBox = new TextField(searchTextHolder);
+    searchBox = new TextField();
+    searchBox.setPromptText("Tap to search...");
     searchBox.getStyleClass().add("search-box");
   }
 
   void initSearchList() {
     searchList = new ListView<>();
     searchList.getStyleClass().add("search-list");
-  
-    searchList.getItems().addAll(new Word("banana", "chuoi"), new Word("apple", "tao"));
+
+    searchListUtils = new BlockingListUtils<>(4, searchList);
+
+    searchListUtils.addAll(new Word("banana", "chuoi"), new Word("apple", "tao"));
   }
 
   @Override
@@ -50,5 +54,10 @@ public class SearchField implements IField {
   /** Lịch sử tìm kiếm và gợi ý khi nhập. */
   public ListView<Word> getSearchList() {
     return searchList;
+  }
+
+  /** Công cụ giúp thao tác trên danh sách với giới hạn số lượng. */
+  public BlockingListUtils<Word> getSearchListUtils() {
+    return searchListUtils;
   }
 }
