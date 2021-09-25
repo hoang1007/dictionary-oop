@@ -23,7 +23,10 @@ public class DictionaryCommandline {
     showAllWords();
   }
 
-  public void dictionarySearcher() {
-
+  public void dictionaryAdvanced() {
+    dictionaryManagement.insertFromFile();
+    showAllWords();
+    dictionaryManagement.dictionaryLookup();
   }
+
 }

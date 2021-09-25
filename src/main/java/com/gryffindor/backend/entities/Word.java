@@ -27,6 +27,6 @@ public class Word {
 
   @Override
   public String toString() {
-    return this.word_target + " - " + this.word_explain;
+    return this.word_target + " | " + this.word_explain;
   }
 }

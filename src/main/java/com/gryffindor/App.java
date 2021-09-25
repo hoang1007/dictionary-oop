@@ -24,5 +24,6 @@ public final class App {
   public static void main(String[] args) throws IOException {
     DictionaryManagement dic = new DictionaryManagement();
     dic.insertFromFile();
+    dic.dictionaryLookup();
   }
 }

@@ -3,7 +3,9 @@ package com.gryffindor.backend.utils;
 import java.io.IOException;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.util.List;
 
@@ -12,6 +14,8 @@ import com.gryffindor.backend.entities.Word;
 
 public class DictionaryManagement {
   public final Dictionary dictionary;
+  // direction of directories.txt
+  private static String path = "src/main/java/com/gryffindor/backend/storage/dictionaries.txt";
 
   private static Scanner scanner = new Scanner(System.in);
 
@@ -43,7 +47,6 @@ public class DictionaryManagement {
    * Nhạp dữ liệu vào dictionaries.txt
    */
   public void insertFromFile() {
-    String path = "src/main/java/com/gryffindor/backend/storage/dictionaries.txt";
     FileWriter fileWriter = null;
     BufferedWriter bufferedWriter = null;
     try {
@@ -77,7 +80,43 @@ public class DictionaryManagement {
   }
 
   /**
-   * Xóa từ trong list words
+   * tra từ trong từ điển.
+   */
+  public void dictionaryLookup() {
+    FileReader fileReader = null;
+    BufferedReader bufferedReader = null;
+    try {
+      System.out.println("Nhập từ cần tra: ");
+      String input = scanner.nextLine();
+
+      fileReader = new FileReader(path);
+      bufferedReader = new BufferedReader(fileReader);
+      String data = null;
+      while ((data = bufferedReader.readLine()) != null) {
+        if (data.toLowerCase().contains(input.toLowerCase())) {
+          String[] text = data.trim().split("\t");
+          String word_target = text[0].trim();
+          String word_explain = text[1].trim();
+          System.out.println(word_target + " | " + word_explain);
+        }
+      }
+
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        bufferedReader.close();
+        fileReader.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+
+  /**
+   * Xóa từ trong list words.
    */
   public void deleteFromCommand() {
     System.out.println("Nhap tu muon xoa: ");
