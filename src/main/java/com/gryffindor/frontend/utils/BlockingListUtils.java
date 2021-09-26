@@ -3,16 +3,15 @@ package com.gryffindor.frontend.utils;
 import java.util.Arrays;
 
 import javafx.collections.ObservableList;
-import javafx.scene.control.ListView;
 
 /** Công cụ thao tác trên ListView khi muốn giới hạn số lượng. */
 public class BlockingListUtils<T> {
   private final int limit;
   private ObservableList<T> list;
 
-  public BlockingListUtils(int limit, ListView<T> listView) {
+  public BlockingListUtils(int limit, ObservableList<T> list) {
     this.limit = limit;
-    this.list = listView.getItems();
+    this.list = list;
   }
 
   /**
