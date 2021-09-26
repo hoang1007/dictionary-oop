@@ -2,14 +2,32 @@
   -fx-padding: 10px;
 }
 
-.text-pane {
+/* main */
+.search-box {
+  -fx-background-color: #D8E1FF;
   -fx-background-radius: 20px;
-  -fx-background-color: aqua;
+  -fx-min-height: 60px;
+  -fx-font-family: "Helvetica Neue";
+  -fx-font-size: 24px;
+  -fx-prompt-text-fill: gray;
+}
+
+/* main */
+.trans-pane {
+  -fx-background-radius: 20px;
+  -fx-background-color: #69DDFF;
+  -fx-padding: 10px;
+}
+
+/* main */
+.explain-pane {
+  -fx-background-radius: 20px;
+  -fx-background-color: #96CDFF;
   -fx-padding: 10px;
 }
 
 .nav-pane {
-  -fx-background-color:lightseagreen;
+  -fx-background-color: #4ECDC4;
   -fx-padding: 5px;
   -fx-min-width: 50px;
   -fx-max-width: 50px;
@@ -22,15 +40,6 @@
 
 .root-pane {
   /* -fx-padding: 10px; */
-}
-
-.search-box {
-  -fx-background-color: orange;
-  -fx-background-radius: 20px;
-  -fx-min-height: 60px;
-  -fx-font-family: "Helvetica Neue";
-  -fx-font-size: 24px;
-  -fx-prompt-text-fill: gray;
 }
 
 .search-list {
@@ -79,7 +88,7 @@
 }
 
 .nav-button:hover {
-  -fx-background-color: darkcyan;
+  -fx-background-color: #46c0b8;
 }
 
 .pron-button {
@@ -87,7 +96,7 @@
 }
 
 .pron-button:hover {
-  -fx-background-color: rgb(90, 240, 240);
+  -fx-background-color: #60c9e9;
 }
 
 .tool-button {
