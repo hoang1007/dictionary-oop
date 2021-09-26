@@ -1,6 +1,6 @@
 package com.gryffindor.frontend.scenes.mainscene.layout.homepage;
 
-import com.gryffindor.frontend.scenes.mainscene.field.ExplainField;
+import com.gryffindor.frontend.scenes.mainscene.field.ExplainsField;
 import com.gryffindor.frontend.scenes.mainscene.field.SearchField;
 import com.gryffindor.frontend.scenes.mainscene.field.TranslateField;
 import com.gryffindor.frontend.scenes.mainscene.layout.IPage;
@@ -14,7 +14,7 @@ public class HomePage implements IPage {
 
   private SearchField searchField;
   private TranslateField translateField;
-  private ExplainField explainField;
+  private ExplainsField explainsField;
 
   private HomePageController controller;
 
@@ -25,12 +25,12 @@ public class HomePage implements IPage {
   
     searchField = new SearchField();
     translateField = new TranslateField();
-    explainField = new ExplainField();
+    explainsField = new ExplainsField();
 
     homePanel.getChildren().addAll(
         searchField.getPane(),
         translateField.getPane(), 
-        explainField.getPane()
+        explainsField.getPane()
     );
 
     controller = new HomePageController(this);
@@ -44,8 +44,8 @@ public class HomePage implements IPage {
     return translateField;
   }
 
-  public ExplainField getExplainField() {
-    return explainField;
+  public ExplainsField getExplainField() {
+    return explainsField;
   }
   
   @Override

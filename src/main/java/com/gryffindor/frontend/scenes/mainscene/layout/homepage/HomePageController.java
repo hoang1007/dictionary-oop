@@ -93,7 +93,7 @@ public class HomePageController implements IPageController {
 
     Word word = new Word("flower", "hoa");
 
-    translateField.build(word);
+    translateField.setWord(word);
     
     explainsField.setAll(
         word,
