@@ -6,12 +6,13 @@
   -fx-background-radius: 20px;
   -fx-background-color: aqua;
   -fx-padding: 10px;
-  /* -fx-min-height: 200px; */
 }
 
 .nav-pane {
   -fx-background-color:lightseagreen;
   -fx-padding: 5px;
+  -fx-min-width: 50px;
+  -fx-max-width: 50px;
 }
 
 .tools-pane {
@@ -54,6 +55,14 @@
   -fx-font-weight: 300;
 }
 
+.word-meaning {
+  -fx-font-size: 16px;
+}
+
+.word-class {
+  -fx-font-style: italic;
+}
+
 .title-text {
   -fx-font-size: 20px;
   -fx-font-family: "Helvetica Neue", sans-serif;
@@ -73,16 +82,24 @@
   -fx-background-color: darkcyan;
 }
 
+.pron-button {
+  -fx-background-color: transparent;
+}
+
+.pron-button:hover {
+  -fx-background-color: rgb(90, 240, 240);
+}
+
 .tool-button {
   -fx-background-color: white;
   -fx-background-radius: 5px;
-  -fx-border: 2px solid #4CAF50; /* Green */
   -fx-min-width: 150px;
   -fx-min-height: 150px;
 }
 
 .tool-button:hover {
   -fx-background-color: darkcyan;
+  -fx-background-radius: 5px;
 }
 
 .history-list .list-cell:empty {
