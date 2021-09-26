@@ -5,12 +5,15 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class Config {
+  private final String resourcesPath;
   private String googleApiUrl;
   private String style;
   private String imagesPath;
 
   /** Khởi tạo config. */
   public Config() {
+    resourcesPath = getClass().getResource("/images").toExternalForm().replace("/images", "");
+
     Properties properties = new Properties();
     try (InputStream is = getClass().getResourceAsStream("/config.properties")) {
       properties.load(is);
@@ -23,8 +26,9 @@ public class Config {
 
   void init(Properties properties) {
     googleApiUrl = properties.getProperty("googleapiurl");
-    style = getClass().getResource("/styles/styles.css").toExternalForm();
-    imagesPath = getClass().getResource("/images").toExternalForm();
+
+    style = resourcesPath + "/styles/styles.css";
+    imagesPath = resourcesPath + "/images";
   }
 
   public String getGoogleApiUrl() {
