@@ -41,7 +41,7 @@ public class ExplainsField implements IField {
    * @param word từ muốn thêm
    */
   public void add(Word word) {
-    elements.add(new Element().build(word));
+    elements.add(new Element().setWord(word));
   }
 
   /**
@@ -61,6 +61,7 @@ public class ExplainsField implements IField {
   /** Lớp chứa phần giải thích. */
   public class Element implements IField {
     private final VBox explainPane;
+    private Word word;
 
     private Label wordMeaning;
     private Text wordClass;
@@ -110,13 +111,19 @@ public class ExplainsField implements IField {
       return wordDefinition;
     }
 
+    public Word getWord() {
+      return word;
+    }
+
     /**
      * Tự động đặt loại từ, định nghĩa, giải thích... theo từ.
      * 
      * @param word từ muốn đặt
      */
-    public Element build(Word word) {
-      wordClass.setText("noun");
+    public Element setWord(Word word) {
+      this.word = word;
+
+      wordClass.setText("danh từ");
       wordMeaning.setText(word.getWordExplain());
       wordDefinition
         .setText("cơ quan sinh sản hữu tính của cây hạt kín, thường có màu sắc và hương thơm");
