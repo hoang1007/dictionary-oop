@@ -1,7 +1,7 @@
 package com.gryffindor.frontend.scenes.mainscene.layout.homepage;
 
 import com.gryffindor.backend.entities.Word;
-import com.gryffindor.frontend.scenes.mainscene.field.ExplainField;
+import com.gryffindor.frontend.scenes.mainscene.field.ExplainsField;
 import com.gryffindor.frontend.scenes.mainscene.field.SearchField;
 import com.gryffindor.frontend.scenes.mainscene.field.TranslateField;
 import com.gryffindor.frontend.scenes.mainscene.layout.IPageController;
@@ -10,13 +10,13 @@ import javafx.scene.input.KeyCode;
 
 public class HomePageController implements IPageController {
   private SearchField searchField;
-  private ExplainField explainField;
+  private ExplainsField explainsField;
   private TranslateField translateField;
 
   /** Khởi tạo các hiệu ứng và hành động trên home page. */
   public HomePageController(HomePage homePage) {
     searchField = homePage.getSearchField();
-    explainField = homePage.getExplainField();
+    explainsField = homePage.getExplainField();
     translateField = homePage.getTranslateField();
 
     initHideProperty();
@@ -30,7 +30,8 @@ public class HomePageController implements IPageController {
   
   void initHideProperty() {
     translateField.getPane().managedProperty().bind(translateField.getPane().visibleProperty());
-    explainField.getPane().managedProperty().bind(explainField.getPane().visibleProperty());
+    explainsField.getPane().managedProperty().bind(explainsField.getPane().visibleProperty());
+
     searchField.getSearchList().managedProperty()
       .bind(searchField.getSearchList().visibleProperty());
 
@@ -38,7 +39,7 @@ public class HomePageController implements IPageController {
   }
 
   void setOnBegin() {
-    explainField.getPane().setVisible(false);
+    explainsField.getPane().setVisible(false);
     searchField.getSearchList().setVisible(false);
     translateField.getPane().setVisible(false);
   }
@@ -82,7 +83,7 @@ public class HomePageController implements IPageController {
   }
 
   void enableSearchList(boolean enable) {
-    explainField.getPane().setVisible(!enable);
+    explainsField.getPane().setVisible(!enable);
     translateField.getPane().setVisible(!enable);
     searchField.getSearchList().setVisible(enable);
   }
@@ -90,12 +91,18 @@ public class HomePageController implements IPageController {
   void onSearchRequest(String wordTarget) {
     enableSearchList(false);
 
-    System.out.println(wordTarget);
+    Word word = new Word("flower", "hoa");
+
+    translateField.build(word);
+    
+    explainsField.setAll(
+        word,
+        new Word("apple", "tao"));
+
+    System.out.println(explainsField.getElements().size());
   }
 
   void setHistoryList() {
     searchField.getSearchList().setVisible(true);
-
-    searchField.getSearchListUtils().set(0, new Word("Your history", ""));
   }
 }
