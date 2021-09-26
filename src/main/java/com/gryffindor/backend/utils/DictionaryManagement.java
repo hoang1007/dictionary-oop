@@ -3,7 +3,9 @@ package com.gryffindor.backend.utils;
 import com.gryffindor.backend.entities.Dictionary;
 import com.gryffindor.backend.entities.Word;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class DictionaryManagement {
   public final Dictionary dictionary;
@@ -12,26 +14,29 @@ public class DictionaryManagement {
     dictionary = new Dictionary();
   }
 
-  /** Nhập từ mới từ command line. */
+  /** Nhập từ mới từ command line. 
+   */
   public void insertFromCommandline() {
-    Scanner scanner = new Scanner(System.in);
-    System.out.println("Nhap so tu moi muon them:");
+    try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
+      System.out.println("Nhập số từ muốn thêm:");
 
-    int n = scanner.nextInt();
-    scanner.nextLine(); // bỏ qua 1 dòng thừa
+      int n = Integer.parseInt(reader.readLine()); // bỏ qua 1 dòng thừa
 
-    for (int i = 1; i <= n; i++) {
-      System.out.println(String.format("Dang nhap tu thu %d...", i));
-      System.out.println("Nhap tu moi:");
+      for (int i = 1; i <= n; i++) {
+        System.out.println(String.format("Đang nhập từ thứ %d...", i));
+        System.out.println("Nhập từ mới:");
 
-      String wordTarget = scanner.nextLine();
+        String wordTarget = reader.readLine();
 
-      System.out.println("Nhap nghia:");
-      String wordExplain = scanner.nextLine();
+        System.out.println("Nhập nghĩa:");
+        String wordExplain = reader.readLine();
 
-      dictionary.addWord(new Word(wordTarget, wordExplain));
+        dictionary.addWord(new Word(wordTarget, wordExplain));
+      }
+
+      reader.close();
+    } catch (IOException e) {
+      e.printStackTrace();
     }
-    
-    scanner.close();
   }
 }

@@ -27,7 +27,7 @@ public class HomePageController implements IPageController {
     setActionOnSearching();
     setActionOnSearchFinished();
   }
-
+  
   void initHideProperty() {
     translateField.getPane().managedProperty().bind(translateField.getPane().visibleProperty());
     explainField.getPane().managedProperty().bind(explainField.getPane().visibleProperty());

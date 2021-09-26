@@ -37,9 +37,11 @@ public class SearchField implements IField {
     searchList = new ListView<>();
     searchList.getStyleClass().add("search-list");
 
-    searchListUtils = new BlockingListUtils<>(4, searchList);
+    searchListUtils = new BlockingListUtils<>(4, searchList); // giới hạn 4 phần tử
 
-    searchListUtils.addAll(new Word("banana", "chuoi"), new Word("apple", "tao"));
+    searchListUtils.addAll(new Word("banana", "chuoi"), 
+        new Word("apple", "tao"), 
+        new Word("orange", "cam"));
   }
 
   @Override

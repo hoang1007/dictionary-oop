@@ -3,6 +3,7 @@ package com.gryffindor.frontend.scenes.mainscene;
 import com.gryffindor.DictionaryApplication;
 import com.gryffindor.frontend.scenes.mainscene.layout.homepage.HomePage;
 import com.gryffindor.frontend.scenes.mainscene.layout.navigationbar.NavigationBar;
+import com.gryffindor.frontend.scenes.mainscene.layout.toolspage.ToolsPage;
 
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
@@ -15,6 +16,7 @@ public class MainScene {
 
   private final NavigationBar navigationBarField;
   private final HomePage homePage;
+  private final ToolsPage toolsPage;
 
   /** Khởi tạo scene chính. */
   public MainScene() {
@@ -23,9 +25,11 @@ public class MainScene {
     rootPane.getStyleClass().add("root-pane");
 
     homePage = new HomePage();
+    toolsPage = new ToolsPage();
 
     navigationBarField = new NavigationBar();
     navigationBarField.getController().setHomePage(homePage);
+    navigationBarField.getController().setToolsPage(toolsPage);
     
     setupLayout();
 
@@ -34,7 +38,11 @@ public class MainScene {
   }
 
   void setupLayout() {
-    rootPane.getChildren().addAll(navigationBarField.getPane(), homePage.getPane());
+    rootPane.getChildren().addAll(
+        navigationBarField.getPane(), 
+        homePage.getPane(), 
+        toolsPage.getPane());
+        
     HBox.setHgrow(homePage.getPane(), Priority.ALWAYS);
   }
 

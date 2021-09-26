@@ -2,7 +2,7 @@ package com.gryffindor.frontend.scenes.mainscene.layout.navigationbar;
 
 import com.gryffindor.DictionaryApplication;
 import com.gryffindor.frontend.scenes.mainscene.layout.IPage;
-import com.gryffindor.frontend.utils.IconUtils;
+import com.gryffindor.frontend.utils.ImageUtils;
 
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -40,7 +40,7 @@ public class NavigationBar implements IPage {
     homeButton = new Button();
     homeButton.getStyleClass().add("nav-button");
 
-    ImageView homeImageView = IconUtils.getFitSquareIcon(
+    ImageView homeImageView = ImageUtils.getFitSquareImage(
             DictionaryApplication.INSTANCE.config.getImagesPath() + "/home.png", iconSize);
 
     homeButton.setGraphic(homeImageView);
@@ -50,7 +50,7 @@ public class NavigationBar implements IPage {
     toolsButton = new Button();
     toolsButton.getStyleClass().add("nav-button");
 
-    ImageView toolsImageView = IconUtils.getFitSquareIcon(
+    ImageView toolsImageView = ImageUtils.getFitSquareImage(
             DictionaryApplication.INSTANCE.config.getImagesPath() + "/tools.png", iconSize);
 
     toolsButton.setGraphic(toolsImageView);
@@ -60,7 +60,7 @@ public class NavigationBar implements IPage {
     settingsButton = new Button();
     settingsButton.getStyleClass().add("nav-button");
 
-    ImageView settingsImageView = IconUtils.getFitSquareIcon(
+    ImageView settingsImageView = ImageUtils.getFitSquareImage(
             DictionaryApplication.INSTANCE.config.getImagesPath() + "/settings.png", iconSize);
     
     settingsButton.setGraphic(settingsImageView);
@@ -78,6 +78,7 @@ public class NavigationBar implements IPage {
     return settingsButton;
   }
 
+  @Override
   public NavigationBarController getController() {
     return controller;
   }
