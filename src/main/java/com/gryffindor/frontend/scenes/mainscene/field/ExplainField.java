@@ -1,13 +1,24 @@
 package com.gryffindor.frontend.scenes.mainscene.field;
 
+import java.util.List;
+
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 public class ExplainField implements IField {
   private final Pane parentPane;
   private final VBox explainPane;
-  private Text wordMeaning;
+
+  private Label wordMeaning;
+  private Text wordClass;
+  private Label wordDefinition;
+  private Label exampleSentence;
+  private List<Button> synonymsButtons;
+
 
   /** Khởi tạo ExplainField. */
   public ExplainField() {
@@ -15,8 +26,10 @@ public class ExplainField implements IField {
     explainPane.getStyleClass().add("text-pane");
 
     initWordMeaning();
+    initWordClass();
+    initWordDefinition();
 
-    explainPane.getChildren().addAll(wordMeaning);
+    explainPane.getChildren().addAll(wordClass, wordMeaning, wordDefinition);
 
     parentPane = new VBox();
     parentPane.getStyleClass().add("padding-pane");
@@ -24,11 +37,25 @@ public class ExplainField implements IField {
   }
 
   void initWordMeaning() {
-    wordMeaning = new Text("hoa");
-    wordMeaning.getStyleClass().add("word_header");
+    wordMeaning = new Label("hoa");
+    wordMeaning.setWrapText(true);
+    wordMeaning.getStyleClass().add("word-meaning");
   }
 
-  public Text getWordMeaning() {
+  void initWordClass() {
+    wordClass = new Text("danh từ");
+    wordClass.getStyleClass().add("word-class");
+  }
+
+  void initWordDefinition() {
+    wordDefinition = 
+      new Label("cơ quan sinh sản hữu tính của cây hạt kín, thường có màu sắc và hương thơm");
+
+    wordDefinition.setWrapText(true);
+    wordDefinition.setTextAlignment(TextAlignment.LEFT);
+  }
+
+  public Label getWordMeaning() {
     return wordMeaning;
   }
 
