@@ -4,6 +4,7 @@ import com.gryffindor.frontend.scenes.mainscene.field.ExplainField;
 import com.gryffindor.frontend.scenes.mainscene.field.SearchField;
 import com.gryffindor.frontend.scenes.mainscene.field.TranslateField;
 import com.gryffindor.frontend.scenes.mainscene.layout.IPage;
+import com.gryffindor.frontend.scenes.mainscene.layout.IPageController;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -47,7 +48,8 @@ public class HomePage implements IPage {
     return explainField;
   }
   
-  public HomePageController getController() {
+  @Override
+  public IPageController getController() {
     return controller;
   }
 
