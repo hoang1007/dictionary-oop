@@ -31,6 +31,8 @@ public class Dictionary {
   }
 
   /**
+   * Tìm tất cả các từ liên quan.
+   * VD: "tra" trả về tradition, translate
    * Tìm tất cả từ đồng âm.
    * @param word_target từ mới muốn tìm
    * @return danh sách các từ tìm được
@@ -39,7 +41,7 @@ public class Dictionary {
     List<Word> wordFounds = new ArrayList<>();
 
     for (Word w : words) {
-      if (w.getWordTarget().equals(word_target)) {
+      if (w.getWordTarget().startsWith(word_target)) {
         wordFounds.add(w);
       }
     }

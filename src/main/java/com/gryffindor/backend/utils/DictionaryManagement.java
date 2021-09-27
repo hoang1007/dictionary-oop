@@ -6,6 +6,7 @@ import com.gryffindor.backend.entities.Dictionary;
 import com.gryffindor.backend.entities.Word;
 import java.io.*;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 
@@ -85,6 +86,32 @@ public class DictionaryManagement {
           System.out.println(word_target + " co nghia la: " + dictionary.searchWord(word_target).getWordExplain());
       } else {
           System.out.println("Khong co tu " + word_target + " trong tu dien");
+      }
+  }
+
+    /** Export to file. */
+  public void dictionaryExportToFile() {
+      String url = "D:\\IT\\Java\\Project\\Dictionary\\src\\resources\\output.txt";
+      FileOutputStream fileOutputStream = null;
+      BufferedWriter bufferedWriter = null;
+      try {
+          fileOutputStream = new FileOutputStream(url);
+          bufferedWriter = new BufferedWriter(new OutputStreamWriter(fileOutputStream));
+          for (Word word: dictionary.getAllWords()) {
+              bufferedWriter.write(word.getWordTarget());
+              bufferedWriter.write("\t");
+              bufferedWriter.write(word.getWordExplain());
+              bufferedWriter.write("/n");
+          }
+      } catch (IOException e) {
+          e.printStackTrace();
+      } finally {
+          try {
+              fileOutputStream.close();
+              bufferedWriter.close();
+          } catch (IOException e) {
+              e.printStackTrace();
+          }
       }
   }
 }
