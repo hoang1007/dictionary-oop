@@ -62,24 +62,18 @@
   -fx-font-size: 40px;
   -fx-font-family: "Roboto";
   -fx-font-weight: 300;
+  -fx-text-fill: #002545;
 }
 
 .word-meaning {
   -fx-font-size: 16px;
+  -fx-text-fill: #002545;
+  -fx-background-color: transparent;
 }
 
 .word-class {
   -fx-font-style: italic;
-}
-
-.title-text {
-  -fx-font-size: 20px;
-  -fx-font-family: "Helvetica Neue", sans-serif;
-  -fx-letter-spacing: -1px;
-  -fx-line-height: 1;
-  -fx-text-align: center;
-  -fx-font-weight: bold;
-  -fx-fill: white;
+  -fx-text-fill: #002545;
 }
 
 .nav-button {
@@ -102,8 +96,8 @@
 .tool-button {
   -fx-background-color: white;
   -fx-background-radius: 5px;
-  -fx-min-width: 150px;
-  -fx-min-height: 150px;
+  /* -fx-min-width: 500px; */
+  -fx-min-height: 50px;
 }
 
 .tool-button:hover {
@@ -111,6 +105,10 @@
   -fx-background-radius: 5px;
 }
 
-.history-list .list-cell:empty {
+.normal-text {
+  -fx-text-fill: #002545;
+}
+
+.transparent-button {
   -fx-background-color: transparent;
 }

@@ -1,9 +1,9 @@
 package com.gryffindor.frontend.scenes.mainscene;
 
 import com.gryffindor.DictionaryApplication;
-import com.gryffindor.frontend.scenes.mainscene.layout.homepage.HomePage;
-import com.gryffindor.frontend.scenes.mainscene.layout.navigationbar.NavigationBar;
-import com.gryffindor.frontend.scenes.mainscene.layout.toolspage.ToolsPage;
+import com.gryffindor.frontend.scenes.mainscene.field.navigationbar.NavigationBar;
+import com.gryffindor.frontend.scenes.mainscene.page.HomePage;
+import com.gryffindor.frontend.scenes.mainscene.page.ToolsPage;
 
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
