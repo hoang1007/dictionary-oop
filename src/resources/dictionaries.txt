@@ -1,6 +1,5 @@
-flower	hoa, bông hoa
-go	đi
-attribute	thuộc tính
-method	phương thức
-market	siêu thị
-money	tien
+go	di
+flower	hoa
+mother	me
+father	bố
+dictionary	từ diển

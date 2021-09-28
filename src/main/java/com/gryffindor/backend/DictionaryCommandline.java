@@ -34,6 +34,8 @@ public class DictionaryCommandline {
         showAllWords();
 
         dictionaryManagement.dictionaryLookup();
+
+        dictionaryManagement.dictionaryExportToFile();
     }
 
     public List<Word> dictionarySearch() {

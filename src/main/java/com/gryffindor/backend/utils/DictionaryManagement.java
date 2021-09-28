@@ -4,9 +4,11 @@ import java.util.Scanner;
 
 import com.gryffindor.backend.entities.Dictionary;
 import com.gryffindor.backend.entities.Word;
+import com.gryffindor.backend.api.*;
 import java.io.*;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
 import java.io.IOException;
 
 
@@ -92,22 +94,25 @@ public class DictionaryManagement {
     /** Export to file. */
   public void dictionaryExportToFile() {
       String url = "D:\\IT\\Java\\Project\\Dictionary\\src\\resources\\output.txt";
-      FileOutputStream fileOutputStream = null;
+      FileWriter fileWriter = null;
       BufferedWriter bufferedWriter = null;
       try {
-          fileOutputStream = new FileOutputStream(url);
-          bufferedWriter = new BufferedWriter(new OutputStreamWriter(fileOutputStream));
-          for (Word word: dictionary.getAllWords()) {
-              bufferedWriter.write(word.getWordTarget());
-              bufferedWriter.write("\t");
-              bufferedWriter.write(word.getWordExplain());
-              bufferedWriter.write("/n");
+          fileWriter = new FileWriter(url, false);
+          bufferedWriter = new BufferedWriter(fileWriter);
+          for (Word word : dictionary.getAllWords()) {
+              bufferedWriter.write(word.getWordTarget() + "\t" + word.getWordExplain());
+              //bufferedWriter.write("\t");
+              //bufferedWriter.write(word.getWordExplain());
+              bufferedWriter.newLine();
+              bufferedWriter.flush();
           }
+      } catch (FileNotFoundException e) {
+          e.printStackTrace();
       } catch (IOException e) {
           e.printStackTrace();
       } finally {
           try {
-              fileOutputStream.close();
+              fileWriter.close();
               bufferedWriter.close();
           } catch (IOException e) {
               e.printStackTrace();
