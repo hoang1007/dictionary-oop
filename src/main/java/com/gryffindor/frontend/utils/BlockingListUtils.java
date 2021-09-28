@@ -41,7 +41,9 @@ public class BlockingListUtils<T> {
    * @param element giá trị muốn thay thế
    */
   public void set(int index, T element) {
-    if (index < limit) {
+    if (list.size() == 0) {
+      list.add(element);
+    } else if (index < limit) {
       list.set(index, element);
     }
   }
