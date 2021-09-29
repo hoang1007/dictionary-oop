@@ -94,6 +94,21 @@ public class DictionaryManagement {
     /** Export to file. */
   public void dictionaryExportToFile() {
       String url = "D:\\IT\\Java\\Project\\Dictionary\\src\\resources\\output.txt";
+      /* Create new file. */
+      File file = null;
+      boolean isCreat = false;
+      try{
+          file = new File(url);
+          isCreat = file.createNewFile();
+          if (isCreat)
+              System.out.print("Da tao file thanh cong!");
+          else
+              System.out.print("Tao file that bai");
+      }
+      catch (Exception e){
+          System.out.print(e);
+      }
+      /* Write word to file. */
       FileWriter fileWriter = null;
       BufferedWriter bufferedWriter = null;
       try {
@@ -101,8 +116,6 @@ public class DictionaryManagement {
           bufferedWriter = new BufferedWriter(fileWriter);
           for (Word word : dictionary.getAllWords()) {
               bufferedWriter.write(word.getWordTarget() + "\t" + word.getWordExplain());
-              //bufferedWriter.write("\t");
-              //bufferedWriter.write(word.getWordExplain());
               bufferedWriter.newLine();
               bufferedWriter.flush();
           }
@@ -119,4 +132,6 @@ public class DictionaryManagement {
           }
       }
   }
+
+
 }
