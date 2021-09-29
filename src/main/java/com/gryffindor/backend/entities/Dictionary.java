@@ -15,6 +15,11 @@ public class Dictionary {
     words.add(word);
   }
 
+  /** Xóa từ khỏi từ điển. */
+  public void removeWord(Word word) {
+    words.remove(word);
+  }
+
   /**
    * Tìm một từ trong từ điển.
    * @param word_target từ mới muốn tìm
