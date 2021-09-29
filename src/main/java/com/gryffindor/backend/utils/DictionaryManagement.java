@@ -133,5 +133,19 @@ public class DictionaryManagement {
       }
   }
 
+  /** Xóa word từ dòng lệnh */
+  public void deleteWordFromCommandline() {
+      System.out.println("Nhập từ cần xóa: ");
+      Scanner sc = new Scanner(System.in);
+      String wordDeleteTarget = sc.nextLine();
+      Word wordDelete = dictionary.searchWord(wordDeleteTarget);
+      if (wordDelete == null) {
+          System.out.println("Không có từ " + wordDeleteTarget + "trong từ điển.");
+      } else {
+          dictionary.removeWord(wordDelete);
+      }
+
+      sc.close();
+  }
 
 }
