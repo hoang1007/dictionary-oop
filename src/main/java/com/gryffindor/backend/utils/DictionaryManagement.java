@@ -148,4 +148,22 @@ public class DictionaryManagement {
       sc.close();
   }
 
+  /** Sửa word trong từ điển từ dòng lệnh. */
+  public void updateWordFromCommandline() {
+      System.out.println("Nhập từ cần sửa: ");
+      Scanner sc = new Scanner(System.in);
+      String wordUpdateTarget = sc.nextLine();
+      Word wordUpdate = dictionary.searchWord(wordUpdateTarget);
+      int index = dictionary.getAllWords().indexOf(wordUpdate);
+      if (index != -1) {
+          System.out.print("Nhập nghĩa: ");
+          String wordUpdateExplain = sc.nextLine();
+          dictionary.getAllWords().set(index, new Word(wordUpdateTarget, wordUpdateExplain));
+          System.out.print("Bạn đã sửa " + wordUpdateTarget + " thành " + wordUpdateExplain + ".");
+      } else {
+          System.out.println(wordUpdateTarget + " không có.");
+      }
+
+      sc.close();
+  }
 }
