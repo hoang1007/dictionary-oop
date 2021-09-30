@@ -96,11 +96,11 @@ public class DictionaryManagement {
       String url = "D:\\IT\\Java\\Project\\Dictionary\\src\\resources\\output.txt";
       /* Create new file. */
       File file = null;
-      boolean isCreat = false;
+      boolean isCreate = false;
       try{
           file = new File(url);
-          isCreat = file.createNewFile();
-          if (isCreat)
+          isCreate = file.createNewFile();
+          if (isCreate)
               System.out.print("Da tao file thanh cong!");
           else
               System.out.print("Tao file that bai");
