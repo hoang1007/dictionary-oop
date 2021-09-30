@@ -1,0 +1,114 @@
+.padding-pane {
+  -fx-padding: 10px;
+}
+
+/* main */
+.search-box {
+  -fx-background-color: #D8E1FF;
+  -fx-background-radius: 20px;
+  -fx-min-height: 60px;
+  -fx-font-family: "Helvetica Neue";
+  -fx-font-size: 24px;
+  -fx-prompt-text-fill: gray;
+}
+
+/* main */
+.trans-pane {
+  -fx-background-radius: 20px;
+  -fx-background-color: #69DDFF;
+  -fx-padding: 10px;
+}
+
+/* main */
+.explain-pane {
+  -fx-background-radius: 20px;
+  -fx-background-color: #96CDFF;
+  -fx-padding: 10px;
+}
+
+.nav-pane {
+  -fx-background-color: #4ECDC4;
+  -fx-padding: 5px;
+  -fx-min-width: 50px;
+  -fx-max-width: 50px;
+}
+
+.tools-pane {
+  -fx-background-color: transparent;
+  -fx-padding: 20px;
+}
+
+.root-pane {
+  /* -fx-padding: 10px; */
+}
+
+.search-list {
+  -fx-font-family: "Helvetica Neue";
+  -fx-font-size: 16px;
+  -fx-background-radius: 4px;
+  -fx-background-color: transparent;
+}
+
+.search-list .list-cell:empty { 
+  -fx-background-color: transparent;
+}
+
+.search-list .list-item {
+  -fx-border-color: black;
+  -fx-border: 1px;
+}
+
+.word-header {
+  -fx-font-size: 40px;
+  -fx-font-family: "Roboto";
+  -fx-font-weight: 300;
+  -fx-text-fill: #002545;
+}
+
+.word-meaning {
+  -fx-font-size: 16px;
+  -fx-text-fill: #002545;
+  -fx-background-color: transparent;
+}
+
+.word-class {
+  -fx-font-style: italic;
+  -fx-text-fill: #002545;
+}
+
+.nav-button {
+  -fx-background-color: transparent;
+  -fx-min-width: 50%;
+}
+
+.nav-button:hover {
+  -fx-background-color: #46c0b8;
+}
+
+.pron-button {
+  -fx-background-color: transparent;
+}
+
+.pron-button:hover {
+  -fx-background-color: #60c9e9;
+}
+
+.tool-button {
+  -fx-background-color: white;
+  -fx-background-radius: 5px;
+  /* -fx-min-width: 500px; */
+  -fx-min-height: 50px;
+}
+
+.tool-button:hover {
+  -fx-background-color: darkcyan;
+  -fx-background-radius: 5px;
+}
+
+.normal-text {
+  -fx-text-fill: #002545;
+}
+
+.transparent-button {
+  -fx-background-color: transparent;
+}

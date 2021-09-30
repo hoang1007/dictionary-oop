@@ -1,5 +1,8 @@
 package com.gryffindor.backend.api;
 
+import com.gryffindor.DictionaryApplication;
+import com.gryffindor.Language;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,14 +10,20 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
-import com.gryffindor.Language;
-import com.gryffindor.backend.AppData;
-
 public class GoogleTranslator {
-  public static String translate(String word_target, Language from, Language to) throws IOException {
-    String urlString = AppData.INSTANCE.config.getGoogleAPIUrl() + 
-                    "?q=" + URLEncoder.encode(word_target, "UTF-8") +
-                    "&target=" + to.toShortString() + "&from=" + from.toShortString();
+  /**
+   * Lấy bản dịch từ google translate.
+   * @param wordTarget từ muốn dịch
+   * @param from ngôn ngữ dịch
+   * @param to ngôn ngữ muốn dịch
+   * @return bản dịch
+   * @throws IOException không nhận được bản dịch từ google
+   */
+  public static String translate(String wordTarget, Language from, Language to)
+                                                throws IOException {
+    String urlString = DictionaryApplication.INSTANCE.config.getGoogleApiUrl()
+                    + "?q=" + URLEncoder.encode(wordTarget, "UTF-8")
+                    + "&target=" + to.toShortString() + "&from=" + from.toShortString();
 
     URL url = new URL(urlString);
 
