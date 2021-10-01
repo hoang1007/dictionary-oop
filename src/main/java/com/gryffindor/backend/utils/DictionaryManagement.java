@@ -166,4 +166,61 @@ public class DictionaryManagement {
 
       sc.close();
   }
+
+  /** Nhạp dât từ file nâng cao có giải thích .....
+   * chưa xử lí hoàn toàn xong xâu nghĩa
+   * chưa xử lí được trường hợp 1 từ mà có nhiều loại từ
+   * nếu 1 từ có 2 loại từ trở lên thì lấy loại thừ cuối
+   */
+  public void addDataFromFile() {
+      //url file dictionaries.txt
+      String url = "D:\\IT\\Java\\Project\\Dictionary\\src\\resources\\dictionaries.txt";
+
+      // Đọc dữ liệu từ File với BufferedReader.
+      FileInputStream fileInputStream = null;
+      BufferedReader bufferedReader = null;
+      try {
+          fileInputStream = new FileInputStream(url);
+          bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
+          /** Khởi tạo*/
+          String word_target = null;
+          String word_spelling = null;
+          String word_type = null;
+          String word_explain = null;
+
+          String line = bufferedReader.readLine();
+          while (line != null) {
+              if (line.charAt(0) == '@') {
+
+                  //Xử lí xâu từ file text truyền vào mảng Word.
+                  for (int i = 1; i < line.length(); i++) {
+                      if (line.charAt(i) == '/') {
+                          word_target = line.substring(1, i);
+                          word_spelling = line.substring(i);
+                          break;
+                      }
+                  }
+              } else if (line.charAt(0) == '*') {
+                  word_type = line.substring(1);
+              } else {
+                  word_explain += line + "\n";
+              }
+
+              line = bufferedReader.readLine();
+              if (line.charAt(0) == '@') {
+                  dictionary.addWord(new Word(word_target, word_spelling, word_type, word_explain));
+              }
+          }
+      } catch (IOException e) {
+          e.printStackTrace();
+      } finally {
+          // Đóng file.
+          try {
+              bufferedReader.close();
+              fileInputStream.close();
+          } catch (IOException e) {
+              e.printStackTrace();
+          }
+      }
+  }
 }
