@@ -10,6 +10,7 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.lang.*;
 
 
 public class DictionaryManagement {
@@ -45,7 +46,7 @@ public class DictionaryManagement {
   /** Nhập từ mới từ file dictionaries.txt. */
   public void insertFromFile() {
       //url file dictionaries.txt
-      String url = "D:\\IT\\Java\\Project\\Dictionary\\src\\resources\\dictionaries.txt";
+      String url = "D:\\IT\\Java\\Project\\Dictionary\\src\\resources\\dictionary.txt";
 
       // Đọc dữ liệu từ File với BufferedReader.
       FileInputStream fileInputStream = null;
@@ -60,6 +61,7 @@ public class DictionaryManagement {
                   if ( line.charAt(i) == '\t') {
                       String word_target = line.substring(0, i);
                       String word_explain = line.substring(i + 1);
+
                       dictionary.addWord(new Word(word_target, word_explain));
                       break;
                   }
@@ -169,8 +171,7 @@ public class DictionaryManagement {
 
   /** Nhạp dât từ file nâng cao có giải thích .....
    * chưa xử lí hoàn toàn xong xâu nghĩa
-   * chưa xử lí được trường hợp 1 từ mà có nhiều loại từ
-   * nếu 1 từ có 2 loại từ trở lên thì lấy loại thừ cuối
+   * lỗi khi đọc vào dòng trống
    */
   public void addDataFromFile() {
       //url file dictionaries.txt
@@ -187,29 +188,50 @@ public class DictionaryManagement {
           String word_spelling = null;
           String word_type = null;
           String word_explain = null;
-
+          int index = 0;
           String line = bufferedReader.readLine();
           while (line != null) {
-              if (line.charAt(0) == '@') {
-
+              // giới hạn vòng while
+              index++;
+              if (index > 100) break;
+              System.out.println( index +" tách " + line.charAt(0) +" tách "+ line.charAt(1));
+              if (line.charAt(1) == '@') {
+                  System.out.println("Đã thấy @ ínert");
                   //Xử lí xâu từ file text truyền vào mảng Word.
-                  for (int i = 1; i < line.length(); i++) {
+                  for (int i = 0; i < line.length(); i++) {
                       if (line.charAt(i) == '/') {
-                          word_target = line.substring(1, i);
+                          word_target = line.substring(2, i);
                           word_spelling = line.substring(i);
+                          System.out.println(word_target +"Đã thấy /" + word_spelling);
                           break;
                       }
                   }
               } else if (line.charAt(0) == '*') {
+                  System.out.println("Đã thấy * ínert" + word_type);
                   word_type = line.substring(1);
               } else {
-                  word_explain += line + "\n";
+                  word_explain = line ;
               }
 
-              line = bufferedReader.readLine();
-              if (line.charAt(0) == '@') {
+                  line = bufferedReader.readLine();
+
+              //System.out.println(line.charAt(0)+ " cahcs "+ line.charAt(1));
+              if (line.charAt(1) == '@') {
+                  System.out.println("thấy @ gán" + line);
                   dictionary.addWord(new Word(word_target, word_spelling, word_type, word_explain));
+                  word_target = null;
+                  word_spelling = null;
+                  word_type = null;
+                  word_explain = null;
               }
+
+              if (line.charAt(0) == '*' && word_type != null) {
+                  System.out.println("thấy * gán" + line);
+                  dictionary.addWord(new Word(word_target, word_spelling, word_type, word_explain));
+                  word_type = null;
+                  word_explain = null;
+              }
+
           }
       } catch (IOException e) {
           e.printStackTrace();
