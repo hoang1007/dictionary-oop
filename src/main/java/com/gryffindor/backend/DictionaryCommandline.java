@@ -15,10 +15,10 @@ public class DictionaryCommandline {
     }
 
     public void showAllWords() {
-        System.out.println("No | English | Vietnamese");
+        System.out.println("No | English |  Spelling | WordType | Vietnamese");
         int i = 1;
         for (Word w : dictionaryManagement.dictionary.getAllWords()) {
-            System.out.println(String.format("%d | %s | %s", i++, w.getWordTarget(), w.getWordExplain()));
+            System.out.println(String.format("%d | %s | %s | %s | %s", i++, w.getWordTarget(), w.getWordSpelling(), w.getWordType() ,w.getWordExplain()));
         }
     }
 
@@ -29,13 +29,15 @@ public class DictionaryCommandline {
     }
 
     public void dictionaryAdvance() {
-        dictionaryManagement.insertFromFile();
+        //dictionaryManagement.insertFromFile();
+        System.out.println("Bắt đầu chương trình\n");
+        dictionaryManagement.addDataFromFile();
 
         showAllWords();
 
-        dictionaryManagement.dictionaryLookup();
+        //dictionaryManagement.dictionaryLookup();
 
-        dictionaryManagement.dictionaryExportToFile();
+        //dictionaryManagement.dictionaryExportToFile();
     }
 
     public List<Word> dictionarySearch() {
