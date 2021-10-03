@@ -6,7 +6,7 @@ import javafx.event.Event;
 import javafx.event.EventType;
 
 public class WordEvent extends Event {
-  public static final EventType<WordEvent> EVENTTYPE = new EventType<>(Event.ANY, "ANY");
+  public static final EventType<WordEvent> EVENTTYPE = new EventType<>(Event.ANY, "WORD");
 
   private Word word;
 
