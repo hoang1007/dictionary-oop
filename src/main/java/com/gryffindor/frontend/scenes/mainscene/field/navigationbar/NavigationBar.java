@@ -5,6 +5,7 @@ import com.gryffindor.frontend.scenes.mainscene.field.IField;
 import com.gryffindor.frontend.utils.ImageUtils;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -38,6 +39,7 @@ public class NavigationBar implements IField {
 
   void initHomePage() {
     homeButton = new Button();
+    homeButton.setTooltip(new Tooltip("Home"));
     homeButton.getStyleClass().add("nav-button");
 
     ImageView homeImageView = ImageUtils.getFitSquareImage(
@@ -48,6 +50,7 @@ public class NavigationBar implements IField {
 
   void initToolsPage() {
     toolsButton = new Button();
+    toolsButton.setTooltip(new Tooltip("Tools"));
     toolsButton.getStyleClass().add("nav-button");
 
     ImageView toolsImageView = ImageUtils.getFitSquareImage(
@@ -58,6 +61,7 @@ public class NavigationBar implements IField {
 
   void initSettingsPage() {
     settingsButton = new Button();
+    settingsButton.setTooltip(new Tooltip("Settings"));
     settingsButton.getStyleClass().add("nav-button");
 
     ImageView settingsImageView = ImageUtils.getFitSquareImage(
