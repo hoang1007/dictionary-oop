@@ -1,8 +1,11 @@
 package com.gryffindor;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
@@ -12,6 +15,7 @@ public class Config {
   private String style;
   private String imagesPath;
   private String contributeThanks;
+  private String tessdata;
 
   /** Khởi tạo config. */
   public Config() {
@@ -34,6 +38,15 @@ public class Config {
 
     style = resourcesPath + "/styles/styles.css";
     imagesPath = resourcesPath + "/images";
+    
+    try {
+      URI uri = new URI(resourcesPath + "/tessdata");
+
+      tessdata = new File(uri.getSchemeSpecificPart()).getPath();
+      System.out.println(tessdata);
+    } catch (URISyntaxException e) {
+      e.printStackTrace();
+    }
   }
 
   public String getGoogleApiUrl() {
@@ -50,5 +63,9 @@ public class Config {
 
   public String getContributeThanks() {
     return contributeThanks;
+  }
+
+  public String getTessdata() {
+    return tessdata;
   }
 }
