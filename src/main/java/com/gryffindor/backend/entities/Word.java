@@ -1,8 +1,8 @@
 package com.gryffindor.backend.entities;
 
 public class Word {
-    private String wordTarget;
-    private String wordExplain;
+    private String wordTarget = null;
+    private String wordExplain = null;
     private String wordSpelling = null; // phiên âm.
     private String wordType = null; // loai tu
 
@@ -21,7 +21,7 @@ public class Word {
         this.wordType = null;
     }
 
-    public Word(String wordTarget, String wordSpelling, String wordExplain, String wordType) {
+    public Word(String wordTarget, String wordSpelling, String wordType, String wordExplain) {
         this.wordTarget = wordTarget;
         this.wordSpelling = wordSpelling;
         this.wordExplain = wordExplain;
@@ -44,13 +44,21 @@ public class Word {
         return this.wordExplain;
     }
 
-    public void setWordSpelling(String wordSpelling) { this.wordSpelling = wordSpelling; }
+    public void setWordSpelling(String wordSpelling) {
+        this.wordSpelling = wordSpelling;
+    }
 
-    public String getWordSpelling() { return this.wordSpelling; }
+    public String getWordSpelling() {
+        return this.wordSpelling;
+    }
 
-    public void setWordType(String wordType) { this.wordType = wordType; }
+    public void setWordType(String wordType) {
+        this.wordType = wordType;
+    }
 
-    public String getWordType() { return this.wordType; }
+    public String getWordType() {
+        return this.wordType;
+    }
 
     @Override
     public String toString() {
