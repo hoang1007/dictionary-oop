@@ -2,7 +2,6 @@ package com.gryffindor.backend.entities;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Dictionary {
   private final List<Word> words;

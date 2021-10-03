@@ -30,7 +30,9 @@ public final class DictionaryApplication {
    */
   public static void main(String[] args) throws IOException {
     // new DictionaryCommandline().dictionaryBasic();
-    INSTANCE.runApplication();
+    // INSTANCE.runApplication();
+    INSTANCE.dictionaryManagement.addDataFromFile();
+    INSTANCE.dictionaryManagement.dictionary.getAllWords().size();
   }
 
   void runApplication() {
