@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Dictionary {
-  private final List<Word> words;
+  private List<Word> words;
 
   public Dictionary() {
     words = new ArrayList<>();
@@ -23,6 +23,7 @@ public class Dictionary {
 
   /**
    * Tìm một từ trong từ điển.
+   * 
    * @param word_target từ mới muốn tìm
    * @return trả về từ mới nếu tìm thấy, null nếu không tìm được
    */
@@ -37,9 +38,9 @@ public class Dictionary {
   }
 
   /**
-   * Tìm tất cả các từ liên quan.
-   * VD: "tra" trả về tradition, translate
-   * Tìm tất cả từ đồng âm.
+   * Tìm tất cả các từ liên quan. VD: "tra" trả về tradition, translate Tìm tất cả
+   * từ đồng âm.
+   * 
    * @param word_target từ mới muốn tìm
    * @return danh sách các từ tìm được
    */
@@ -57,6 +58,7 @@ public class Dictionary {
 
   /**
    * Tìm tất cả các từ đồng nghĩa.
+   * 
    * @param word_explain nghĩa muốn tìm
    * @return danh sách các từ tìm được
    */
@@ -76,4 +78,5 @@ public class Dictionary {
   public List<Word> getAllWords() {
     return words;
   }
+
 }
