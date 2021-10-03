@@ -6,12 +6,24 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
+import com.gryffindor.backend.utils.PathUtils;
+
 public class Config {
   private final String resourcesPath;
+
   private String googleApiUrl;
   private String style;
   private String imagesPath;
+  private String dataDictionaryPath;
+
   private String contributeThanks;
+  private String wordTargetSign;
+  private String wordExplainSign;
+  private String exampleSign;
+  private String wordClassSign;
+  private String wordSpellingSign;
+  private String exampleDelim;
+
 
   /** Khởi tạo config. */
   public Config() {
@@ -31,13 +43,24 @@ public class Config {
   void init(Properties properties) {
     googleApiUrl = properties.getProperty("googleapiurl");
     contributeThanks = properties.getProperty("contribute-thanks");
+    wordTargetSign = properties.getProperty("word-target-sign");
+    wordExplainSign = properties.getProperty("word-explain-sign");
+    exampleSign = properties.getProperty("example-sign");
+    wordClassSign = properties.getProperty("word-class-sign");
+    wordSpellingSign = properties.getProperty("word-spelling-sign");
+    exampleDelim = properties.getProperty("example-delim");
 
     style = resourcesPath + "/styles/styles.css";
     imagesPath = resourcesPath + "/images";
+    dataDictionaryPath = PathUtils.getPathFromUri(resourcesPath + "/dictionaries.txt");
   }
 
   public String getGoogleApiUrl() {
     return googleApiUrl;
+  }
+
+  public String getDataDictionaryPath() {
+    return dataDictionaryPath;
   }
 
   public String getStyle() {
@@ -50,5 +73,29 @@ public class Config {
 
   public String getContributeThanks() {
     return contributeThanks;
+  }
+
+  public String getWordTargetSign() {
+    return wordTargetSign;
+  }
+
+  public String getWordExplainSign() {
+    return wordExplainSign;
+  }
+
+  public String getExampleSign() {
+    return exampleSign;
+  }
+
+  public String getWordClassSign() {
+    return wordClassSign;
+  }
+
+  public String getWordSpellingSign() {
+    return wordSpellingSign;
+  }
+
+  public String getExampleDelim() {
+    return exampleDelim;
   }
 }
