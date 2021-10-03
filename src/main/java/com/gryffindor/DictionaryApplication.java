@@ -16,10 +16,12 @@ public final class DictionaryApplication {
 
   public final Config config;
   public final DictionaryManagement dictionaryManagement;
+  public final ResourcesManager resourcesManager;
 
   DictionaryApplication() {
     config = new Config();
     dictionaryManagement = new DictionaryManagement();
+    resourcesManager = new ResourcesManager();
   }
 
   /**
@@ -31,8 +33,11 @@ public final class DictionaryApplication {
   public static void main(String[] args) throws IOException {
     // new DictionaryCommandline().dictionaryBasic();
     INSTANCE.runApplication();
+
+    INSTANCE.resourcesManager.free();
   }
 
+  /** Run UI. */
   void runApplication() {
     Application.launch(ApplicationUI.class);
   }
