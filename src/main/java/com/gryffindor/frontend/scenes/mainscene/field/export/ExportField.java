@@ -24,15 +24,15 @@ public class ExportField implements IField {
   }
 
   void initExportButton() {
-    exportButton = new Button("Export words to file");
+    exportButton = new Button("Export word list to file");
     exportButton.getStyleClass().add("tool-button");
-
-    exportButton.maxWidthProperty().set(Integer.MAX_VALUE);
 
     ImageView toolsImageView = ImageUtils.getFitSquareImage(
         DictionaryApplication.INSTANCE.config.getImagesPath() + "/export.png", 
         50);
     exportButton.setGraphic(toolsImageView);
+    
+    exportButton.prefWidthProperty().bind(pane.widthProperty());
   }
 
   @Override
