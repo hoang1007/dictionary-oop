@@ -14,6 +14,7 @@ public class SearchController implements IController {
 
   /**
    * Khởi tạo controller cho seach field.
+   * 
    * @param searchField search field muốn control
    */
   public SearchController(SearchField searchField) {
@@ -45,12 +46,12 @@ public class SearchController implements IController {
       // hiện lịch sử tìm kiếm
       if (searchField.getSearchBox().getText().length() == 0) {
         historyMode();
-      // nếu không
-      // hiện từ gợi ý
+        // nếu không
+        // hiện từ gợi ý
       } else {
         searchListUtils.set(0, new Word(newValue, ""));
       }
-    
+
       searchField.getSearchList().setVisible(true); // enable search list
     });
   }
@@ -67,8 +68,8 @@ public class SearchController implements IController {
     });
 
     searchField.getSearchList().setOnMouseClicked(event -> {
-      onSearchRequest(searchField.getSearchList(), searchField.getSearchList()
-          .getSelectionModel().getSelectedItem().getWordTarget());
+      onSearchRequest(searchField.getSearchList(),
+          searchField.getSearchList().getSelectionModel().getSelectedItem().getWordTarget());
 
       searchField.getSearchList().setVisible(false);
     });

@@ -22,7 +22,24 @@
     <jacoco.unit-tests.limit.class-complexity>20</jacoco.unit-tests.limit.class-complexity>
     <jacoco.unit-tests.limit.method-complexity>5</jacoco.unit-tests.limit.method-complexity>
   </properties>
+
   <dependencies>
+    <!-- voce speech recognition -->
+    
+    <!-- https://mvnrepository.com/artifact/net.sf.sociaal/freetts -->
+    <dependency>
+      <groupId>net.sf.sociaal</groupId>
+      <artifactId>freetts</artifactId>
+      <version>1.2.2</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/net.sourceforge.tess4j/tess4j -->
+    <dependency>
+      <groupId>net.sourceforge.tess4j</groupId>
+      <artifactId>tess4j</artifactId>
+      <version>4.5.5</version>
+    </dependency>
+
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
@@ -91,14 +108,14 @@
           <skip>${skipTests}</skip>
         </configuration>
         <executions>
-          <execution>
+          <!-- <execution>
             <?m2e execute onConfiguration?>
             <id>checkstyle</id>
             <phase>validate</phase>
             <goals>
               <goal>check</goal>
             </goals>
-          </execution>
+          </execution> -->
         </executions>
       </plugin>
       <plugin>
