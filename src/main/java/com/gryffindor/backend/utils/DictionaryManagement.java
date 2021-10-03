@@ -187,49 +187,57 @@ public class DictionaryManagement {
           String word_target = null;
           String word_spelling = null;
           String word_type = null;
-          String word_explain = null;
+          String word_explain = "";
           int index = 0;
           String line = bufferedReader.readLine();
-          while (line != null) {
+          while (true) {
               // giới hạn vòng while
               index++;
-              if (index > 100) break;
-              System.out.println( index +" tách " + line.charAt(0) +" tách "+ line.charAt(1));
-              if (line.charAt(1) == '@') {
-                  System.out.println("Đã thấy @ ínert");
+              //if (index > 400000) break;
+              System.out.println(index);
+              if (line.charAt(0) == '@') {
                   //Xử lí xâu từ file text truyền vào mảng Word.
                   for (int i = 0; i < line.length(); i++) {
                       if (line.charAt(i) == '/') {
-                          word_target = line.substring(2, i);
+                          word_target = line.substring(1, i);
                           word_spelling = line.substring(i);
-                          System.out.println(word_target +"Đã thấy /" + word_spelling);
                           break;
                       }
                   }
               } else if (line.charAt(0) == '*') {
-                  System.out.println("Đã thấy * ínert" + word_type);
                   word_type = line.substring(1);
+              } else if (line.charAt(0) == '-') {
+                  word_explain += line.substring(1) + "\n";
               } else {
-                  word_explain = line ;
+                  for (int i = 1; i < line.length(); i++) {
+                      if (line.charAt(i) == '+') {
+                          word_explain += line.substring(1, i) + "  :   " + line.substring(i+1) + "\n";
+                          break;
+                      }
+                  }
               }
 
-                  line = bufferedReader.readLine();
+              line = bufferedReader.readLine();
 
-              //System.out.println(line.charAt(0)+ " cahcs "+ line.charAt(1));
-              if (line.charAt(1) == '@') {
-                  System.out.println("thấy @ gán" + line);
+              if (line == null) {
+                  break;
+              }
+
+              if (line.equals("")) {
                   dictionary.addWord(new Word(word_target, word_spelling, word_type, word_explain));
                   word_target = null;
                   word_spelling = null;
                   word_type = null;
-                  word_explain = null;
+                  word_explain = "";
+                  while (line.equals("")){
+                      line = bufferedReader.readLine();
+                  }
               }
 
               if (line.charAt(0) == '*' && word_type != null) {
-                  System.out.println("thấy * gán" + line);
                   dictionary.addWord(new Word(word_target, word_spelling, word_type, word_explain));
                   word_type = null;
-                  word_explain = null;
+                  word_explain = "";
               }
 
           }
