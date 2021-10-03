@@ -38,11 +38,9 @@ public class ElementController implements IController {
   public void setWord(Word word) {
     this.word = word;
 
-    element.getExampleSentence()
-      .setText(String.format("\"%s\"", "the roses were just coming into flower"));
-    element.getWordClass().setText("danh từ");
-    element.getWordDefinition()
-      .setText("cơ quan sinh sản hữu tính của cây hạt kín, thường có màu sắc và hương thơm");
+    element.getExampleSentence().setText(String.format("\"%s\"", "ví dụ"));
+    element.getWordClass().setText("danh-động- trạng");
+    element.getWordDefinition().setText("mô tả");
 
     element.getWordMeaning().setText(word.getWordExplain());
     setSynoymsButton(null);
@@ -65,8 +63,7 @@ public class ElementController implements IController {
       element.getDeleteExplainButton().setVisible(false);
       element.getEditExplainButton().setVisible(false);
 
-      element.getWordDefinition()
-        .setText(DictionaryApplication.INSTANCE.config.getContributeThanks());
+      element.getWordDefinition().setText(DictionaryApplication.INSTANCE.config.getContributeThanks());
     });
   }
 
@@ -81,8 +78,7 @@ public class ElementController implements IController {
         element.getDeleteExplainButton().setVisible(false);
         element.getEditExplainButton().setVisible(false);
 
-        element.getWordDefinition()
-          .setText(DictionaryApplication.INSTANCE.config.getContributeThanks());
+        element.getWordDefinition().setText(DictionaryApplication.INSTANCE.config.getContributeThanks());
       }
     });
   }
