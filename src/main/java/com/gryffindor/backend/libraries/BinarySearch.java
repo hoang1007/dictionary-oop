@@ -18,7 +18,7 @@ public class BinarySearch {
     /**
      * Hàm tìm kiếm nhị phân
      */
-    public static Word binarySearching(List<Word> words, String word_target) {
+    public Word binarySearching(String word_target) {
         int low = 0;
         int high = words.size()-1;
         int mid;
