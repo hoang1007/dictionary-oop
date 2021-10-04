@@ -2,6 +2,7 @@ package com.gryffindor.backend.utils;
 
 import com.gryffindor.backend.entities.Dictionary;
 import com.gryffindor.backend.entities.Word;
+import com.gryffindor.frontend.scenes.mainscene.field.export.ExportController;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,12 +10,15 @@ import java.io.InputStreamReader;
 
 public class DictionaryManagement {
   public final Dictionary dictionary;
+  public final ExportController exportController; // quản lý xuất file
 
   public DictionaryManagement() {
     dictionary = new Dictionary();
+    exportController = new ExportController();
   }
 
-  /** Nhập từ mới từ command line. 
+  /**
+   * Nhập từ mới từ command line.
    */
   public void insertFromCommandline() {
     try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
@@ -38,5 +42,11 @@ public class DictionaryManagement {
     } catch (IOException e) {
       e.printStackTrace();
     }
+  }
+
+  // export to file chooser
+  public void dictionaryExportToFile() {
+    // TO DO
+    exportController.export();
   }
 }

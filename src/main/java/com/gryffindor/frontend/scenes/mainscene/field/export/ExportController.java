@@ -7,23 +7,37 @@ import java.io.File;
 import javafx.stage.FileChooser.ExtensionFilter;
 
 public class ExportController implements IController {
+
     // Khởi tạo
-    public static void initialize() {
-        String dic = "C:\\";
-        IController.fileChooser.setInitialDirectory(new File(dic));
+    public ExportController() {
+        initialize();
+        addExtensionFilter();
     }
 
-    public static void setTitleAndFileName(String title, String file_name) {
-        IController.fileChooser.setInitialFileName(file_name);
+    // Khởi tạo đường dân mặc định khi click vào button export
+    public void initialize() {
+        // String dic = "";
+        // IController.fileChooser.setInitialDirectory(new File());
+    }
+
+    public void setTitleAndFileName(String title, String nameOfFile) {
+        IController.fileChooser.setInitialFileName(nameOfFile);
         IController.fileChooser.setTitle(title);
     }
 
-    public static void addExtensionFilter() {
+    public void addExtensionFilter() {
         // Định dạng file save
         ExtensionFilter txt = new ExtensionFilter("TEXT files", "*.txt");
         ExtensionFilter pdf = new ExtensionFilter("PDF", "*.pdf");
-        ExtensionFilter html = new ExtensionFilter("Web Page", "*.html");
-        IController.fileChooser.getExtensionFilters().addAll(txt, pdf, html);
-
+        ExtensionFilter allFile = new ExtensionFilter("All Files", "*.*");
+        IController.fileChooser.getExtensionFilters().addAll(txt, pdf, allFile);
     }
+
+    // export to file
+    public void export() {
+        setTitleAndFileName("Save file", "file_name");
+        IController.fileChooser.showSaveDialog(null);
+        // TO DO
+    }
+
 }

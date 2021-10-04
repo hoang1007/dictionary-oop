@@ -30,13 +30,14 @@ public class TranslateController implements IController {
 
   /**
    * Khởi tạo các thuộc tính liên quan đến {@link Word}.
+   * 
    * @param word từ muốn đặt
    */
   public void setWord(Word word) {
     this.word = word;
 
     translateField.getPane().setVisible(true);
-    translateField.getPronouncedText().setText("ˈflou(ə)r");
+    translateField.getPronouncedText().setText("phiên âm IPA");
     translateField.getWordTarget().setText(word.getWordTarget());
   }
 

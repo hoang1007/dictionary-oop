@@ -7,7 +7,6 @@ import java.io.IOException;
 
 import javafx.application.Application;
 
-
 /**
  * Our Dictionary App!.
  */
@@ -40,5 +39,9 @@ public final class DictionaryApplication {
   /** Run UI. */
   void runApplication() {
     Application.launch(ApplicationUI.class);
+  }
+
+  public DictionaryManagement getDictionaryManagement() {
+    return dictionaryManagement;
   }
 }
