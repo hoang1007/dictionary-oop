@@ -7,12 +7,17 @@ import java.util.List;
 
 public class BinarySearch {
 
-    public final Dictionary dictionaries;
+    private final Dictionary dictionaries;
+    private final List<Word> words;
 
     public BinarySearch() {
-        this.dictionaries = new Dictionary();
+        dictionaries = new Dictionary();
+        words = dictionaries.getAllWords();
     }
 
+    /**
+     * Hàm tìm kiếm nhị phân
+     */
     public static Word binarySearching(List<Word> words, String word_target) {
         int low = 0;
         int high = words.size()-1;
