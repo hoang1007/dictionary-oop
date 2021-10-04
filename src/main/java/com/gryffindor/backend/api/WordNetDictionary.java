@@ -1,6 +1,7 @@
 package com.gryffindor.backend.api;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import net.sf.extjwnl.JWNLException;
@@ -22,7 +23,7 @@ public class WordNetDictionary {
     }
 
     public static void lookup(String word) throws JWNLException {
-        List<String> words = getSynonyms(word, POS.ADJECTIVE);
+        List<String> words = getAllWords();
 
         for (String lemma : words) {
             System.out.println(lemma);
@@ -37,6 +38,21 @@ public class WordNetDictionary {
         } else {
             return Util.getLemmas(synset);
         }
+    }
+
+    public static List<String> getAllWords() {
+        List<String> words = new ArrayList<>();
+
+        try {
+            Iterator<IndexWord> wordItr = dictionary.getIndexWordIterator(POS.NOUN);
+            for (IndexWord word = wordItr.next(); word != null; word = wordItr.next()) {
+                words.add(word.getLemma());
+            }
+        } catch (JWNLException e) {
+            e.printStackTrace();
+        }
+
+        return words;
     }
     
     static class Util {
