@@ -1,10 +1,15 @@
 package com.gryffindor.backend.utils;
 
 public class TextUtils {
-    public static void format(String... args) {
+    public static String format(String arg) {
+        return arg.trim().replace('_', ' ');
+    }
+
+    public static String[] format(String[] args) {
         for (String arg : args) {
-            arg.trim();
-            arg.replace('_', ' ');
+            arg = format(arg);
         }
+
+        return args;
     }
 }

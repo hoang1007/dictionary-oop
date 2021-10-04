@@ -32,10 +32,10 @@ public final class DictionaryApplication {
   public static void main(String[] args) throws Exception {
     // new DictionaryCommandline().dictionaryBasic();
     // INSTANCE.runApplication();
-    // INSTANCE.dictionaryManagement.addDataFromFile();
+    INSTANCE.dictionaryManagement.addDataFromFile();
     // INSTANCE.dictionaryManagement.dictionary.getAllWords().size();
 
-    WordNetDictionary.lookup("large");
+    // WordNetDictionary.lookup("large");
   }
 
   void runApplication() {

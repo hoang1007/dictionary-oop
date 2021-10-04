@@ -190,29 +190,30 @@ public class DictionaryManagement {
             String word_target = "";
             String word_spelling = "";
             String word_class = "";
-            int index = 0;
+      
             for (String line = bufferedReader.readLine(); line != null; line = bufferedReader.readLine()) {
-                // giới hạn loop
-                if (index++ > 100) {
-                    break;
-                }
 
                 // word target and word spelling is in the same line
                 if (line.startsWith(config.getWordTargetSign())) {
                     int posTarget = line.indexOf(config.getWordTargetSign());
                     int posSpelling = line.indexOf(config.getWordSpellingSign());
                     
-                    word_target = line.substring(posTarget + 1, posSpelling);
-                    word_spelling = line.substring(posSpelling);
+                    try {
+                        word_target = line.substring(posTarget + 1, posSpelling);
+                        word_spelling = line.substring(posSpelling);
 
-                    TextUtils.format(word_target, word_spelling);
+                        word_target = TextUtils.format(word_target);
+                        word_spelling = TextUtils.format(word_spelling);
+                    } catch (Exception e) {
+                        word_target = line.substring(posTarget + 1);
+                    }
 
                     System.out.println("Found spelling: " + word_spelling);
                     System.out.println("Found word target: " + word_target);
 
                 } else if (line.startsWith(config.getWordClassSign())) { // word class
                     word_class = line.substring(line.indexOf(config.getWordClassSign()) + 1);
-                    TextUtils.format(word_class);
+                    word_class = TextUtils.format(word_class);
 
                     System.out.println("Found word type " + word_class);
 
@@ -223,7 +224,7 @@ public class DictionaryManagement {
                     // mỗi phần giải thích là một từ
                     words.add(new Word());
                     String word_explain = line.substring(line.indexOf(config.getWordExplainSign()) + 1);
-                    TextUtils.format(word_explain);
+                    word_explain = TextUtils.format(word_explain);
 
                     System.out.println("Found explain: " + word_explain);
 
@@ -242,7 +243,7 @@ public class DictionaryManagement {
                     String[] example = line.substring(line.indexOf(config.getExampleSign()) + 1)
                         .split(config.getExampleDelim());
                     
-                    TextUtils.format(example);
+                    example = TextUtils.format(example);
                     ExampleSentence eSentence = new ExampleSentence(example[0], example[1]);
                     System.out.println("Found example " + eSentence);
 
