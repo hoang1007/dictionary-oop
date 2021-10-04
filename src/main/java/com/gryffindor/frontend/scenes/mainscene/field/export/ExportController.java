@@ -24,5 +24,6 @@ public class ExportController implements IController {
         ExtensionFilter pdf = new ExtensionFilter("PDF", "*.pdf");
         ExtensionFilter html = new ExtensionFilter("Web Page", "*.html");
         IController.fileChooser.getExtensionFilters().addAll(txt, pdf, html);
+
     }
 }
