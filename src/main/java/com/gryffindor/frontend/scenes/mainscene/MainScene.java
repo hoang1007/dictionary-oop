@@ -44,6 +44,7 @@ public class MainScene {
         toolsPage.getPane());
         
     HBox.setHgrow(homePage.getPane(), Priority.ALWAYS);
+    HBox.setHgrow(toolsPage.getPane(), Priority.ALWAYS);
   }
 
   public Scene getMainScene() {

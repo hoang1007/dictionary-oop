@@ -8,6 +8,8 @@ import com.gryffindor.frontend.utils.ImageUtils;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
 public class ExportField implements IField {
   private final Pane pane;
@@ -19,20 +21,26 @@ public class ExportField implements IField {
     pane = new Pane();
 
     initExportButton();
-
     pane.getChildren().add(exportButton);
   }
 
   void initExportButton() {
-    exportButton = new Button("Export words to file");
+    exportButton = new Button("Export word list to file");
     exportButton.getStyleClass().add("tool-button");
 
-    exportButton.maxWidthProperty().set(Integer.MAX_VALUE);
+    // sự kiện nhấn chuật vào Export button
+    exportButton.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        DictionaryApplication.INSTANCE.getDictionaryManagement().dictionaryExportToFile();
+      }
+    });
 
-    ImageView toolsImageView = ImageUtils.getFitSquareImage(
-        DictionaryApplication.INSTANCE.config.getImagesPath() + "/export.png", 
-        50);
+    ImageView toolsImageView = ImageUtils
+        .getFitSquareImage(DictionaryApplication.INSTANCE.config.getImagesPath() + "/export.png", 50);
     exportButton.setGraphic(toolsImageView);
+
+    exportButton.prefWidthProperty().bind(pane.widthProperty());
   }
 
   @Override

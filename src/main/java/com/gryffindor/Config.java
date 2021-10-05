@@ -98,4 +98,8 @@ public class Config {
   public String getExampleDelim() {
     return exampleDelim;
   }
+
+  public String getTessdata() {
+    return "";
+  }
 }

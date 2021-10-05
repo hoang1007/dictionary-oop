@@ -94,14 +94,14 @@
 }
 
 .tool-button {
-  -fx-background-color: white;
+  -fx-background-color: transparent;
   -fx-background-radius: 5px;
   /* -fx-min-width: 500px; */
-  -fx-min-height: 50px;
+  -fx-min-height: 30px;
 }
 
 .tool-button:hover {
-  -fx-background-color: darkcyan;
+  -fx-background-color: white;
   -fx-background-radius: 5px;
 }
 

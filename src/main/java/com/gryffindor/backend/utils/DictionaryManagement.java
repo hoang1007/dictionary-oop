@@ -5,6 +5,7 @@ import com.gryffindor.DictionaryApplication;
 import com.gryffindor.backend.entities.Dictionary;
 import com.gryffindor.backend.entities.ExampleSentence;
 import com.gryffindor.backend.entities.Word;
+import com.gryffindor.frontend.scenes.mainscene.field.export.ExportController;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

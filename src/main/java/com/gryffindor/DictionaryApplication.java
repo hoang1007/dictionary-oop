@@ -8,7 +8,6 @@ import java.io.IOException;
 
 import javafx.application.Application;
 
-
 /**
  * Our Dictionary App!.
  */
@@ -17,10 +16,12 @@ public final class DictionaryApplication {
 
   public final Config config;
   public final DictionaryManagement dictionaryManagement;
+  public final ResourcesManager resourcesManager;
 
   DictionaryApplication() {
     config = new Config();
     dictionaryManagement = new DictionaryManagement();
+    resourcesManager = new ResourcesManager();
   }
 
   /**
@@ -31,14 +32,17 @@ public final class DictionaryApplication {
    */
   public static void main(String[] args) throws Exception {
     // new DictionaryCommandline().dictionaryBasic();
-    // INSTANCE.runApplication();
-    INSTANCE.dictionaryManagement.addDataFromFile();
-    // INSTANCE.dictionaryManagement.dictionary.getAllWords().size();
+    INSTANCE.runApplication();
 
-    // WordNetDictionary.lookup("large");
+    INSTANCE.resourcesManager.free();
   }
 
+  /** Run UI. */
   void runApplication() {
     Application.launch(ApplicationUI.class);
+  }
+
+  public DictionaryManagement getDictionaryManagement() {
+    return dictionaryManagement;
   }
 }

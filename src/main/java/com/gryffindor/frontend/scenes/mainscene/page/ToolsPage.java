@@ -2,23 +2,28 @@ package com.gryffindor.frontend.scenes.mainscene.page;
 
 import com.gryffindor.frontend.scenes.mainscene.field.export.ExportField;
 
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 public class ToolsPage implements IPage {
-  private final GridPane pane;
+  private final VBox pane;
 
   private ExportField exportField;
 
   /** Khởi tạo tools page. */
   public ToolsPage() {
-    pane = new GridPane();
+    pane = new VBox();
+    pane.setFillWidth(true);
     pane.getStyleClass().add("tools-pane");
 
-    exportField = new ExportField();
+    initExportField();
+    
+    pane.getChildren().addAll(exportField.getPane());
+  }
 
-    pane.getChildren().add(exportField.getPane());
-    GridPane.setConstraints(exportField.getPane(), 0, 0);
+  void initExportField() {
+    exportField = new ExportField();
+    exportField.getPane().prefWidthProperty().bind(pane.widthProperty());
   }
 
   @Override
