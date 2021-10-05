@@ -15,6 +15,11 @@ public class Dictionary {
     words.add(word);
   }
 
+  /** Xóa từ khỏi từ điển. */
+  public void removeWord(Word word) {
+    words.remove(word);
+  }
+
   /**
    * Tìm một từ trong từ điển.
    * 
@@ -32,6 +37,8 @@ public class Dictionary {
   }
 
   /**
+   * Tìm tất cả các từ liên quan.
+   * VD: "tra" trả về tradition, translate
    * Tìm tất cả từ đồng âm.
    * 
    * @param word_target từ mới muốn tìm
@@ -41,7 +48,7 @@ public class Dictionary {
     List<Word> wordFounds = new ArrayList<>();
 
     for (Word w : words) {
-      if (w.getWordTarget() == word_target) {
+      if (w.getWordTarget().startsWith(word_target)) {
         wordFounds.add(w);
       }
     }

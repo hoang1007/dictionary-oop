@@ -8,6 +8,9 @@ import java.io.BufferedWriter;
 
 import com.gryffindor.backend.entities.Dictionary;
 import com.gryffindor.backend.entities.Word;
+import java.io.*;
+import java.io.FileInputStream;
+
 
 public class DictionaryManagement {
   public final Dictionary dictionary;
@@ -36,6 +39,134 @@ public class DictionaryManagement {
 
       dictionary.addWord(new Word(word_target, word_explain));
     }
+
+    scanner.close();
   }
 
+  /** Nhập từ mới từ file dictionaries.txt. */
+  public void insertFromFile() {
+      //url file dictionaries.txt
+      String url = "D:\\IT\\Java\\Project\\Dictionary\\src\\resources\\dictionaries.txt";
+
+      // Đọc dữ liệu từ File với BufferedReader.
+      FileInputStream fileInputStream = null;
+      BufferedReader bufferedReader = null;
+      try {
+          fileInputStream = new FileInputStream(url);
+          bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
+          String line = bufferedReader.readLine();
+          while (line != null) {
+              //Xử lí xâu từ file text truyền vào mảng Word.
+              for (int i = 1; i < line.length(); i++) {
+                  if ( line.charAt(i) == '\t') {
+                      String word_target = line.substring(0, i);
+                      String word_explain = line.substring(i + 1);
+                      dictionary.addWord(new Word(word_target, word_explain));
+                      break;
+                  }
+              }
+              line = bufferedReader.readLine();
+          }
+      } catch (IOException e) {
+          e.printStackTrace();
+      } finally {
+          // Đóng file.
+          try {
+              bufferedReader.close();
+              fileInputStream.close();
+          } catch (IOException e) {
+              e.printStackTrace();
+          }
+      }
+  }
+
+  /**   Tra cuu tu dien bang commandline. */
+  public void dictionaryLookup() {
+      System.out.println("Nhap tu can tra: ");
+      Scanner scanner = new Scanner(System.in);
+      String word_target = scanner.nextLine();
+      if (dictionary.searchWord(word_target) != null) {
+          System.out.println(word_target + " co nghia la: " + dictionary.searchWord(word_target).getWordExplain());
+      } else {
+          System.out.println("Khong co tu " + word_target + " trong tu dien");
+      }
+
+      scanner.close();
+  }
+
+    /** Export to file. */
+  public void dictionaryExportToFile() {
+      String url = ".\\src\\resources\\output.txt";
+      /* Create new file. */
+      File file = null;
+      boolean isCreat = false;
+      try{
+          file = new File(url);
+          isCreat = file.createNewFile();
+          if (isCreat)
+              System.out.print("Da tao file thanh cong!");
+          else
+              System.out.print("Tao file that bai");
+      }
+      catch (Exception e){
+          System.out.print(e);
+      }
+      /* Write word to file. */
+      FileWriter fileWriter = null;
+      BufferedWriter bufferedWriter = null;
+      try {
+          fileWriter = new FileWriter(url, false);
+          bufferedWriter = new BufferedWriter(fileWriter);
+          for (Word word : dictionary.getAllWords()) {
+              bufferedWriter.write(word.getWordTarget() + "\t" + word.getWordExplain());
+              bufferedWriter.newLine();
+              bufferedWriter.flush();
+          }
+      } catch (FileNotFoundException e) {
+          e.printStackTrace();
+      } catch (IOException e) {
+          e.printStackTrace();
+      } finally {
+          try {
+              fileWriter.close();
+              bufferedWriter.close();
+          } catch (IOException e) {
+              e.printStackTrace();
+          }
+      }
+  }
+
+  /** Xóa word từ dòng lệnh */
+  public void deleteWordFromCommandline() {
+      System.out.println("Nhập từ cần xóa: ");
+      Scanner sc = new Scanner(System.in);
+      String wordDeleteTarget = sc.nextLine();
+      Word wordDelete = dictionary.searchWord(wordDeleteTarget);
+      if (wordDelete == null) {
+          System.out.println("Không có từ " + wordDeleteTarget + "trong từ điển.");
+      } else {
+          dictionary.removeWord(wordDelete);
+      }
+
+      sc.close();
+  }
+
+  /** Sửa word trong từ điển từ dòng lệnh. */
+  public void updateWordFromCommandline() {
+      System.out.println("Nhập từ cần sửa: ");
+      Scanner sc = new Scanner(System.in);
+      String wordUpdateTarget = sc.nextLine();
+      Word wordUpdate = dictionary.searchWord(wordUpdateTarget);
+      int index = dictionary.getAllWords().indexOf(wordUpdate);
+      if (index != -1) {
+          System.out.print("Nhập nghĩa: ");
+          String wordUpdateExplain = sc.nextLine();
+          dictionary.getAllWords().set(index, new Word(wordUpdateTarget, wordUpdateExplain));
+          System.out.print("Bạn đã sửa " + wordUpdateTarget + " thành " + wordUpdateExplain + ".");
+      } else {
+          System.out.println(wordUpdateTarget + " không có.");
+      }
+
+      sc.close();
+  }
 }
