@@ -15,7 +15,7 @@ public class TranslationController implements IController {
 
         onClickEditButton();
         onClickDeleteButton();
-        onTranslationEdited();
+        onTranslationEdited(); 
     }
 
     void onClickEditButton() {
@@ -27,7 +27,7 @@ public class TranslationController implements IController {
 
     void onClickDeleteButton() {
         // xóa bản dịch
-        translationField.getDeleteExplainButton().setOnAction(event -> {
+        translationField.getDeleteExplainButton().setOnAction(event -> { 
             translationField.getPane().setVisible(false);
         });
     }
@@ -42,7 +42,7 @@ public class TranslationController implements IController {
 
     void addExampleSentences(ExampleSentence exampleSentence) {
         Label label = new Label(exampleSentence.toString());
-        translationField.getExampleSentences().add(label);
+        translationField.getExamples().getList().add(label);
     }
 
     void onTranslationEdited() {

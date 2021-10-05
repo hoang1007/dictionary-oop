@@ -55,9 +55,8 @@ public class ExplainsField implements IField {
       explainPane.getStyleClass().add("explain-pane");
 
       initWordClass();
-
-      explainPane.getChildren().addAll(
-          wordClass);
+      initSynonymButtons();
+      initTranslationFields();
 
       controller = new ElementController(this);
     }
@@ -66,6 +65,8 @@ public class ExplainsField implements IField {
       wordClass = new Text();
       ManagedUtils.bindVisible(wordClass);
       wordClass.getStyleClass().add("word-class");
+
+      explainPane.getChildren().add(wordClass);
     }
 
     void initSynonymButtons() {

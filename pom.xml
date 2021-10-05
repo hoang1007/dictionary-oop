@@ -121,14 +121,6 @@
           <skip>${skipTests}</skip>
         </configuration>
         <executions>
-          <execution>
-            <?m2e execute onConfiguration?>
-            <id>checkstyle</id>
-            <phase>validate</phase>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
         </executions>
       </plugin>
       <plugin>

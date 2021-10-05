@@ -39,6 +39,8 @@ public class ElementController implements IController {
         translationField.getController().setTranslation(translation);
 
         element.getTranslationFields().add(translationField);
+
+        element.getPane().getChildren().add(translationField.getPane());
       }
     }
 
