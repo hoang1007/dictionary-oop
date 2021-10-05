@@ -34,9 +34,9 @@ public class ExportController implements IController {
     public void addExtensionFilter() {
         // Định dạng file save
         ExtensionFilter txt = new ExtensionFilter("TEXT files", "*.txt");
-        ExtensionFilter pdf = new ExtensionFilter("PDF", "*.pdf");
+        // ExtensionFilter pdf = new ExtensionFilter("PDF", "*.pdf");
         ExtensionFilter allFile = new ExtensionFilter("All Files", "*.*");
-        IController.fileChooser.getExtensionFilters().addAll(txt, pdf, allFile);
+        IController.fileChooser.getExtensionFilters().addAll(txt, allFile);
     }
 
     // export to file
