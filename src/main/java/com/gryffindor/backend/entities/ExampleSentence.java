@@ -24,6 +24,6 @@ public class ExampleSentence {
 
     @Override
     public String toString() {
-        return "Langto:" + langTo + ", langFrom:" + langFrom;
+        return langFrom + "\t" + langTo;
     }
 }

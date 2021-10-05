@@ -1,5 +1,8 @@
 package com.gryffindor.frontend.scenes.mainscene.field.search;
 
+import java.util.concurrent.ExecutionException;
+
+import com.gryffindor.backend.api.FireStore;
 import com.gryffindor.backend.entities.Word;
 import com.gryffindor.frontend.event.WordEvent;
 import com.gryffindor.frontend.scenes.mainscene.field.IController;
@@ -79,8 +82,11 @@ public class SearchController implements IController {
   }
 
   void onSearchRequest(Node node, String wordTarget) {
-    Word word = new Word(wordTarget, "hoa");
-
-    node.fireEvent(new WordEvent(word));
+    try {
+      Word word = FireStore.find(wordTarget);
+      node.fireEvent(new WordEvent(word));
+    } catch (InterruptedException | ExecutionException e) {
+      e.printStackTrace();
+    }
   }
 }

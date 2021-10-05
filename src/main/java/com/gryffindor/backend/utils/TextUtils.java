@@ -2,7 +2,7 @@ package com.gryffindor.backend.utils;
 
 public class TextUtils {
     public static String format(String arg) {
-        return arg.trim().replace('_', ' ');
+        return arg.replaceAll("[-_]", " ").trim();
     }
 
     public static String[] format(String[] args) {
@@ -11,5 +11,9 @@ public class TextUtils {
         }
 
         return args;
+    }
+
+    public static String empty() {
+        return "";
     }
 }
