@@ -3,44 +3,30 @@ package com.gryffindor.backend.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gryffindor.backend.utils.TextUtils;
+
 public class Word {
-    private String wordTarget;
-    private String wordExplain;
-    private String wordSpelling; // phiên âm.
-    private String wordType; // loai tu
-    private List<ExampleSentence> exampleSentences;
+    private String wordTarget = TextUtils.empty();
+    private String wordSpelling = TextUtils.empty(); // phiên âm.
+    private String wordClass = TextUtils.empty();
+    private List<Translation> translations = new ArrayList<>();
 
-    public Word() {
-        this.wordType = "";
-        this.wordExplain = "";
-        this.wordSpelling = "";
-        this.wordTarget = "";
-        this.exampleSentences = new ArrayList<>();
-    }
+    public Word() { }
 
-    public Word(String wordTarget, String wordExplain) {
+    public Word(String wordTarget) {
         this.wordTarget = wordTarget;
-        this.wordExplain = wordExplain;
-        this.wordSpelling = "";
-        this.wordType = "";
-        exampleSentences = new ArrayList<>();
     }
 
     /** Constructor have spelling */
-    public Word(String wordTarget, String wordSpelling, String wordExplain) {
+    public Word(String wordTarget, String wordSpelling) {
         this.wordTarget = wordTarget;
         this.wordSpelling = wordSpelling;
-        this.wordExplain = wordExplain;
-        this.wordType = "";
-        exampleSentences = new ArrayList<>();
     }
 
-    public Word(String wordTarget, String wordSpelling, String wordExplain, String wordType) {
+    public Word(String wordTarget, String wordSpelling, List<Translation> translations) {
         this.wordTarget = wordTarget;
         this.wordSpelling = wordSpelling;
-        this.wordExplain = wordExplain;
-        this.wordType = wordType;
-        exampleSentences = new ArrayList<>();
+        this.translations = translations;
     }
 
     public Word setWordTarget(String wordTarget) {
@@ -52,15 +38,6 @@ public class Word {
         return this.wordTarget;
     }
 
-    public Word setWordExplain(String wordExplain) {
-        this.wordExplain = wordExplain;
-        return this;
-    }
-
-    public String getWordExplain() {
-        return this.wordExplain;
-    }
-
     public Word setWordSpelling(String wordSpelling) {
         this.wordSpelling = wordSpelling;
         return this;
@@ -70,26 +47,29 @@ public class Word {
         return this.wordSpelling;
     }
 
-    public Word setWordType(String wordType) {
-        this.wordType = wordType;
+    public Word setWordClass(String wordClass) {
+        this.wordClass = wordClass;
         return this;
     }
 
-    public String getWordType() {
-        return this.wordType;
+    public String getWordClass() {
+        return this.wordClass;
     }
 
-    public Word setExampleSentences(List<ExampleSentence> exampleSentences) {
-        this.exampleSentences = exampleSentences;
+    public Word addTranslation(Translation... translations) {
+        for (Translation translation : translations) {
+            this.translations.add(translation);
+        }
+
         return this;
     }
 
-    public List<ExampleSentence> getExampleSentences() {
-        return this.exampleSentences;
+    public List<Translation> getTranslations() {
+        return this.translations;
     }
 
     @Override
     public String toString() {
-        return wordTarget + "\n" + wordExplain;
+      return wordTarget;
     }
 }

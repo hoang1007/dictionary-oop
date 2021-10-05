@@ -13,7 +13,7 @@ public class ApplicationUI extends Application {
   /** Khởi tạo UI. */
   public ApplicationUI() {
     this.title = "Gryffindor Dictionary";
-    width = 500;
+    width = 800;
     height = 600;
   }
 

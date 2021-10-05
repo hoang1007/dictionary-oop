@@ -1,10 +1,7 @@
 package com.gryffindor;
 
-import com.gryffindor.backend.api.WordNetDictionary;
 import com.gryffindor.backend.utils.DictionaryManagement;
 import com.gryffindor.frontend.ApplicationUI;
-
-import java.io.IOException;
 
 import javafx.application.Application;
 

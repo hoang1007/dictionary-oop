@@ -75,12 +75,6 @@ public class Dictionary {
   public List<Word> getSynonyms(String word_explain) {
     List<Word> synonyms = new ArrayList<>();
 
-    for (Word w : words) {
-      if (w.getWordExplain().equals(word_explain)) {
-        synonyms.add(w);
-      }
-    }
-
     return synonyms;
   }
 

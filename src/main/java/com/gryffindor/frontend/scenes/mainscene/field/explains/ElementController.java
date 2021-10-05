@@ -1,13 +1,12 @@
 package com.gryffindor.frontend.scenes.mainscene.field.explains;
 
-import com.gryffindor.DictionaryApplication;
+import com.gryffindor.backend.entities.Translation;
 import com.gryffindor.backend.entities.Word;
 import com.gryffindor.frontend.scenes.mainscene.field.IController;
 
 import java.util.Collection;
 
 import javafx.scene.control.Button;
-import javafx.scene.input.KeyCode;
 
 public class ElementController implements IController {
   ExplainsField.Element element;
@@ -16,10 +15,6 @@ public class ElementController implements IController {
   /** Khởi tạo phần dịch. */
   public ElementController(ExplainsField.Element element) {
     this.element = element;
-
-    onClickEditButton();
-    onTranslationEdited();
-    onClickDeleteButton();
   }
 
   private void setSynoymsButton(Collection<Word> words) {
@@ -38,53 +33,20 @@ public class ElementController implements IController {
   public void setWord(Word word) {
     this.word = word;
 
-    element.getExampleSentence()
-      .setText(String.format("\"%s\"", "the roses were just coming into flower"));
-    element.getWordClass().setText("danh từ");
-    element.getWordDefinition()
-      .setText("cơ quan sinh sản hữu tính của cây hạt kín, thường có màu sắc và hương thơm");
+    if (!word.getTranslations().isEmpty()) {
+      for (Translation translation : word.getTranslations()) {
+        TranslationField translationField = new TranslationField();
+        translationField.getController().setTranslation(translation);
 
-    element.getWordMeaning().setText(word.getWordExplain());
-    setSynoymsButton(null);
-  }
+        element.getTranslationFields().add(translationField);
 
-  void onClickEditButton() {
-    // chỉnh sửa bản dịch
-    element.getEditExplainButton().setOnAction(event -> {
-      element.getWordMeaning().setEditable(true);
-    });
-  }
-
-  void onClickDeleteButton() {
-    // xóa bản dịch
-    element.getDeleteExplainButton().setOnAction(event -> {
-      // do delete
-      element.getWordClass().setVisible(false);
-      element.getExampleSentence().setVisible(false);
-      element.getWordMeaning().setVisible(false);
-      element.getDeleteExplainButton().setVisible(false);
-      element.getEditExplainButton().setVisible(false);
-
-      element.getWordDefinition()
-        .setText(DictionaryApplication.INSTANCE.config.getContributeThanks());
-    });
-  }
-
-  void onTranslationEdited() {
-    element.getWordMeaning().setOnKeyPressed(event -> {
-      if (event.getCode().equals(KeyCode.ENTER)) {
-        element.getWordMeaning().setEditable(false);
-
-        element.getWordClass().setVisible(false);
-        element.getExampleSentence().setVisible(false);
-        element.getWordMeaning().setVisible(false);
-        element.getDeleteExplainButton().setVisible(false);
-        element.getEditExplainButton().setVisible(false);
-
-        element.getWordDefinition()
-          .setText(DictionaryApplication.INSTANCE.config.getContributeThanks());
+        element.getPane().getChildren().add(translationField.getPane());
       }
-    });
+    }
+
+    element.getWordClass().setText(word.getWordClass());
+
+    setSynoymsButton(null);
   }
 
   public Word getWord() {

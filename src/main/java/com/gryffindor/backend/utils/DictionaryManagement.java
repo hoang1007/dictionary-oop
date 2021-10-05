@@ -1,18 +1,18 @@
 package com.gryffindor.backend.utils;
 
+import com.google.common.collect.Iterables;
 import com.gryffindor.Config;
 import com.gryffindor.DictionaryApplication;
 import com.gryffindor.backend.entities.Dictionary;
 import com.gryffindor.backend.entities.ExampleSentence;
+import com.gryffindor.backend.entities.Translation;
 import com.gryffindor.backend.entities.Word;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -101,54 +101,12 @@ public class DictionaryManagement {
     String word_target = scanner.nextLine();
 
     if (dictionary.searchWord(word_target) != null) {
-      System.out.println(word_target + ":    " + dictionary.searchWord(word_target).getWordExplain());
+      System.out.println(word_target + ":    " + dictionary.searchWord(word_target).getTranslations().get(0).getWordExplain());
     } else {
       System.out.println("Chưa có từ " + word_target + " trong từ điển");
     }
-  }
-
-  /** Export to file. */
-  public void dictionaryExportToFile() {
-    String url = ".\\src\\resources\\output.txt";
-
-    /* Create new file. */
-    File file = null;
-    boolean isCreate = false;
-    try {
-      file = new File(url);
-      isCreate = file.createNewFile();
-      if (isCreate)
-        System.out.print("File creation successfull!");
-      else
-        System.out.print("Can't create new file!" + "");
-    } catch (Exception e) {
-      System.out.print(e);
-    }
-
-    /* Write word to file. */
-    FileWriter fileWriter = null;
-    BufferedWriter bufferedWriter = null;
-
-    try {
-      fileWriter = new FileWriter(url, false);
-      bufferedWriter = new BufferedWriter(fileWriter);
-      for (Word word : dictionary.getAllWords()) {
-        bufferedWriter.write(word.getWordTarget() + "\t" + word.getWordExplain());
-        bufferedWriter.newLine();
-        bufferedWriter.flush();
-      }
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
-    } finally {
-      try {
-        fileWriter.close();
-        bufferedWriter.close();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
+    
+    scanner.close();
   }
 
   /** Xóa word từ dòng lệnh */
@@ -202,6 +160,9 @@ public class DictionaryManagement {
       String word_class = "";
 
       for (String line = bufferedReader.readLine(); line != null; line = bufferedReader.readLine()) {
+        if (words.size() > 100) {
+          break;
+        }
 
         // word target and word spelling is in the same line
         if (line.startsWith(config.getWordTargetSign())) {
@@ -216,32 +177,36 @@ public class DictionaryManagement {
             word_spelling = TextUtils.format(word_spelling);
           } catch (Exception e) {
             word_target = line.substring(posTarget + 1);
+            word_spelling = TextUtils.empty();
           }
 
           System.out.println("Found spelling: " + word_spelling);
           System.out.println("Found word target: " + word_target);
 
         } else if (line.startsWith(config.getWordClassSign())) { // word class
+          // mỗi loại từ là một từ
+          words.add(new Word(word_target, word_spelling));
+
           word_class = line.substring(line.indexOf(config.getWordClassSign()) + 1);
           word_class = TextUtils.format(word_class);
 
           System.out.println("Found word type " + word_class);
 
           if (!words.empty()) {
-            words.peek().setWordType(word_class);
+            words.peek().setWordClass(word_class);
           }
         } else if (line.startsWith(config.getWordExplainSign())) {
-          // mỗi phần giải thích là một từ
-          words.add(new Word());
+          // mỗi từ giải thích bắt đầu 1 phần giải thích
+
           String word_explain = line.substring(line.indexOf(config.getWordExplainSign()) + 1);
           word_explain = TextUtils.format(word_explain);
 
           System.out.println("Found explain: " + word_explain);
 
-          words.peek().setWordExplain(word_explain);
+          words.peek().addTranslation(new Translation(word_explain));
 
-          if (words.peek().getWordType().length() == 0) {
-            words.peek().setWordType(word_class);
+          if (words.peek().getWordClass().length() == 0) {
+            words.peek().setWordClass(word_class);
           }
           if (words.peek().getWordTarget().length() == 0) {
             words.peek().setWordTarget(word_target);
@@ -256,15 +221,19 @@ public class DictionaryManagement {
           ExampleSentence eSentence = new ExampleSentence(example[0], example[1]);
           System.out.println("Found example " + eSentence);
 
-          words.peek().getExampleSentences().add(eSentence);
+          Iterables.getLast(words.peek().getTranslations()).addExampleSentences(eSentence);
         }
       }
     } catch (IOException e) {
       e.printStackTrace();
     }
 
-    System.out.println(words.size());
+    // Add all words loaded to the dictionary
+    for (Word word : words) {
+      dictionary.addWord(word);
+    }
   }
+
 
   // export to file chooser
   public void dictionaryExportToFile(File file) {

@@ -37,7 +37,7 @@ public class TranslateController implements IController {
     this.word = word;
 
     translateField.getPane().setVisible(true);
-    translateField.getPronouncedText().setText("phiên âm IPA");
+    translateField.getPronouncedText().setText(word.getWordSpelling());
     translateField.getWordTarget().setText(word.getWordTarget());
   }
 

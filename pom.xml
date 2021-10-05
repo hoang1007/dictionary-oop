@@ -24,9 +24,13 @@
   </properties>
 
   <dependencies>
-    <!-- voce speech recognition -->
-    
-    <!-- https://mvnrepository.com/artifact/net.sf.sociaal/freetts -->
+    <!-- firebase store -->
+    <dependency>
+      <groupId>com.google.firebase</groupId>
+      <artifactId>firebase-admin</artifactId>
+      <version>8.1.0</version>
+    </dependency>
+    <!-- extjwnl library dependency -->
     <dependency>
       <groupId>net.sf.sociaal</groupId>
       <artifactId>freetts</artifactId>
@@ -118,14 +122,6 @@
           <skip>${skipTests}</skip>
         </configuration>
         <executions>
-          <!-- <execution>
-            <?m2e execute onConfiguration?>
-            <id>checkstyle</id>
-            <phase>validate</phase>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution> -->
         </executions>
       </plugin>
       <plugin>
