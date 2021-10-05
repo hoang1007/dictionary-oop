@@ -1,9 +1,6 @@
 package com.gryffindor.backend.libraries;
 
 import com.gryffindor.backend.entities.Dictionary;
-import com.gryffindor.backend.entities.Word;
-
-import java.util.List;
 
 public class BinarySearch {
 
@@ -16,24 +13,31 @@ public class BinarySearch {
     /**
      * Hàm tìm kiếm nhị phân
      * compareTo(): hàm so sánh xâu theo thứ tự bảng chữ cái
+     * @return
      */
-    public Word binarySearching(String word_target) {
-        int low = 0;
-        int high = dictionaries.getAllWords().size()-1;
+    public int binarySearching(String wordTarget, int low , int high) {
+        if (low < 0) {
+            low = 0;
+        }
+
+        if (high > dictionaries.getAllWords().size()-1) {
+            high = dictionaries.getAllWords().size() - 1;
+        }
+
         int mid;
 
         while (low <= high) {
             mid = (low + high) / 2;
 
-            if (dictionaries.getAllWords().get(mid).getWordTarget().compareTo(word_target) < 0) {
+            if (dictionaries.getAllWords().get(mid).getWordTarget().compareTo(wordTarget) < 0) {
                 low = mid + 1;
-            } else if (dictionaries.getAllWords().get(mid).getWordTarget().compareTo(word_target) > 0) {
+            } else if (dictionaries.getAllWords().get(mid).getWordTarget().compareTo(wordTarget) > 0) {
                 high = mid - 1;
             } else {
-                return dictionaries.getAllWords().get(mid);
+                return mid;
             }
         }
 
-        return null;
+        return -1;
     }
 }
