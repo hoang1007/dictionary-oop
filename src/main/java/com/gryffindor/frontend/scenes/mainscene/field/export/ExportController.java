@@ -16,12 +16,10 @@ public class ExportController implements IController {
 
   public ExportController(ExportField exportField) {
     this.exportField = exportField;
-  }
 
-  // Khởi tạo
-  public ExportController() {
     initialize();
     addExtensionFilter();
+    onClickExport();
   }
 
   // Khởi tạo đường dân mặc định khi click vào button export

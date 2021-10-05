@@ -153,7 +153,7 @@ public class DictionaryManagement {
     Config config = DictionaryApplication.INSTANCE.config;
     Stack<Word> words = new Stack<>();
 
-    try (BufferedReader bufferedReader = new BufferedReader(new FileReader(new File(config.getDataDictionaryPath())))) {
+    try (BufferedReader bufferedReader = new BufferedReader(new FileReader(new File("src/main/resources/dictionaries.txt")))) {
 
       String word_target = "";
       String word_spelling = "";

@@ -19,18 +19,18 @@ public class Dictionary {
   }
 
   // get word list which word should be in
-  private List<Word> getWordList(Word word) {
-    return dataset.get(word.getWordTarget().charAt(0));
+  private List<Word> getWordList(String c) {
+    return dataset.get(c.charAt(0));
   }
 
   /** Thêm từ mới vào từ điển. */
   public void addWord(Word word) {
-    getWordList(word).add(word);
+    getWordList(word.getWordTarget()).add(word);
   }
 
   /** Xóa từ khỏi từ điển. */
   public void removeWord(Word word) {
-    getWordList(word).remove(word);
+    getWordList(word.getWordTarget()).remove(word);
   }
 
   /**
@@ -39,7 +39,7 @@ public class Dictionary {
    * @return trả về từ mới nếu tìm thấy, null nếu không tìm được
    */
   public Word searchWord(String word_target) {
-    for (Word w : words) {
+    for (Word w : getWordList(word_target)) {
       if (w.getWordTarget().equals(word_target)) {
         return w;
       }
@@ -58,11 +58,11 @@ public class Dictionary {
   public List<Word> searchWords(String word_target) {
     List<Word> wordFounds = new ArrayList<>();
 
-    for (Word w : words) {
-      if (w.getWordTarget().startsWith(word_target)) {
-        wordFounds.add(w);
-      }
-    }
+    // for (Word w : words) {
+    //   if (w.getWordTarget().startsWith(word_target)) {
+    //     wordFounds.add(w);
+    //   }
+    // }
 
     return wordFounds;
   }
@@ -80,6 +80,6 @@ public class Dictionary {
 
   /** Lấy tất cả các từ có trong từ điển. */
   public List<Word> getAllWords() {
-    return words;
+    return dataset.get('a');
   }
 }

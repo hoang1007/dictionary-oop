@@ -8,13 +8,13 @@ import com.gryffindor.frontend.utils.ImageUtils;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 
 public class ExportField implements IField {
   private final Pane pane;
 
   private Button exportButton;
+
+  private ExportController controller;
 
   /** Khởi tạo vùng export. */
   public ExportField() {
@@ -22,6 +22,8 @@ public class ExportField implements IField {
 
     initExportButton();
     pane.getChildren().add(exportButton);
+
+    controller = new ExportController(this);
   }
 
   void initExportButton() {
@@ -46,6 +48,6 @@ public class ExportField implements IField {
 
   @Override
   public IController getController() {
-    return null;
+    return controller;
   }
 }
