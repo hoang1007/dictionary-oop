@@ -30,18 +30,18 @@ public class DictionaryManagement {
     /** Nhập từ mới từ command line. */
     public void insertFromCommandline() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Nhap so tu moi muon them:");
+        System.out.println("Nhập số từ bạn muốn thêm:");
 
         int n = scanner.nextInt();
         scanner.nextLine(); // bỏ qua 1 dòng thừa
 
         for (int i = 1; i <= n; i++) {
-            System.out.println(String.format("Dang nhap tu thu %d...", i));
-            System.out.println("Nhap tu moi:");
+            System.out.println(String.format("Đang nhập từ thứ %d...", i));
+            System.out.println("Nhập từ mới:");
 
             String word_target = scanner.nextLine();
 
-            System.out.println("Nhap nghia:");
+            System.out.println("Nhập nghĩa:");
             String word_explain = scanner.nextLine();
 
             dictionary.addWord(new Word(word_target, word_explain));
@@ -53,15 +53,17 @@ public class DictionaryManagement {
     /** Nhập từ mới từ file dictionaries.txt. */
     public void insertFromFile() {
         // url file dictionaries.txt
-        String url = "D:\\IT\\Java\\Project\\Dictionary\\src\\resources\\dictionary.txt";
+        String url = ".\\src\\resources\\dictionary.txt";
 
         // Đọc dữ liệu từ File với BufferedReader.
         FileInputStream fileInputStream = null;
         BufferedReader bufferedReader = null;
+
         try {
             fileInputStream = new FileInputStream(url);
             bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
             String line = bufferedReader.readLine();
+
             while (line != null) {
                 // Xử lí xâu từ file text truyền vào mảng Word.
                 for (int i = 1; i < line.length(); i++) {
@@ -90,19 +92,21 @@ public class DictionaryManagement {
 
     /** Tra cuu tu dien bang commandline. */
     public void dictionaryLookup() {
-        System.out.println("Nhap tu can tra: ");
+        System.out.println("Nhập từ cần tra: ");
         Scanner scanner = new Scanner(System.in);
         String word_target = scanner.nextLine();
+
         if (dictionary.searchWord(word_target) != null) {
-            System.out.println(word_target + " co nghia la: " + dictionary.searchWord(word_target).getWordExplain());
+            System.out.println(word_target + ":    " + dictionary.searchWord(word_target).getWordExplain());
         } else {
-            System.out.println("Khong co tu " + word_target + " trong tu dien");
+            System.out.println("Chưa có từ " + word_target + " trong từ điển");
         }
     }
 
     /** Export to file. */
     public void dictionaryExportToFile() {
-        String url = "D:\\IT\\Java\\Project\\Dictionary\\src\\resources\\output.txt";
+        String url = ".\\src\\resources\\output.txt";
+
         /* Create new file. */
         File file = null;
         boolean isCreate = false;
@@ -110,15 +114,18 @@ public class DictionaryManagement {
             file = new File(url);
             isCreate = file.createNewFile();
             if (isCreate)
-                System.out.print("Da tao file thanh cong!");
+                System.out.print("File creation successfull!");
             else
-                System.out.print("Tao file that bai");
+                System.out.print("Can't create new file!" +
+                    "");
         } catch (Exception e) {
             System.out.print(e);
         }
+
         /* Write word to file. */
         FileWriter fileWriter = null;
         BufferedWriter bufferedWriter = null;
+
         try {
             fileWriter = new FileWriter(url, false);
             bufferedWriter = new BufferedWriter(fileWriter);
@@ -147,6 +154,7 @@ public class DictionaryManagement {
         Scanner sc = new Scanner(System.in);
         String wordDeleteTarget = sc.nextLine();
         Word wordDelete = dictionary.searchWord(wordDeleteTarget);
+
         if (wordDelete == null) {
             System.out.println("Không có từ " + wordDeleteTarget + "trong từ điển.");
         } else {
@@ -163,6 +171,7 @@ public class DictionaryManagement {
         String wordUpdateTarget = sc.nextLine();
         Word wordUpdate = dictionary.searchWord(wordUpdateTarget);
         int index = dictionary.getAllWords().indexOf(wordUpdate);
+
         if (index != -1) {
             System.out.print("Nhập nghĩa: ");
             String wordUpdateExplain = sc.nextLine();
@@ -182,7 +191,6 @@ public class DictionaryManagement {
     public void addDataFromFile() {
         Config config = DictionaryApplication.INSTANCE.config;
         Stack<Word> words = new Stack<>();
-
 
         try (BufferedReader bufferedReader = new BufferedReader(
             new FileReader(new File(config.getDataDictionaryPath())))) {
