@@ -57,7 +57,6 @@ public class ExportController implements IController {
                 ls.add(new Word("mother", "me"));
                 ls.add(new Word("nephew", "chau trai"));
                 int list_size = ls.size();
-
                 for (int i = 0; i < list_size; i++) {
                     pw.write(ls.get(i).toString());
                     pw.write("\n");
