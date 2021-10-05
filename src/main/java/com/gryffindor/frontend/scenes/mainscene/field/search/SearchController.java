@@ -2,6 +2,7 @@ package com.gryffindor.frontend.scenes.mainscene.field.search;
 
 import java.util.concurrent.ExecutionException;
 
+import com.gryffindor.DictionaryApplication;
 import com.gryffindor.backend.api.FireStore;
 import com.gryffindor.backend.entities.Word;
 import com.gryffindor.frontend.event.WordEvent;
@@ -42,7 +43,6 @@ public class SearchController implements IController {
   }
 
   void actionOnSearching() {
-
     searchField.getSearchBox().textProperty().addListener((observable, oldValue, newValue) -> {
       // nếu search box trống
       // hiện lịch sử tìm kiếm
@@ -82,11 +82,8 @@ public class SearchController implements IController {
   }
 
   void onSearchRequest(Node node, String wordTarget) {
-    try {
-      Word word = FireStore.find(wordTarget);
-      node.fireEvent(new WordEvent(word));
-    } catch (InterruptedException | ExecutionException e) {
-      e.printStackTrace();
-    }
+    Word word = DictionaryApplication.INSTANCE.dictionaryManagement.dictionary.searchWord(wordTarget);
+
+    node.fireEvent(new WordEvent(word));
   }
 }

@@ -29,6 +29,8 @@ public final class DictionaryApplication {
   public static void main(String[] args) throws Exception {
     // INSTANCE.runApplication();
     INSTANCE.dictionaryManagement.addDataFromFile();
+
+    INSTANCE.runApplication();
   }
 
 

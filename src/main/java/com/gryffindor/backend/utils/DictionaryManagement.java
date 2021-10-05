@@ -189,6 +189,10 @@ public class DictionaryManagement {
             String word_class = "";
 
             for (String line = bufferedReader.readLine(); line != null; line = bufferedReader.readLine()) {
+                if (words.size() > 100) {
+                  break;
+                }
+                
                 // word target and word spelling is in the same line
                 if (line.startsWith(config.getWordTargetSign())) {
                     int posTarget = line.indexOf(config.getWordTargetSign());
@@ -254,6 +258,9 @@ public class DictionaryManagement {
             e.printStackTrace();
         }
 
-        System.out.println(words.size());
+        // Add all words loaded to the dictionary
+        for (Word word : words) {
+          dictionary.addWord(word);
+        }
     }
 }

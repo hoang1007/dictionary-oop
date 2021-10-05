@@ -4,7 +4,7 @@ public class ExampleSentence {
     private String langTo;
     private String langFrom;
 
-    public ExampleSentence(String langTo, String langFrom) {
+    public ExampleSentence(String langFrom, String langTo) {
         this.langTo = langTo;
         this.langFrom = langFrom;
     }

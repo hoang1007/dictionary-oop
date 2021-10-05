@@ -67,4 +67,9 @@ public class Word {
     public List<Translation> getTranslations() {
         return this.translations;
     }
+
+    @Override
+    public String toString() {
+      return wordTarget;
+    }
 }

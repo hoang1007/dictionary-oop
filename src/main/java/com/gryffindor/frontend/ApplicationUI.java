@@ -14,8 +14,8 @@ public class ApplicationUI extends Application {
   /** Khởi tạo UI. */
   public ApplicationUI() {
     this.title = "Gryffindor Dictionary";
-    width = 500;
-    height = 800;
+    width = 800;
+    height = 600;
   }
 
   @Override
