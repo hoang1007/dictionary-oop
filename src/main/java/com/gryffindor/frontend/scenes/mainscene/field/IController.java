@@ -4,6 +4,6 @@ import javafx.stage.FileChooser;
 import java.awt.Desktop;
 
 public interface IController {
-    Desktop desktop = Desktop.getDesktop();
+    // Desktop desktop = Desktop.getDesktop();
     FileChooser fileChooser = new FileChooser();
 }

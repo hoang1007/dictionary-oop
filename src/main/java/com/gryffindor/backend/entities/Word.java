@@ -27,6 +27,6 @@ public class Word {
 
   @Override
   public String toString() {
-    return wordTarget + "\n" + wordExplain;
+    return wordTarget + " - " + wordExplain;
   }
 }

@@ -17,6 +17,10 @@ public class DictionaryManagement {
     exportController = new ExportController();
   }
 
+  public Dictionary getDictionary() {
+    return dictionary;
+  }
+
   /**
    * Nhập từ mới từ command line.
    */

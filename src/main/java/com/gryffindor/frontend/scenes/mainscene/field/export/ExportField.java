@@ -27,6 +27,8 @@ public class ExportField implements IField {
   void initExportButton() {
     exportButton = new Button("Export word list to file");
     exportButton.getStyleClass().add("tool-button");
+
+    // sự kiện nhấn chuật vào Export button
     exportButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
