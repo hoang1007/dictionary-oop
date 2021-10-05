@@ -8,6 +8,8 @@ import com.gryffindor.frontend.utils.ImageUtils;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
 public class ExportField implements IField {
   private final Pane pane;

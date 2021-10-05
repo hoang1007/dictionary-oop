@@ -19,7 +19,7 @@ public class GoogleTranslator {
    * @return bản dịch
    * @throws IOException không nhận được bản dịch từ google
    */
-  public static String translate(String wordTarget, Language from, Language to) 
+  public static String translate(String wordTarget, Language from, Language to)
                                                 throws IOException {
     String urlString = DictionaryApplication.INSTANCE.config.getGoogleApiUrl()
                     + "?q=" + URLEncoder.encode(wordTarget, "UTF-8")

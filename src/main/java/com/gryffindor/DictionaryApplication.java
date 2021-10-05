@@ -1,5 +1,6 @@
 package com.gryffindor;
 
+import com.gryffindor.backend.api.WordNetDictionary;
 import com.gryffindor.backend.utils.DictionaryManagement;
 import com.gryffindor.frontend.ApplicationUI;
 
@@ -27,9 +28,9 @@ public final class DictionaryApplication {
    * Main method.
    * 
    * @param args The arguments of the program.
-   * @throws IOException lỗi khi khởi chạy đồ họa
+   * @throws Exception lỗi khi khởi chạy
    */
-  public static void main(String[] args) throws IOException {
+  public static void main(String[] args) throws Exception {
     // new DictionaryCommandline().dictionaryBasic();
     INSTANCE.runApplication();
 
