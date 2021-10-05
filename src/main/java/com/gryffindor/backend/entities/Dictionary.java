@@ -1,23 +1,36 @@
 package com.gryffindor.backend.entities;
 
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 public class Dictionary {
-  private final List<Word> words;
+  /* Tập dữ liệu ánh xạ từ các kí tự từ a-z
+  * đến danh sách các từ bắt đầu bằng kí tự đó
+  */
+  private Hashtable<Character, List<Word>> dataset;
 
   public Dictionary() {
-    words = new ArrayList<>();
+    dataset = new Hashtable<>();
+
+    for (char c = 'a'; c <= 'z'; c++) {
+      dataset.put(c, new ArrayList<Word>());
+    }
+  }
+
+  // get word list which word should be in
+  private List<Word> getWordList(Word word) {
+    return dataset.get(word.getWordTarget().charAt(0));
   }
 
   /** Thêm từ mới vào từ điển. */
   public void addWord(Word word) {
-    words.add(word);
+    getWordList(word).add(word);
   }
 
   /** Xóa từ khỏi từ điển. */
   public void removeWord(Word word) {
-    words.remove(word);
+    getWordList(word).remove(word);
   }
 
   /**
