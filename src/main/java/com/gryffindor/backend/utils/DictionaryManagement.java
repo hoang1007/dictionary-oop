@@ -160,7 +160,7 @@ public class DictionaryManagement {
       String word_class = "";
 
       for (String line = bufferedReader.readLine(); line != null; line = bufferedReader.readLine()) {
-        if (words.size() > 100) {
+        if (words.size() > 200) {
           break;
         }
 
@@ -230,7 +230,12 @@ public class DictionaryManagement {
 
     // Add all words loaded to the dictionary
     for (Word word : words) {
-      dictionary.addWord(word);
+      try {
+        dictionary.addWord(word);
+      } catch (Exception e) {
+        System.out.println(word.getWordTarget());
+        System.out.println(word.getWordTarget().length());
+      }
     }
   }
 

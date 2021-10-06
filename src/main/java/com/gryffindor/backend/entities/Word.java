@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.gryffindor.backend.utils.TextUtils;
 
-public class Word {
+public class Word implements Comparable<Word> {
     private String wordTarget = TextUtils.empty();
     private String wordSpelling = TextUtils.empty(); // phiên âm.
     private String wordClass = TextUtils.empty();
@@ -71,5 +71,10 @@ public class Word {
     @Override
     public String toString() {
       return wordTarget;
+    }
+
+    @Override
+    public int compareTo(Word o) {
+      return this.wordTarget.compareTo(o.wordTarget);
     }
 }

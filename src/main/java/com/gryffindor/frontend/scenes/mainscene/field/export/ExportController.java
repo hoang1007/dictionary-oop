@@ -8,14 +8,16 @@ import java.io.File;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class ExportController implements IController {
-
   ExportField exportField;
+  FileChooser fileChooser;
 
   public ExportController(ExportField exportField) {
     this.exportField = exportField;
+    fileChooser = new FileChooser();
 
     initialize();
     addExtensionFilter();
@@ -29,8 +31,8 @@ public class ExportController implements IController {
   }
 
   public void setTitleAndFileName(String title, String nameOfFile) {
-    IController.fileChooser.setInitialFileName(nameOfFile);
-    IController.fileChooser.setTitle(title);
+    fileChooser.setInitialFileName(nameOfFile);
+    fileChooser.setTitle(title);
   }
 
   public void addExtensionFilter() {
@@ -38,14 +40,14 @@ public class ExportController implements IController {
     ExtensionFilter txt = new ExtensionFilter("TEXT files", "*.txt");
     // ExtensionFilter pdf = new ExtensionFilter("PDF", "*.pdf");
     ExtensionFilter allFile = new ExtensionFilter("All Files", "*.*");
-    IController.fileChooser.getExtensionFilters().addAll(txt, allFile);
+    fileChooser.getExtensionFilters().addAll(txt, allFile);
   }
 
   // export to file
   public void export() {
     setTitleAndFileName("Save file", "file_name");
 
-    File file = IController.fileChooser.showSaveDialog(new Stage());
+    File file = fileChooser.showSaveDialog(new Stage());
 
     DictionaryApplication.INSTANCE.getDictionaryManagement().dictionaryExportToFile(file);
   }

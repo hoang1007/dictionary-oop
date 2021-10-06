@@ -22,14 +22,6 @@ public class WordNetDictionary {
         }
     }
 
-    public static void lookup(String word) throws JWNLException {
-        List<String> words = getAllWords();
-
-        for (String lemma : words) {
-            System.out.println(lemma);
-        }
-    }
-
     public static List<String> getSynonyms(String word, POS pos) {
         Synset synset = Util.getCommonSynset(word, pos);
 
@@ -54,6 +46,7 @@ public class WordNetDictionary {
 
         return words;
     }
+
     
     static class Util {
         private static Synset getCommonSynset(String word, POS pos) {

@@ -1,7 +1,7 @@
 package com.gryffindor.frontend.scenes.mainscene.field.translate;
 
 import com.gryffindor.backend.entities.Word;
-import com.gryffindor.backend.utils.Text;
+import com.gryffindor.backend.utils.TextUtils;
 import com.gryffindor.frontend.scenes.mainscene.field.IController;
 
 public class TranslateController implements IController {
@@ -21,7 +21,7 @@ public class TranslateController implements IController {
     translateField.getPronouncedButton().setOnAction(event -> {
       System.out.println("pron clicked");
       try {
-        Text.toSpeech(translateField.getWordTarget().getText());
+        TextUtils.toSpeech(translateField.getWordTarget().getText());
       } catch (Exception e) {
         e.printStackTrace();
       }

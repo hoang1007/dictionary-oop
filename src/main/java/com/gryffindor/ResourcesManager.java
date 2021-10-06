@@ -1,10 +1,10 @@
 package com.gryffindor;
 
-import com.gryffindor.backend.utils.Text;
+import com.gryffindor.backend.utils.TextUtils;
 
 public class ResourcesManager {
   /** Free resources. */
   public void free() {
-    Text.free();
+    TextUtils.free();
   }
 }

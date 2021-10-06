@@ -1,26 +1,27 @@
 package com.gryffindor.backend.entities;
 
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
+import com.gryffindor.backend.utils.SortedList;
+
 public class Dictionary {
-  /* Tập dữ liệu ánh xạ từ các kí tự từ a-z
+  /* Tập dữ liệu từ các kí tự từ a-z
   * đến danh sách các từ bắt đầu bằng kí tự đó
   */
-  private Hashtable<Character, List<Word>> dataset;
+  private List<SortedList<Word>> dataset;
 
   public Dictionary() {
-    dataset = new Hashtable<>();
+    dataset = new ArrayList<>();
 
     for (char c = 'a'; c <= 'z'; c++) {
-      dataset.put(c, new ArrayList<Word>());
+      dataset.add(new SortedList<>());
     }
   }
 
   // get word list which word should be in
-  private List<Word> getWordList(String c) {
-    return dataset.get(c.charAt(0));
+  public List<Word> getWordList(String c) {
+    return dataset.get(c.charAt(0) - 'a');
   }
 
   /** Thêm từ mới vào từ điển. */
@@ -35,12 +36,12 @@ public class Dictionary {
 
   /**
    * Tìm một từ trong từ điển.
-   * @param word_target từ mới muốn tìm
+   * @param wordTarget từ mới muốn tìm
    * @return trả về từ mới nếu tìm thấy, null nếu không tìm được
    */
-  public Word searchWord(String word_target) {
-    for (Word w : getWordList(word_target)) {
-      if (w.getWordTarget().equals(word_target)) {
+  public Word searchWord(String wordTarget) {
+    for (Word w : getWordList(wordTarget)) {
+      if (w.getWordTarget().equals(wordTarget)) {
         return w;
       }
     }
@@ -52,17 +53,17 @@ public class Dictionary {
    * Tìm tất cả các từ liên quan.
    * VD: "tra" trả về tradition, translate
    * Tìm tất cả từ đồng âm.
-   * @param word_target từ mới muốn tìm
+   * @param wordTarget từ mới muốn tìm
    * @return danh sách các từ tìm được
    */
-  public List<Word> searchWords(String word_target) {
+  public List<Word> searchWords(String wordTarget) {
     List<Word> wordFounds = new ArrayList<>();
 
-    // for (Word w : words) {
-    //   if (w.getWordTarget().startsWith(word_target)) {
-    //     wordFounds.add(w);
-    //   }
-    // }
+    for (Word w : getWordList(wordTarget)) {
+      if (w.getWordTarget().startsWith(wordTarget)) {
+        wordFounds.add(w);
+      }
+    }
 
     return wordFounds;
   }
@@ -80,6 +81,12 @@ public class Dictionary {
 
   /** Lấy tất cả các từ có trong từ điển. */
   public List<Word> getAllWords() {
-    return dataset.get('a');
+    List<Word> allWords = dataset.get(0);
+
+    for (int i = 1; i < dataset.size(); i++) {
+      allWords.addAll(dataset.get(i));
+    }
+
+    return allWords;
   }
 }
