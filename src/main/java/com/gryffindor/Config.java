@@ -1,15 +1,10 @@
 package com.gryffindor;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
-
-import com.gryffindor.backend.utils.PathUtils;
 
 public class Config {
   private final String resourcesPath;
@@ -17,8 +12,6 @@ public class Config {
   private String googleApiUrl;
   private String style;
   private String imagesPath;
-  private String dataDictionaryPath;
-  private String tessdata;
 
   private String contributeThanks;
   private String wordTargetSign;
@@ -28,7 +21,8 @@ public class Config {
   private String wordSpellingSign;
   private String exampleDelim;
 
-
+  private InputStream dictionaryDataStream = null;
+  private InputStream googleServiceStream = null;
 
   /** Khởi tạo config. */
   public Config() {
@@ -57,23 +51,20 @@ public class Config {
 
     style = resourcesPath + "/styles/styles.css";
     imagesPath = resourcesPath + "/images";
-    
-    try {
-      URI uri = new URI(resourcesPath + "/tessdata");
-
-      tessdata = new File(uri.getSchemeSpecificPart()).getPath();
-      System.out.println(tessdata);
-    } catch (URISyntaxException e) {
-      e.printStackTrace();
-    }
+    dictionaryDataStream = getClass().getResourceAsStream("/dictionaries.txt");
+    googleServiceStream = getClass().getResourceAsStream("/serviceAccount.json");
   }
 
   public String getGoogleApiUrl() {
     return googleApiUrl;
   }
 
-  public String getDataDictionaryPath() {
-    return dataDictionaryPath;
+  public InputStream getDataDictionaryStream() {
+    return dictionaryDataStream;
+  }
+
+  public InputStream getGoogleServiceStream() {
+    return googleServiceStream;
   }
 
   public String getStyle() {
@@ -110,9 +101,5 @@ public class Config {
 
   public String getExampleDelim() {
     return exampleDelim;
-  }
-
-  public String getTessdata() {
-    return tessdata;
   }
 }

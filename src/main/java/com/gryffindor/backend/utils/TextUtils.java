@@ -1,7 +1,5 @@
 package com.gryffindor.backend.utils;
 
-import com.gryffindor.DictionaryApplication;
-
 import java.io.File;
 import java.util.Locale;
 
@@ -14,6 +12,7 @@ import javax.speech.synthesis.SynthesizerModeDesc;
 
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
+import net.sourceforge.tess4j.util.LoadLibs;
 
 public class TextUtils {
   private static final Tesseract tesseract;
@@ -21,10 +20,11 @@ public class TextUtils {
 
   static {
     tesseract = new Tesseract();
-    tesseract.setDatapath(DictionaryApplication.INSTANCE.config.getTessdata());
+    File tessdata = LoadLibs.extractTessResources("/tessdata");
+    tesseract.setDatapath(tessdata.getAbsolutePath());
+    tesseract.setLanguage("eng");
 
     System.setProperty("freetts.voices", "com.sun.speech.freetts.en.us" + ".cmu_us_kal.KevinVoiceDirectory");
-
     try {
       SynthesizerModeDesc dModeDesc = new SynthesizerModeDesc(Locale.US);
       Central.registerEngineCentral("com.sun.speech.freetts" + ".jsapi.FreeTTSEngineCentral");

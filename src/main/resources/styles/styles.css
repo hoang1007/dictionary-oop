@@ -65,9 +65,23 @@
   -fx-text-fill: #002545;
 }
 
+
 .word-meaning {
-  -fx-font-size: 16px;
-  -fx-text-fill: #002545;
+  -fx-background-color: transparent;
+}
+
+.word-meaning .scroll-pane {
+  -fx-background-color: transparent;
+  -fx-hbar-policy:never;
+  -fx-vbar-policy:never;
+}
+
+.word-meaning .scroll-pane .viewport{
+  -fx-background-color: transparent;
+}
+
+
+.word-meaning .scroll-pane .content{
   -fx-background-color: transparent;
 }
 
@@ -111,4 +125,20 @@
 
 .transparent-button {
   -fx-background-color: transparent;
+}
+
+.synonym-button {
+  -fx-background-color:#53caee;
+  -fx-background-radius: 10px;
+}
+
+.synonym-button:hover {
+  -fx-background-color: #3ac0e9;
+}
+
+.search-button {
+  -fx-background-color: #98f7f7;
+  -fx-min-width: 55px;
+  -fx-min-height: 55px;
+  -fx-background-radius: 50%;
 }

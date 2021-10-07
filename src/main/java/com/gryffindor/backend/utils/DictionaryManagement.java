@@ -12,10 +12,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
@@ -153,17 +153,15 @@ public class DictionaryManagement {
     Config config = DictionaryApplication.INSTANCE.config;
     Stack<Word> words = new Stack<>();
 
-    try (BufferedReader bufferedReader = new BufferedReader(new FileReader(new File("src/main/resources/dictionaries.txt")))) {
+    try (InputStreamReader reader = new InputStreamReader(config.getDataDictionaryStream(), StandardCharsets.UTF_8);
+      BufferedReader bufferedReader = new BufferedReader(reader)) {
 
       String word_target = "";
       String word_spelling = "";
       String word_class = "";
 
       for (String line = bufferedReader.readLine(); line != null; line = bufferedReader.readLine()) {
-        if (words.size() > 200) {
-          break;
-        }
-
+        if (words.size() > 200) break;
         // word target and word spelling is in the same line
         if (line.startsWith(config.getWordTargetSign())) {
           int posTarget = line.indexOf(config.getWordTargetSign());

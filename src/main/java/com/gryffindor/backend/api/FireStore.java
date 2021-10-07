@@ -1,8 +1,5 @@
 package com.gryffindor.backend.api;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -11,67 +8,68 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.QueryDocumentSnapshot;
-import com.google.cloud.firestore.QuerySnapshot;
 import com.google.cloud.firestore.WriteBatch;
 import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
+import com.gryffindor.DictionaryApplication;
 import com.gryffindor.backend.entities.Word;
 
 public class FireStore {
-    private static Firestore database;
+  private static Firestore database;
 
-    static {
-        try {
-            InputStream serviceAccount = new FileInputStream(
-                    "C:/Users/hoang/OneDrive/Documents/CodeSpace/Java/OASIS/dictionary/src/main/resources/serviceAccount.json");
+  static {
+    try {
+      GoogleCredentials credentials = GoogleCredentials.fromStream(DictionaryApplication.INSTANCE.config.getGoogleServiceStream());
 
-            GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
+      FirebaseOptions options = FirebaseOptions.builder().setCredentials(credentials).build();
 
-            FirebaseOptions options = FirebaseOptions.builder().setCredentials(credentials).build();
+      FirebaseApp.initializeApp(options);
+      database = FirestoreClient.getFirestore();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
 
-            FirebaseApp.initializeApp(options);
-            database = FirestoreClient.getFirestore();
-        } catch (Exception e) {
-            e.printStackTrace();
+  public static void add(Word word) throws InterruptedException, ExecutionException {
+    ApiFuture<WriteResult> future = database.collection("dictionary").document(word.getWordTarget()).set(word);
+
+    System.out.println("added to database " + future.get().getUpdateTime());
+  }
+
+  public static void add(List<Word> words) {
+    final int MAX_REQUEST = 400;
+
+    for (int itr = 0; itr < words.size();) {
+      boolean start = true;
+      WriteBatch batch = database.batch();
+
+      for (; itr < words.size() && itr % MAX_REQUEST != 0 || start; itr++) {
+        Word word = words.get(itr);
+        DocumentReference docRef = database.collection("dictionary").document(word.getWordTarget());
+        batch.set(docRef, word);
+        start = false;
+        System.out.print(itr + " ");
+      }
+
+      ApiFuture<List<WriteResult>> future = batch.commit();
+
+      try {
+        for (WriteResult result : future.get()) {
+          System.out.println("Update time : " + result.getUpdateTime());
         }
+      } catch (InterruptedException | ExecutionException e) {
+        e.printStackTrace();
+      }
     }
+  }
 
-    public static void add(Word word) throws InterruptedException, ExecutionException {
-        ApiFuture<DocumentReference> future = database.collection("dictionary").add(word);
+  public static Word find(String wordTarget) throws InterruptedException, ExecutionException {
+    ApiFuture<DocumentSnapshot> future = database.collection("dictionary").document(wordTarget).get();
 
-        System.out.println("added to database " + future.get().getId());
-    }
+    DocumentSnapshot documentSnapshot = future.get();
 
-    public static void add(Collection<Word> words) {
-        WriteBatch batch = database.batch();
-
-        for (Word word : words) {
-            DocumentReference docRef = database.collection("dictionary").document();
-            batch.set(docRef, word);
-        }
-
-        ApiFuture<List<WriteResult>> future = batch.commit();
-
-        try {
-            for (WriteResult result : future.get()) {
-                System.out.println("Update time : " + result.getUpdateTime());
-            }
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static Word find(String wordTarget) throws InterruptedException, ExecutionException {
-        ApiFuture<QuerySnapshot> future = database.collection("dictionary")
-                .whereGreaterThanOrEqualTo("wordTarget", wordTarget).get();
-        // future.get() blocks on response
-        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
-
-        DocumentSnapshot documentSnapshot = documents.get(0);
-
-        return documentSnapshot.toObject(Word.class);
-    }
+    return documentSnapshot.toObject(Word.class);
+  }
 }

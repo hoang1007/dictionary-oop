@@ -30,9 +30,7 @@ public final class DictionaryApplication {
   public static void main(String[] args) throws Exception {
     // new DictionaryCommandline().dictionaryBasic();
     INSTANCE.getDictionaryManagement().addDataFromFile();
-    
     INSTANCE.runApplication();
-
     INSTANCE.resourcesManager.free();
   }
 
