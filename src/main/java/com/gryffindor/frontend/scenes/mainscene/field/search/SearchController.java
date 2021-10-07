@@ -1,20 +1,29 @@
 package com.gryffindor.frontend.scenes.mainscene.field.search;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.gryffindor.DictionaryApplication;
+import com.gryffindor.Language;
+import com.gryffindor.backend.api.GoogleTranslator;
+import com.gryffindor.backend.entities.Translation;
 import com.gryffindor.backend.entities.Word;
 import com.gryffindor.backend.libraries.BinarySearch;
+import com.gryffindor.backend.utils.TextUtils;
 import com.gryffindor.frontend.event.WordEvent;
 import com.gryffindor.frontend.scenes.mainscene.field.IController;
+import com.gryffindor.frontend.utils.FileChooserWindow;
 
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
+import javafx.stage.FileChooser.ExtensionFilter;
+import net.sourceforge.tess4j.TesseractException;
 
 public class SearchController implements IController {
   private SearchField searchField;
-  private List<Word> history;
+  private static List<Word> history;
 
   /**
    * Khởi tạo controller cho seach field.
@@ -29,6 +38,7 @@ public class SearchController implements IController {
     actionOnSearchBegin();
     actionOnSearching();
     actionOnSearchFinished();
+    actionOnClickImageSearch();
   }
 
   void onBegin() {
@@ -84,6 +94,28 @@ public class SearchController implements IController {
     });
   }
 
+  void actionOnClickImageSearch() {
+    searchField.getImageSearchButton().setOnAction(event -> {
+      File img = new FileChooserWindow("Choose image", "image").setExtensionFilter(
+        new ExtensionFilter("PNG" ,"*.png"),
+        new ExtensionFilter("JPEG" ,"*.jpg")
+      ).getOpenFile();
+
+      try {
+        String content = TextUtils.fromImage(img.getAbsolutePath());
+
+        String trans = GoogleTranslator.translate(content, Language.DETECT, Language.VIETNAMESE);
+
+        Word word = new Word(content);
+        word.addTranslation(new Translation(trans));
+
+        searchField.getImageSearchButton().fireEvent(new WordEvent(word));
+      } catch (TesseractException | IOException e) {
+        e.printStackTrace();
+      }
+    });
+  }
+
   void historyMode() {
     final int MAX_WORDS_COUNT = 5;
     System.out.println("History");
@@ -93,9 +125,10 @@ public class SearchController implements IController {
         .setAll(history.size() < MAX_WORDS_COUNT ? history : history.subList(0, MAX_WORDS_COUNT));
   }
 
-  void onSearchRequest(Node node, String wordTarget) {
+  public static void onSearchRequest(Node node, String wordTarget) {
     try {
       Word word = DictionaryApplication.INSTANCE.dictionaryManagement.dictionary.searchWord(wordTarget);
+      // Word word = FireStore.find(wordTarget);
       history.add(word);
 
       node.fireEvent(new WordEvent(word));
