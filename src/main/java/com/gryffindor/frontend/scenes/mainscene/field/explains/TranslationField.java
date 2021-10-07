@@ -6,12 +6,13 @@ import com.gryffindor.frontend.scenes.mainscene.field.IField;
 import com.gryffindor.frontend.utils.ImageUtils;
 import com.gryffindor.frontend.utils.ManagedUtils;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -22,7 +23,7 @@ import javafx.scene.layout.VBox;
 public class TranslationField implements IField {
   private GridPane pane;
 
-  private TextField wordExplain;
+  private TextArea wordExplain;
   private Button editExplainButton;
   private Button deleteExplainButton;
   private ExampleSentences exampleSentences;
@@ -40,13 +41,26 @@ public class TranslationField implements IField {
   }
 
   void initWordExplain() {
-    wordExplain = new TextField();
+    wordExplain = new TextArea();
     wordExplain.setEditable(false); // mặc định không được sửa
+    wordExplain.setWrapText(true);
     wordExplain.getStyleClass().add("word-meaning");
+
+    // set height fit to content
+    SimpleIntegerProperty count = new SimpleIntegerProperty(20);
+    int rowHeight = 10;
+
+    wordExplain.prefHeightProperty().bindBidirectional(count);
+    wordExplain.minHeightProperty().bindBidirectional(count);
+
+    wordExplain.scrollTopProperty().addListener((observable, oldValue, newValue) -> {
+      if (newValue.intValue() > rowHeight) {
+        count.setValue(count.get() + newValue.intValue());
+      }
+    });
 
     pane.getChildren().add(wordExplain);
     GridPane.setConstraints(wordExplain, 0, 0);
-    GridPane.setHgrow(wordExplain, Priority.ALWAYS);
   }
 
   void initExampleSentences() {
@@ -112,7 +126,7 @@ public class TranslationField implements IField {
     return deleteExplainButton;
   }
 
-  public TextField getWordExplain() {
+  public TextArea getWordExplain() {
     return wordExplain;
   }
 
@@ -134,6 +148,7 @@ public class TranslationField implements IField {
     void initExampleSentences() {
       sentences = FXCollections.observableArrayList();
 
+      // format label when add to list
       sentences.addListener(new ListChangeListener<Label>(){
         @Override
         public void onChanged(Change<? extends Label> c) {
