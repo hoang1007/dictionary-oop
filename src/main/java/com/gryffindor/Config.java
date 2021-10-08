@@ -23,6 +23,7 @@ public class Config {
 
   private InputStream dictionaryDataStream = null;
   private InputStream googleServiceStream = null;
+  private InputStream suggestDataStream = null;
 
   /** Khởi tạo config. */
   public Config() {
@@ -53,6 +54,7 @@ public class Config {
     imagesPath = resourcesPath + "/images";
     dictionaryDataStream = getClass().getResourceAsStream("/dictionaries.txt");
     googleServiceStream = getClass().getResourceAsStream("/serviceAccount.json");
+    suggestDataStream = getClass().getResourceAsStream("/suggestData.json");
   }
 
   public String getGoogleApiUrl() {
@@ -65,6 +67,10 @@ public class Config {
 
   public InputStream getGoogleServiceStream() {
     return googleServiceStream;
+  }
+
+  public InputStream getSuggestDataStream() {
+    return suggestDataStream;
   }
 
   public String getStyle() {

@@ -28,8 +28,8 @@ public final class DictionaryApplication {
    * @throws Exception lỗi khi khởi chạy
    */
   public static void main(String[] args) throws Exception {
-    // new DictionaryCommandline().dictionaryBasic();
-    INSTANCE.getDictionaryManagement().addDataFromFile();
+    INSTANCE.resourcesManager.loadSuggest();
+    // INSTANCE.getDictionaryManagement().addDataFromFile();
     INSTANCE.runApplication();
     INSTANCE.resourcesManager.free();
   }
