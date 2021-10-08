@@ -3,14 +3,16 @@ package com.gryffindor.frontend.scenes.mainscene.field.navigationbar;
 import com.gryffindor.frontend.scenes.mainscene.field.IController;
 import com.gryffindor.frontend.scenes.mainscene.page.HomePage;
 import com.gryffindor.frontend.scenes.mainscene.page.IPage;
+import com.gryffindor.frontend.scenes.mainscene.page.SettingPage;
 import com.gryffindor.frontend.scenes.mainscene.page.ToolsPage;
+import com.gryffindor.frontend.utils.ManagedUtils;
 
 import javafx.scene.control.Button;
 
 public class NavigationBarController implements IController {
   private Button homeButton;
   private Button toolsButton;
-  // private Button settingsButton;
+  private Button settingsButton;
 
   private IPage showingPage;
 
@@ -22,7 +24,7 @@ public class NavigationBarController implements IController {
   public NavigationBarController(NavigationBar navigationBar) {
     homeButton = navigationBar.getHomeButton();
     toolsButton = navigationBar.getToolsButton();
-    // settingsButton = navigationBar.getSettingsButton();
+    settingsButton = navigationBar.getSettingsButton();
   }
 
   void setPresentHomePageonClick(HomePage homePage) {
@@ -41,13 +43,17 @@ public class NavigationBarController implements IController {
     });
   }
 
+  void setPresentSettingPageonClick(SettingPage settingPage) {
+    settingsButton.setOnAction(event -> setShowPage(settingPage));
+  }
+
   /**
    * Link home page to navigation bar.
    * 
    * @param homePage home page to link
    */
   public void setHomePage(HomePage homePage) {
-    homePage.getPane().managedProperty().bind(homePage.getPane().visibleProperty());
+    ManagedUtils.bindVisible(homePage.getPane());
 
     setPresentHomePageonClick(homePage);
 
@@ -62,11 +68,19 @@ public class NavigationBarController implements IController {
    * @param toolsPage tools page to link
    */
   public void setToolsPage(ToolsPage toolsPage) {
-    toolsPage.getPane().managedProperty().bind(toolsPage.getPane().visibleProperty());
+    ManagedUtils.bindVisible(toolsPage.getPane());
 
     setPresentToolsPageonClick(toolsPage);
 
     toolsPage.getPane().setVisible(false); // auto hide tools page
+  }
+
+  public void setSettingsPage(SettingPage settingPage) {
+    ManagedUtils.bindVisible(settingPage.getPane());
+
+    setPresentSettingPageonClick(settingPage);
+
+    settingPage.getPane().setVisible(false); // auto hide setting page
   }
 
   void setShowPage(IPage page) {
