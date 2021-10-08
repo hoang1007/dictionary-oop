@@ -76,16 +76,16 @@ public class WordNetDictionary {
       return null;
     }
 
-    private static List<Synset> getCommonSynsets(String word, POS pos) {
-      try {
-        IndexWord indexWord = dictionary.lookupIndexWord(pos, word);
+    // private static List<Synset> getCommonSynsets(String word, POS pos) {
+    //   try {
+    //     IndexWord indexWord = dictionary.lookupIndexWord(pos, word);
 
-        return indexWord.getSenses();
-      } catch (JWNLException e) {
-        e.printStackTrace();
-        return null;
-      }
-    }
+    //     return indexWord.getSenses();
+    //   } catch (JWNLException e) {
+    //     e.printStackTrace();
+    //     return null;
+    //   }
+    // }
 
     private static List<String> getLemmas(Synset synset) {
       List<Word> words = synset.getWords();

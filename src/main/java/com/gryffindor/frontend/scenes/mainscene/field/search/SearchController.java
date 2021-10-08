@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.gryffindor.DictionaryApplication;
 import com.gryffindor.Language;
+import com.gryffindor.backend.api.FireStore;
 import com.gryffindor.backend.api.GoogleTranslator;
 import com.gryffindor.backend.entities.Translation;
 import com.gryffindor.backend.entities.Word;
@@ -127,13 +128,13 @@ public class SearchController implements IController {
 
   public static void onSearchRequest(Node node, String wordTarget) {
     try {
-      Word word = DictionaryApplication.INSTANCE.dictionaryManagement.dictionary.searchWord(wordTarget);
-      // Word word = FireStore.find(wordTarget);
+      // Word word = DictionaryApplication.INSTANCE.dictionaryManagement.dictionary.searchWord(wordTarget);
+      Word word = FireStore.find(wordTarget);
       history.add(word);
 
       node.fireEvent(new WordEvent(word));
     } catch (Exception e) {
-      System.out.println("Not found");
+      e.printStackTrace();
     }
   }
 }
