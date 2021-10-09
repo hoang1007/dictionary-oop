@@ -40,13 +40,13 @@ public class DictionaryManagement {
       dictionary.addWord(new Word(word_target, word_explain));
     }
 
-    scanner.close();
+    //scanner.close();
   }
 
   /** Nhập từ mới từ file dictionaries.txt. */
   public void insertFromFile() {
       //url file dictionaries.txt
-      String url = "D:\\IT\\Java\\Project\\Dictionary\\src\\resources\\dictionaries.txt";
+      String url = ".\\src\\resources\\dictionaries.txt";
 
       // Đọc dữ liệu từ File với BufferedReader.
       FileInputStream fileInputStream = null;
@@ -82,16 +82,16 @@ public class DictionaryManagement {
 
   /**   Tra cuu tu dien bang commandline. */
   public void dictionaryLookup() {
-      System.out.println("Nhap tu can tra: ");
-      Scanner scanner = new Scanner(System.in);
+      System.out.println("Nhập từ cần tra: ");
+      //Scanner scanner = new Scanner(System.in);
       String word_target = scanner.nextLine();
       if (dictionary.searchWord(word_target) != null) {
-          System.out.println(word_target + " co nghia la: " + dictionary.searchWord(word_target).getWordExplain());
+          System.out.println(word_target + " có nghĩa là: " + dictionary.searchWord(word_target).getWordExplain());
       } else {
-          System.out.println("Khong co tu " + word_target + " trong tu dien");
+          System.out.println("Không có từ " + word_target + " trong từ điển. Xin lỗi về sự bất tiện này");
       }
 
-      scanner.close();
+      //scanner.close();
   }
 
     /** Export to file. */
@@ -104,9 +104,9 @@ public class DictionaryManagement {
           file = new File(url);
           isCreat = file.createNewFile();
           if (isCreat)
-              System.out.print("Da tao file thanh cong!");
+              System.out.println("Đã tạo file thành công!");
           else
-              System.out.print("Tao file that bai");
+              System.out.println("Tạo file thất bại.");
       }
       catch (Exception e){
           System.out.print(e);
@@ -138,17 +138,23 @@ public class DictionaryManagement {
 
   /** Xóa word từ dòng lệnh */
   public void deleteWordFromCommandline() {
-      System.out.println("Nhập từ cần xóa: ");
+      System.out.println("Nhập số từ bạn muốn xóa:");
       Scanner sc = new Scanner(System.in);
-      String wordDeleteTarget = sc.nextLine();
-      Word wordDelete = dictionary.searchWord(wordDeleteTarget);
-      if (wordDelete == null) {
-          System.out.println("Không có từ " + wordDeleteTarget + "trong từ điển.");
-      } else {
-          dictionary.removeWord(wordDelete);
+      int n = sc.nextInt();
+
+      for (int i = 0; i < n; i++) {
+          System.out.println("Nhập từ cần xóa: ");
+
+          String wordDeleteTarget = sc.nextLine();
+          Word wordDelete = dictionary.searchWord(wordDeleteTarget);
+          if (wordDelete == null) {
+              System.out.println("Không có từ " + wordDeleteTarget + "trong từ điển.");
+          } else {
+              dictionary.removeWord(wordDelete);
+          }
       }
 
-      sc.close();
+      //sc.close();
   }
 
   /** Sửa word trong từ điển từ dòng lệnh. */
@@ -167,6 +173,7 @@ public class DictionaryManagement {
           System.out.println(wordUpdateTarget + " không có.");
       }
 
-      sc.close();
+      //sc.close();
   }
+
 }

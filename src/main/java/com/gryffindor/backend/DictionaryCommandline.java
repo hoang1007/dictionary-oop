@@ -30,15 +30,56 @@ public class DictionaryCommandline {
     public void dictionaryAdvance() {
         dictionaryManagement.insertFromFile();
 
-        showAllWords();
+        Scanner scannerTarget = new Scanner(System.in);
 
-        dictionaryManagement.dictionaryLookup();
+        menuCommandline();
+        int target = Integer.parseInt(scannerTarget.nextLine());
 
-        dictionaryManagement.dictionaryExportToFile();
+        while (target != -1) {
+            if (target ==  1) {
+                String start = "Y";
+                while (true) {
+                    dictionaryManagement.dictionaryLookup();
+                    System.out.println("Bạn có muốn tiếp tục tìm kiếm từ (Y/N): ");
+                    start =  scannerTarget.nextLine();
+                    if (!start.toUpperCase().equals("Y")) {
+                        break;
+                    }
+                }
+            } else if (target == 2) {
+                dictionaryManagement.updateWordFromCommandline();
+                System.out.println("Chúng tôi rất cảm ơn những đóng góp của bạn.");
+            } else if (target == 3) {
+                dictionaryManagement.insertFromCommandline();
+                System.out.println("Chúng tôi rất cảm ơn những đóng góp của bạn.");
+            } else if (target == 4) {
+                showAllWords();
+                System.out.println("Enter để tiếp tục.");
+                String stop = scannerTarget.nextLine();
+
+            } else {
+                dictionaryManagement.dictionaryExportToFile();
+            }
+            menuCommandline();
+            target = Integer.parseInt(scannerTarget.nextLine());
+        }
+        System.out.println("Tạm biệt. Rất hân hạnh được đồng hành cùng bạn.");
+        scannerTarget.close();
+    }
+
+    public void menuCommandline() {
+        System.out.println("Bạn muốn xử dụng chức năng nào ?");
+        System.out.println("1. Tìm kếm từ.");
+        System.out.println("2. Sửa nghĩa của từ.");
+        System.out.println("3. Đóng góp từ mới vào từ điển.");
+        System.out.println("4. Xem toàn bộ từ trong từ điển.");
+        System.out.println("5. Xuất file toàn bộ từ trong từ điển.");
+        System.out.println("-1. Thoát chương trình.");
+        System.out.println("Mời bạn nhâp giá trị tương ứng với hành động: ");
     }
 
     public List<Word> dictionarySearch() {
-        System.out.println("Nhap tu can tra: ");
+        System.out.println("Nhập từ cần tra: ");
         Scanner scanner = new Scanner(System.in);
         String word_target = scanner.nextLine();
 
