@@ -14,9 +14,12 @@ import com.gryffindor.backend.entities.Word;
 import com.gryffindor.backend.libraries.BinarySearch;
 import com.gryffindor.backend.utils.TextUtils;
 import com.gryffindor.frontend.event.WordEvent;
+import com.gryffindor.frontend.scenes.mainscene.PageManager;
 import com.gryffindor.frontend.scenes.mainscene.field.IController;
+import com.gryffindor.frontend.scenes.mainscene.page.LoadingPage;
 import com.gryffindor.frontend.utils.FileChooserWindow;
 
+import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -97,23 +100,37 @@ public class SearchController implements IController {
 
   void actionOnClickImageSearch() {
     searchField.getImageSearchButton().setOnAction(event -> {
-      File img = new FileChooserWindow("Choose image", "image").setExtensionFilter(
-        new ExtensionFilter("PNG" ,"*.png"),
-        new ExtensionFilter("JPEG" ,"*.jpg")
-      ).getOpenFile();
 
-      try {
-        String content = TextUtils.fromImage(img.getAbsolutePath());
+      File img = new FileChooserWindow("Choose image", "image")
+          .setExtensionFilter(new ExtensionFilter("PNG", "*.png"), new ExtensionFilter("JPEG", "*.jpg")).getOpenFile();
 
-        String trans = GoogleTranslator.translate(content, Language.DETECT, Language.VIETNAMESE);
+      PageManager.INSTANCE.showPage(LoadingPage.class);
 
-        Word word = new Word(content);
-        word.addTranslation(new Translation(trans));
+      new Thread(new Runnable() {
+        @Override
+        public void run() {
+          try {
+            String content = TextUtils.fromImage(img.getAbsolutePath());
 
-        searchField.getImageSearchButton().fireEvent(new WordEvent(word));
-      } catch (TesseractException | IOException e) {
-        e.printStackTrace();
-      }
+            String trans = GoogleTranslator.translate(content, Language.DETECT, Language.VIETNAMESE);
+
+            Word word = new Word(content);
+            word.addTranslation(new Translation(trans));
+
+            Platform.runLater(new Runnable() {
+
+              @Override
+              public void run() {
+                PageManager.INSTANCE.restorePage();
+                searchField.getImageSearchButton().fireEvent(new WordEvent(word));
+              }
+            });
+          } catch (TesseractException | IOException e) {
+            e.printStackTrace();
+          }
+        }
+      }).start();
+      
     });
   }
 
@@ -127,14 +144,28 @@ public class SearchController implements IController {
   }
 
   public static void onSearchRequest(Node node, String wordTarget) {
-    try {
-      // Word word = DictionaryApplication.INSTANCE.dictionaryManagement.dictionary.searchWord(wordTarget);
-      Word word = FireStore.find(wordTarget);
-      history.add(word);
+    PageManager.INSTANCE.showPage(LoadingPage.class);
 
-      node.fireEvent(new WordEvent(word));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+    new Thread(new Runnable() {
+      @Override
+      public void run() {
+        try {
+          // Word word =
+          // DictionaryApplication.INSTANCE.dictionaryManagement.dictionary.searchWord(wordTarget);
+          Word word = FireStore.find(wordTarget);
+          history.add(word);
+
+          Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+              PageManager.INSTANCE.restorePage();
+              node.fireEvent(new WordEvent(word));
+            }
+          });
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+      }
+    }).start();
   }
 }

@@ -3,38 +3,42 @@ package com.gryffindor.frontend.scenes.mainscene;
 import com.gryffindor.DictionaryApplication;
 import com.gryffindor.frontend.scenes.mainscene.field.navigationbar.NavigationBar;
 import com.gryffindor.frontend.scenes.mainscene.page.HomePage;
+import com.gryffindor.frontend.scenes.mainscene.page.LoadingPage;
 import com.gryffindor.frontend.scenes.mainscene.page.SettingPage;
 import com.gryffindor.frontend.scenes.mainscene.page.ToolsPage;
 
 import javafx.scene.Scene;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 
 /** Scene chính của ứng dụng. */
 public class MainScene {
   private final Scene mainScene;
-  private final HBox rootPane;
+  private final StackPane rootPane;
+
+  private HBox mainPane; // pane of all page except loading page
 
   private final NavigationBar navigationBarField;
   private final HomePage homePage;
   private final ToolsPage toolsPage;
   private final SettingPage settingPage;
+  private final LoadingPage loadingPage;
 
   /** Khởi tạo scene chính. */
   public MainScene() {
-    rootPane = new HBox();
-    rootPane.setFillHeight(true);
+    rootPane = new StackPane();
     rootPane.getStyleClass().add("root-pane");
 
     homePage = new HomePage();
     toolsPage = new ToolsPage();
     settingPage = new SettingPage();
-
+    loadingPage = new LoadingPage();
     navigationBarField = new NavigationBar();
-    navigationBarField.getController().setHomePage(homePage);
-    navigationBarField.getController().setToolsPage(toolsPage);
-    navigationBarField.getController().setSettingsPage(settingPage);
     
+    PageManager.INSTANCE.setHomePage(homePage).setSettingsPage(settingPage)
+        .setToolsPage(toolsPage).setLoadingPage(loadingPage);
+
     setupLayout();
 
     mainScene = new Scene(rootPane);
@@ -42,7 +46,10 @@ public class MainScene {
   }
 
   void setupLayout() {
-    rootPane.getChildren().addAll(
+    mainPane = new HBox();
+    mainPane.setFillHeight(true);
+
+    mainPane.getChildren().addAll(
         navigationBarField.getPane(), 
         homePage.getPane(), 
         toolsPage.getPane(),
@@ -51,6 +58,8 @@ public class MainScene {
     HBox.setHgrow(homePage.getPane(), Priority.ALWAYS);
     HBox.setHgrow(toolsPage.getPane(), Priority.ALWAYS);
     HBox.setHgrow(settingPage.getPane(), Priority.ALWAYS);
+
+    rootPane.getChildren().addAll(mainPane, loadingPage.getPane());
   }
 
   public Scene getMainScene() {
