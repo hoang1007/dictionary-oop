@@ -1,6 +1,9 @@
 package com.gryffindor.backend.utils;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Locale;
 
 import javax.speech.AudioException;
@@ -10,25 +13,43 @@ import javax.speech.EngineStateError;
 import javax.speech.synthesis.Synthesizer;
 import javax.speech.synthesis.SynthesizerModeDesc;
 
+import com.gryffindor.Config;
+import com.gryffindor.DictionaryApplication;
+
 import net.sourceforge.tess4j.Tesseract;
 import net.sourceforge.tess4j.TesseractException;
-import net.sourceforge.tess4j.util.LoadLibs;
 
 public class TextUtils {
   private static final Tesseract tesseract;
   private static Synthesizer synthesizer;
 
   static {
+    Config config = DictionaryApplication.INSTANCE.config;
+
     tesseract = new Tesseract();
-    File tessdata = LoadLibs.extractTessResources("/tessdata");
-    tesseract.setDatapath(tessdata.getAbsolutePath());
+
+    String folderTess = config.getRootPath() + "/tessdata";
+    if (Files.notExists(Paths.get(folderTess))) {
+      File tessdata = new File(config.getRootPath() + "/tessdata.zip");
+
+      System.out.println("Unzipping tessdata...");
+      FileUtils.copy(config.getTessDataStream(), tessdata);
+
+      try {
+        FileUtils.unzip(tessdata.getAbsolutePath(), folderTess);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+
+    tesseract.setDatapath(folderTess);
     tesseract.setLanguage("eng");
 
     System.setProperty("freetts.voices", "com.sun.speech.freetts.en.us" + ".cmu_us_kal.KevinVoiceDirectory");
     try {
       SynthesizerModeDesc dModeDesc = new SynthesizerModeDesc(Locale.US);
       Central.registerEngineCentral("com.sun.speech.freetts" + ".jsapi.FreeTTSEngineCentral");
-      
+
       synthesizer = Central.createSynthesizer(dModeDesc);
       synthesizer.allocate();
     } catch (Exception e) {
@@ -49,7 +70,7 @@ public class TextUtils {
    * @throws InterruptedException     Interrupted error
    * @throws EngineException          engine error
    */
-  public static void toSpeech(String content) 
+  public static void toSpeech(String content)
       throws AudioException, EngineStateError, IllegalArgumentException, InterruptedException {
     synthesizer.resume();
 

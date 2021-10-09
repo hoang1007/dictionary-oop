@@ -1,5 +1,6 @@
 package com.gryffindor;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -8,6 +9,7 @@ import java.util.Properties;
 
 public class Config {
   private final String resourcesPath;
+  private String rootPath;
 
   private String googleApiUrl;
   private String style;
@@ -24,9 +26,13 @@ public class Config {
   private InputStream dictionaryDataStream = null;
   private InputStream googleServiceStream = null;
   private InputStream suggestDataStream = null;
+  private InputStream tessDataStream = null;
 
   /** Khởi tạo config. */
   public Config() {
+    rootPath = new File(DictionaryApplication.class.getProtectionDomain().getCodeSource().getLocation().getPath())
+      .getAbsoluteFile().getParentFile().getAbsolutePath();
+
     resourcesPath = getClass().getResource("/images").toExternalForm().replace("/images", "");
 
     Properties properties = new Properties();
@@ -55,6 +61,7 @@ public class Config {
     dictionaryDataStream = getClass().getResourceAsStream("/dictionaries.txt");
     googleServiceStream = getClass().getResourceAsStream("/serviceAccount.json");
     suggestDataStream = getClass().getResourceAsStream("/suggestData.json");
+    tessDataStream = getClass().getResourceAsStream("/tessdata.zip");
   }
 
   public String getGoogleApiUrl() {
@@ -71,6 +78,10 @@ public class Config {
 
   public InputStream getSuggestDataStream() {
     return suggestDataStream;
+  }
+
+  public InputStream getTessDataStream() {
+    return tessDataStream;
   }
 
   public String getStyle() {
@@ -107,5 +118,9 @@ public class Config {
 
   public String getExampleDelim() {
     return exampleDelim;
+  }
+
+  public String getRootPath() {
+    return rootPath;
   }
 }
