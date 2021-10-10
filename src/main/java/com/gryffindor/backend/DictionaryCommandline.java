@@ -16,6 +16,7 @@ public class DictionaryCommandline {
     public void showAllWords() {
         System.out.println("No | English | Vietnamese");
         int i = 1;
+
         for (Word w : dictionaryManagement.dictionary.getAllWords()) {
             System.out.println(String.format("%d | %s | %s", i++, w.getWordTarget(), w.getWordExplain()));
         }
@@ -33,11 +34,12 @@ public class DictionaryCommandline {
         Scanner scannerTarget = new Scanner(System.in);
 
         menuCommandline();
-        int target = Integer.parseInt(scannerTarget.nextLine());
+        String target = scannerTarget.nextLine();
 
-        while (target != -1) {
-            if (target ==  1) {
+        while (!target.equals("-1")) {
+            if (target.equals("1")) {
                 String start = "Y";
+
                 while (true) {
                     dictionaryManagement.dictionaryLookup();
                     System.out.println("Bạn có muốn tiếp tục tìm kiếm từ (Y/N): ");
@@ -46,23 +48,24 @@ public class DictionaryCommandline {
                         break;
                     }
                 }
-            } else if (target == 2) {
+
+            } else if (target.equals("2")) {
                 dictionaryManagement.updateWordFromCommandline();
                 System.out.println("Chúng tôi rất cảm ơn những đóng góp của bạn.");
-            } else if (target == 3) {
+            } else if (target.equals("3")) {
                 dictionaryManagement.insertFromCommandline();
                 System.out.println("Chúng tôi rất cảm ơn những đóng góp của bạn.");
-            } else if (target == 4) {
+            } else if (target.equals("4")) {
                 showAllWords();
                 System.out.println("Enter để tiếp tục.");
-                String stop = scannerTarget.nextLine();
-
             } else {
                 dictionaryManagement.dictionaryExportToFile();
             }
+
             menuCommandline();
-            target = Integer.parseInt(scannerTarget.nextLine());
+            target = scannerTarget.nextLine();
         }
+
         System.out.println("Tạm biệt. Rất hân hạnh được đồng hành cùng bạn.");
         scannerTarget.close();
     }

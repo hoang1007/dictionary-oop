@@ -1,5 +1,0 @@
-go	di
-flower	hoa
-mother	me
-father	bố
-dictionary	từ diển
