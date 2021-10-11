@@ -8,6 +8,8 @@ import com.gryffindor.frontend.scenes.mainscene.page.SettingPage;
 import com.gryffindor.frontend.scenes.mainscene.page.ToolsPage;
 
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
@@ -41,6 +43,7 @@ public class MainScene {
 
     setupLayout();
 
+
     mainScene = new Scene(rootPane);
     mainScene.getStylesheets().add(DictionaryApplication.INSTANCE.config.getStyle());
   }
@@ -59,7 +62,13 @@ public class MainScene {
     HBox.setHgrow(toolsPage.getPane(), Priority.ALWAYS);
     HBox.setHgrow(settingPage.getPane(), Priority.ALWAYS);
 
-    rootPane.getChildren().addAll(mainPane, loadingPage.getPane());
+    ScrollPane scroll = new ScrollPane(mainPane);
+    scroll.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
+    scroll.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
+    scroll.setFitToHeight(true);
+    scroll.setFitToWidth(true);
+    
+    rootPane.getChildren().addAll(scroll, loadingPage.getPane());
   }
 
   public Scene getMainScene() {
