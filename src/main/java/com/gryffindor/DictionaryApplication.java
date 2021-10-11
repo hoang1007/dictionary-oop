@@ -14,8 +14,12 @@ public final class DictionaryApplication {
   public final Config config;
   public final DictionaryManagement dictionaryManagement;
   public final ResourcesManager resourcesManager;
+  public final ExceptionHandler exceptionHandler;
 
   DictionaryApplication() {
+    exceptionHandler = new ExceptionHandler();
+    Thread.setDefaultUncaughtExceptionHandler(exceptionHandler);
+    
     config = new Config();
     dictionaryManagement = new DictionaryManagement();
     resourcesManager = new ResourcesManager();
@@ -33,6 +37,7 @@ public final class DictionaryApplication {
     // INSTANCE.getDictionaryManagement().addDataFromFile();
     INSTANCE.runApplication();
     INSTANCE.resourcesManager.free();
+    INSTANCE.exceptionHandler.free();
   }
 
   /** Run UI. */
