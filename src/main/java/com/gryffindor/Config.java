@@ -13,6 +13,7 @@ public class Config {
 
   private String googleApiUrl;
   private String style;
+  private String alertStyle;
   private String imagesPath;
 
   private String contributeThanks;
@@ -57,6 +58,7 @@ public class Config {
     exampleDelim = properties.getProperty("example-delim");
 
     style = resourcesPath + "/styles/styles.css";
+    alertStyle = resourcesPath + "/styles/alert.css";
     imagesPath = resourcesPath + "/images";
     dictionaryDataStream = getClass().getResourceAsStream("/dictionaries.txt");
     googleServiceStream = getClass().getResourceAsStream("/serviceAccount.json");
@@ -122,5 +124,9 @@ public class Config {
 
   public String getRootPath() {
     return rootPath;
+  }
+
+  public String getAlertStyle() {
+    return alertStyle;
   }
 }
