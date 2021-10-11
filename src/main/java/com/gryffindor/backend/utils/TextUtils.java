@@ -61,6 +61,10 @@ public class TextUtils {
     return tesseract.doOCR(new File(imgPath));
   }
 
+  public static String fromImage(File imgFile) throws TesseractException {
+    return tesseract.doOCR(imgFile);
+  }
+
   /**
    * Text to speech.
    * 

@@ -1,9 +1,10 @@
 package com.gryffindor.frontend.scenes.mainscene.field.search;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 
 import com.gryffindor.DictionaryApplication;
 import com.gryffindor.Language;
@@ -23,7 +24,6 @@ import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.stage.FileChooser.ExtensionFilter;
-import net.sourceforge.tess4j.TesseractException;
 
 public class SearchController implements IController {
   private SearchField searchField;
@@ -106,31 +106,24 @@ public class SearchController implements IController {
 
       PageManager.INSTANCE.showPage(LoadingPage.class);
 
-      new Thread(new Runnable() {
-        @Override
-        public void run() {
-          try {
-            String content = TextUtils.fromImage(img.getAbsolutePath());
+      new Thread(() -> {
+        try {
+          String content = TextUtils.fromImage(img);
 
-            String trans = GoogleTranslator.translate(content, Language.DETECT, Language.VIETNAMESE);
+          String trans = GoogleTranslator.translate(content, Language.DETECT, Language.VIETNAMESE);
 
-            Word word = new Word(content);
-            word.addTranslation(new Translation(trans));
+          Word word = new Word(content);
+          word.addTranslation(new Translation(trans));
 
-            Platform.runLater(new Runnable() {
+          Platform.runLater(() -> searchField.getImageSearchButton().fireEvent(new WordEvent(word)));
 
-              @Override
-              public void run() {
-                PageManager.INSTANCE.restorePage();
-                searchField.getImageSearchButton().fireEvent(new WordEvent(word));
-              }
-            });
-          } catch (TesseractException | IOException e) {
-            e.printStackTrace();
-          }
+          throw new RuntimeException();
+        } catch (Exception e) {
+          DictionaryApplication.INSTANCE.exceptionHandler.add(e);
+        } finally {
+          Platform.runLater(() -> PageManager.INSTANCE.restorePage());
         }
       }).start();
-      
     });
   }
 
@@ -146,25 +139,20 @@ public class SearchController implements IController {
   public static void onSearchRequest(Node node, String wordTarget) {
     PageManager.INSTANCE.showPage(LoadingPage.class);
 
-    new Thread(new Runnable() {
-      @Override
-      public void run() {
-        try {
-          // Word word =
-          // DictionaryApplication.INSTANCE.dictionaryManagement.dictionary.searchWord(wordTarget);
-          Word word = FireStore.find(wordTarget);
-          history.add(word);
+    new Thread(() -> {
+      // Word word =
+      // DictionaryApplication.INSTANCE.dictionaryManagement.dictionary.searchWord(wordTarget);
+      try {
+        Word word = FireStore.find(wordTarget);
 
-          Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-              PageManager.INSTANCE.restorePage();
-              node.fireEvent(new WordEvent(word));
-            }
-          });
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
+        System.out.print("found word: " + word.getWordClass());
+        history.add(word);
+
+        Platform.runLater(() -> node.fireEvent(new WordEvent(word)));
+      } catch (InterruptedException | ExecutionException | TimeoutException | NullPointerException e) {
+        DictionaryApplication.INSTANCE.exceptionHandler.add(e);
+      } finally {
+        Platform.runLater(() -> PageManager.INSTANCE.restorePage());
       }
     }).start();
   }

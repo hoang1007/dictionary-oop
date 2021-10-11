@@ -1,0 +1,9 @@
+.alert-pane .button {
+  -fx-background-color:aqua;
+  -fx-background-radius: 5px;
+  -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+}
+
+.alert-pane {
+  -fx-background-radius: 5px;
+}

@@ -1,5 +1,6 @@
 package com.gryffindor.frontend.scenes.mainscene.field.translate;
 
+import com.gryffindor.DictionaryApplication;
 import com.gryffindor.backend.entities.Word;
 import com.gryffindor.backend.utils.TextUtils;
 import com.gryffindor.frontend.scenes.mainscene.field.IController;
@@ -23,7 +24,7 @@ public class TranslateController implements IController {
       try {
         TextUtils.toSpeech(translateField.getWordTarget().getText());
       } catch (Exception e) {
-        e.printStackTrace();
+        DictionaryApplication.INSTANCE.exceptionHandler.add(e);
       }
     });
   }
