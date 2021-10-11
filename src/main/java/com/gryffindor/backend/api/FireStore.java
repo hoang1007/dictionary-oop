@@ -2,6 +2,8 @@ package com.gryffindor.backend.api;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
@@ -65,11 +67,14 @@ public class FireStore {
     }
   }
 
-  public static Word find(String wordTarget) throws InterruptedException, ExecutionException {
+  public static Word find(String wordTarget) throws InterruptedException, ExecutionException, TimeoutException {
     ApiFuture<DocumentSnapshot> future = database.collection("dictionary").document(wordTarget).get();
 
-    DocumentSnapshot documentSnapshot = future.get();
+    Word wordFound = future.get(10, TimeUnit.SECONDS).toObject(Word.class);
+    if (wordFound == null) {
+      throw new NullPointerException("Not found");
+    }
 
-    return documentSnapshot.toObject(Word.class);
+    return wordFound;
   }
 }
