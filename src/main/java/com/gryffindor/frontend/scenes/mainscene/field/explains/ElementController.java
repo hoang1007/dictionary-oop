@@ -33,11 +33,13 @@ public class ElementController implements IController {
       return;
     }
 
+    element.getSynonymsButton().clear();
+
     for (String syn : synonyms) {
-      element.getSynonymsButton().clear();
       element.getSynonymsButton().add(initSynonymButtons(syn));
     }
 
+    System.out.println(element.getSynonymsButton().size());
     synonymsPane.getChildren().addAll(element.getSynonymsButton());
   }
 
