@@ -53,9 +53,10 @@ public class DictionaryManagement {
           String line = bufferedReader.readLine();
 
           while (line != null) {
+
               //Xử lí xâu từ file text truyền vào mảng Word.
               for (int i = 1; i < line.length(); i++) {
-                  if ( line.charAt(i) == '\t') {
+                  if (line.charAt(i) == '\t') {
                       String word_target = line.substring(0, i);
                       String word_explain = line.substring(i + 1);
                       dictionary.addWord(new Word(word_target, word_explain));

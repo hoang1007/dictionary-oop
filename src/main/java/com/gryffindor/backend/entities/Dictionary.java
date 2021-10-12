@@ -39,7 +39,7 @@ public class Dictionary {
   public Word searchWordBinary(String wordTarget) {
       int low = 0;
       int high = words.size();
-      int mid = (low + high) / 2;
+      int mid;
       while (low <= high) {
           mid = (low + high) / 2;
           if (words.get(mid).getWordTarget().compareTo(wordTarget) < 0) {

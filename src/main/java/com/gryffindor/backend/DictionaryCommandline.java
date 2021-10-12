@@ -58,6 +58,7 @@ public class DictionaryCommandline {
             } else if (target.equals("4")) {
                 showAllWords();
                 System.out.println("Enter để tiếp tục.");
+                target = scannerTarget.nextLine();
             } else {
                 dictionaryManagement.dictionaryExportToFile();
             }
