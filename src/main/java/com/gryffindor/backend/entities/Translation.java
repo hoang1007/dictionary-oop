@@ -9,17 +9,18 @@ public class Translation {
     private String wordExplain = TextUtils.empty();
     private List<ExampleSentence> exampleSentences = new ArrayList<>();
 
+    public Translation() {
+    }
+
     public Translation(String wordExplain) {
         this.wordExplain = wordExplain;
     }
-
-    public Translation() { }
 
     public Translation addExampleSentences(ExampleSentence... exampleSentences) {
         for (ExampleSentence exampleSentence : exampleSentences) {
             this.exampleSentences.add(exampleSentence);
         }
-        
+
         return this;
     }
 

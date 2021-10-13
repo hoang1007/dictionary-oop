@@ -50,7 +50,7 @@ public class PageManager {
 
   public void showPage(Class<? extends IPage> page) {
     System.out.println("showing " + page.getName());
-    
+
     if (page.isAssignableFrom(HomePage.class)) {
       showPage(homePage);
     } else if (page.isAssignableFrom(LoadingPage.class)) {
@@ -73,12 +73,16 @@ public class PageManager {
 
   private void showPage(IPage newPage) {
     oldPage = showingPage; // backup old page
-    
+
     if (!(newPage instanceof LoadingPage)) {
       showingPage.getPane().setVisible(false); // hide old page
     }
 
     showingPage = newPage;
     showingPage.getPane().setVisible(true); // show new page
+  }
+
+  public SettingPage getSettingPage() {
+    return settingPage;
   }
 }

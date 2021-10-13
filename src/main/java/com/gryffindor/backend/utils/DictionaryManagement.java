@@ -17,6 +17,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -95,18 +96,14 @@ public class DictionaryManagement {
   }
 
   /** Tra cuu tu dien bang commandline. */
-  public void dictionaryLookup() {
-    System.out.println("Nhập từ cần tra: ");
-    Scanner scanner = new Scanner(System.in);
-    String word_target = scanner.nextLine();
-
-    if (dictionary.searchWord(word_target) != null) {
-      System.out.println(word_target + ":    " + dictionary.searchWord(word_target).getTranslations().get(0).getWordExplain());
+  public Word dictionaryLookup(String wordTarget) {
+    Word ans = null;
+    if (dictionary.searchWord(wordTarget) != null) {
+      ans = dictionary.searchWord(wordTarget);
     } else {
-      System.out.println("Chưa có từ " + word_target + " trong từ điển");
+      System.out.println("Chưa có từ " + wordTarget + " trong từ điển");
     }
-    
-    scanner.close();
+    return ans;
   }
 
   /** Xóa word từ dòng lệnh */
@@ -154,14 +151,15 @@ public class DictionaryManagement {
     Stack<Word> words = new Stack<>();
 
     try (InputStreamReader reader = new InputStreamReader(config.getDataDictionaryStream(), StandardCharsets.UTF_8);
-      BufferedReader bufferedReader = new BufferedReader(reader)) {
+        BufferedReader bufferedReader = new BufferedReader(reader)) {
 
       String word_target = "";
       String word_spelling = "";
       String word_class = "";
 
       for (String line = bufferedReader.readLine(); line != null; line = bufferedReader.readLine()) {
-        if (words.size() > 200) break;
+        // if (words.size() > 200)
+        // break;
         // word target and word spelling is in the same line
         if (line.startsWith(config.getWordTargetSign())) {
           int posTarget = line.indexOf(config.getWordTargetSign());
@@ -237,7 +235,6 @@ public class DictionaryManagement {
     }
   }
 
-
   // export to file chooser
   public void dictionaryExportToFile(File file) {
     if (file != null) {
@@ -248,10 +245,6 @@ public class DictionaryManagement {
 
         // get All Word in dictionary
         List<Word> ls = DictionaryApplication.INSTANCE.getDictionaryManagement().getDictionary().getAllWords();
-        ls.add(new Word("father", "bo"));
-        ls.add(new Word("grandfather", "ong"));
-        ls.add(new Word("mother", "me"));
-        ls.add(new Word("nephew", "chau trai"));
         int list_size = ls.size();
         for (int i = 0; i < list_size; i++) {
           pw.write(ls.get(i).toString());

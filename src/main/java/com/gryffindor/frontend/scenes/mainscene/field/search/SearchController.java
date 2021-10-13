@@ -98,6 +98,7 @@ public class SearchController implements IController {
     });
   }
 
+  // ấn vào icon ảnh
   void actionOnClickImageSearch() {
     searchField.getImageSearchButton().setOnAction(event -> {
 
@@ -143,7 +144,15 @@ public class SearchController implements IController {
       // Word word =
       // DictionaryApplication.INSTANCE.dictionaryManagement.dictionary.searchWord(wordTarget);
       try {
-        Word word = FireStore.find(wordTarget);
+        boolean statusOnOff = PageManager.INSTANCE.getSettingPage().getSwitchModeField().getSwitchButton().getState();
+        Word word;
+        if (statusOnOff == true) {
+          word = FireStore.find(wordTarget);
+          System.out.println("tra online");
+        } else {
+          word = DictionaryApplication.INSTANCE.dictionaryManagement.dictionaryLookup(wordTarget);
+          System.out.println("tra offline");
+        }
 
         System.out.print("found word: " + word.getWordClass());
         history.add(word);

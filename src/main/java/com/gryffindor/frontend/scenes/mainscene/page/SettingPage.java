@@ -15,7 +15,7 @@ public class SettingPage implements IPage {
     settingPane.getStyleClass().add("padding-pane");
 
     initSwitchModeField();
-    
+
     settingPane.getChildren().addAll(switchModeField.getPane());
   }
 
@@ -27,5 +27,9 @@ public class SettingPage implements IPage {
   @Override
   public Pane getPane() {
     return settingPane;
+  }
+
+  public SwitchModeField getSwitchModeField() {
+    return switchModeField;
   }
 }
