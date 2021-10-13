@@ -1,10 +1,13 @@
 package com.gryffindor.frontend.scenes.mainscene.field.explains;
 
+import com.gryffindor.DictionaryApplication;
 import com.gryffindor.backend.entities.ExampleSentence;
 import com.gryffindor.backend.entities.Translation;
+import com.gryffindor.frontend.entities.AlertDialog;
 import com.gryffindor.frontend.scenes.mainscene.field.IController;
 
 import javafx.scene.control.Label;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.KeyCode;
 
 public class TranslationController implements IController {
@@ -49,6 +52,8 @@ public class TranslationController implements IController {
     translationField.getWordExplain().setOnKeyPressed(event -> {
       if (event.getCode().equals(KeyCode.ENTER)) {
         translationField.getWordExplain().setEditable(false);
+        new AlertDialog(AlertType.INFORMATION).setContent(
+            DictionaryApplication.INSTANCE.config.getContributeThanks()).show();
       }
     });
   }

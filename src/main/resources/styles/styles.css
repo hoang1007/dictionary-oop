@@ -26,6 +26,15 @@
   -fx-padding: 10px;
 }
 
+.hover-pane {
+  -fx-background-radius: 20px;
+}
+
+.hover-pane:hover {
+  -fx-background-color: #78baf8;
+  -fx-padding: 10px;
+}
+
 .nav-pane {
   -fx-background-color: #4ECDC4;
   -fx-padding: 5px;

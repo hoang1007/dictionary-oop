@@ -34,7 +34,6 @@ public final class DictionaryApplication {
   public static void main(String[] args) throws Exception {
     INSTANCE.resourcesManager.loadSuggest();
     System.out.println(INSTANCE.config.getRootPath());
-    // INSTANCE.getDictionaryManagement().addDataFromFile();
     INSTANCE.runApplication();
     INSTANCE.resourcesManager.free();
     INSTANCE.exceptionHandler.free();

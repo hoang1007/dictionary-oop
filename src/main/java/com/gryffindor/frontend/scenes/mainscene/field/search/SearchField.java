@@ -28,8 +28,6 @@ public class SearchField implements IField {
     searchPane = new GridPane();
     searchPane.setHgap(5);
 
-    searchPane.getStyleClass().add("padding-pane");
-  
     initSearchBox();
     initSearchList();
     initImageSearchButton();

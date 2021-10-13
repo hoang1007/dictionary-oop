@@ -11,15 +11,16 @@ import com.gryffindor.frontend.scenes.mainscene.field.search.SearchController;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 
-public class ElementController implements IController {
-  ExplainsField.Element element;
+public class ExplainController implements IController {
+  ExplainField explainField;
   HBox synonymsPane;
-  Word word;
 
   /** Khởi tạo phần dịch. */
-  public ElementController(ExplainsField.Element element) {
-    this.element = element;
+  public ExplainController(ExplainField explainField) {
+    this.explainField = explainField;
     synonymsPane = new HBox();
+    // ManagedUtils.bindVisible(explainPane);
+    explainField.getPane().setVisible(false);
   }
 
   private void initSynoymsPane(Word word) {
@@ -33,14 +34,9 @@ public class ElementController implements IController {
       return;
     }
 
-    element.getSynonymsButton().clear();
-
     for (String syn : synonyms) {
-      element.getSynonymsButton().add(initSynonymButtons(syn));
+      synonymsPane.getChildren().add(initSynonymButtons(syn));
     }
-
-    System.out.println(element.getSynonymsButton().size());
-    synonymsPane.getChildren().addAll(element.getSynonymsButton());
   }
 
   private Button initSynonymButtons(String syn) {
@@ -50,30 +46,33 @@ public class ElementController implements IController {
     return button;
   }
 
+  private void clear() {
+    synonymsPane.getChildren().clear();
+    explainField.getTranslationFields().clear();
+    explainField.getPane().getChildren().clear();
+  }
+
   /**
    * Khởi tạo các thuộc tính liên quan đến {@link Word}.
    */
   public void setWord(Word word) {
-    this.word = word;
+    clear();
+    explainField.getPane().setVisible(true);
 
     if (!word.getTranslations().isEmpty()) {
       for (Translation translation : word.getTranslations()) {
         TranslationField translationField = new TranslationField();
         translationField.getController().setTranslation(translation);
 
-        element.getTranslationFields().add(translationField);
+        explainField.getTranslationFields().add(translationField);
 
-        element.getPane().getChildren().add(translationField.getPane());
+        explainField.getPane().getChildren().add(translationField.getPane());
       }
     }
 
-    element.getWordClass().setText(word.getWordClass());
+    explainField.getWordClass().setText(word.getWordClass());
 
     initSynoymsPane(word);
-    element.getPane().getChildren().add(synonymsPane);
-  }
-
-  public Word getWord() {
-    return word;
+    explainField.getPane().getChildren().add(synonymsPane);
   }
 }

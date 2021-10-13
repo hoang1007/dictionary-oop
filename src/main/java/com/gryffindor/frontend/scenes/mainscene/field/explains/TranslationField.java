@@ -1,5 +1,6 @@
 package com.gryffindor.frontend.scenes.mainscene.field.explains;
 
+
 import com.gryffindor.DictionaryApplication;
 import com.gryffindor.frontend.scenes.mainscene.field.IController;
 import com.gryffindor.frontend.scenes.mainscene.field.IField;
@@ -32,7 +33,8 @@ public class TranslationField implements IField {
 
   public TranslationField() {
     pane = new GridPane();
-
+    pane.getStyleClass().add("hover-pane");
+    
     initExampleSentences();
     initWordExplain();
     initButtons();

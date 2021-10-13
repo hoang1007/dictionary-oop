@@ -12,7 +12,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class TranslateField implements IField {
-  private final VBox parentPane;
   private final VBox translatePane;
   private final TranslateController controller;
 
@@ -28,11 +27,6 @@ public class TranslateField implements IField {
     initWordTarget();
     initPronouncedText();
     initPronouncedButton();
-
-    parentPane = new VBox();
-    parentPane.managedProperty().bind(parentPane.visibleProperty());
-    parentPane.getStyleClass().add("padding-pane");
-    parentPane.getChildren().add(translatePane);
 
     translatePane.getChildren().addAll(pronouncedButton, wordTarget, pronouncedText);
 
@@ -63,7 +57,7 @@ public class TranslateField implements IField {
 
   @Override
   public Pane getPane() {
-    return parentPane;
+    return translatePane;
   }
 
   public Label getWordTarget() {

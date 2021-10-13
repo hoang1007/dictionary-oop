@@ -1,11 +1,9 @@
 package com.gryffindor.frontend.scenes.mainscene.page;
 
 import com.gryffindor.frontend.event.WordEvent;
-import com.gryffindor.frontend.scenes.mainscene.field.explains.ExplainsField;
+import com.gryffindor.frontend.scenes.mainscene.field.explains.ExplainField;
 import com.gryffindor.frontend.scenes.mainscene.field.search.SearchField;
 import com.gryffindor.frontend.scenes.mainscene.field.translate.TranslateField;
-
-import java.util.List;
 
 import javafx.event.EventHandler;
 import javafx.scene.layout.Pane;
@@ -16,19 +14,21 @@ public class HomePage implements IPage {
 
   private SearchField searchField;
   private TranslateField translateField;
-  private ExplainsField explainsField;
+  private ExplainField explainField;
 
   /** Construct. */
   public HomePage() {
     homePanel = new VBox();
+    homePanel.setSpacing(10);
+    homePanel.getStyleClass().add("padding-pane");
     homePanel.setFillWidth(true);
 
     searchField = new SearchField();
     translateField = new TranslateField();
-    explainsField = new ExplainsField();
+    explainField = new ExplainField();
 
     homePanel.getChildren().addAll(
-        searchField.getPane(), translateField.getPane(), explainsField.getPane());
+        searchField.getPane(), translateField.getPane(), explainField.getPane());
 
     handleWordEvent();
   }
@@ -39,7 +39,7 @@ public class HomePage implements IPage {
       @Override
       public void handle(WordEvent event) {
         translateField.getController().setWord(event.getWord());
-        explainsField.getController().setWords(List.of(event.getWord()));
+        explainField.getController().setWord(event.getWord());
       }
     });
   }
@@ -52,8 +52,8 @@ public class HomePage implements IPage {
     return translateField;
   }
 
-  public ExplainsField getExplainField() {
-    return explainsField;
+  public ExplainField getExplainField() {
+    return explainField;
   }
 
   @Override
