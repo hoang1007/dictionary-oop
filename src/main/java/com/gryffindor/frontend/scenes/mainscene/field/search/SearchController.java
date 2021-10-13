@@ -1,6 +1,7 @@
 package com.gryffindor.frontend.scenes.mainscene.field.search;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -141,24 +142,24 @@ public class SearchController implements IController {
     PageManager.INSTANCE.showPage(LoadingPage.class);
 
     new Thread(() -> {
-      // Word word =
-      // DictionaryApplication.INSTANCE.dictionaryManagement.dictionary.searchWord(wordTarget);
       try {
-        boolean statusOnOff = PageManager.INSTANCE.getSettingPage().getSwitchModeField().getSwitchButton().getState();
         Word word;
-        if (statusOnOff == true) {
-          word = FireStore.find(wordTarget);
-          System.out.println("tra online");
-        } else {
+        boolean statusOn = PageManager.INSTANCE.getSettingPage().getSwitchModeField().getSwitchButton().getState();
+        // if ONLINE
+        if (statusOn == true) {
+          System.out.println("Searching online");
+          word = DictionaryApplication.INSTANCE.dictionaryManagement.searchWordOnline(wordTarget);
+
+        } else { // if OFFLINE
+          System.out.println("Searching offline");
           word = DictionaryApplication.INSTANCE.dictionaryManagement.dictionaryLookup(wordTarget);
-          System.out.println("tra offline");
         }
 
-        System.out.print("found word: " + word.getWordClass());
+        System.out.print("Found word: " + word.getWordClass());
         history.add(word);
-
         Platform.runLater(() -> node.fireEvent(new WordEvent(word)));
-      } catch (InterruptedException | ExecutionException | TimeoutException | NullPointerException e) {
+
+      } catch (NullPointerException e) {
         DictionaryApplication.INSTANCE.exceptionHandler.add(e);
       } finally {
         Platform.runLater(() -> PageManager.INSTANCE.restorePage());

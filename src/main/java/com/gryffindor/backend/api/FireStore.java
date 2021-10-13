@@ -23,7 +23,8 @@ public class FireStore {
 
   static {
     try {
-      GoogleCredentials credentials = GoogleCredentials.fromStream(DictionaryApplication.INSTANCE.config.getGoogleServiceStream());
+      GoogleCredentials credentials = GoogleCredentials
+          .fromStream(DictionaryApplication.INSTANCE.config.getGoogleServiceStream());
 
       FirebaseOptions options = FirebaseOptions.builder().setCredentials(credentials).build();
 
@@ -71,10 +72,13 @@ public class FireStore {
     ApiFuture<DocumentSnapshot> future = database.collection("dictionary").document(wordTarget).get();
 
     Word wordFound = future.get(10, TimeUnit.SECONDS).toObject(Word.class);
-    if (wordFound == null) {
-      throw new NullPointerException("Not found");
-    }
+    // if (wordFound == null) {
+    // throw new NullPointerException("Not found");
+    // }
 
+    if (wordFound == null) {
+      System.out.println("Not found on FireBase");
+    }
     return wordFound;
   }
 }

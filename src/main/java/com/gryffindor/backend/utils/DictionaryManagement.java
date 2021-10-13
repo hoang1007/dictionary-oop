@@ -3,6 +3,9 @@ package com.gryffindor.backend.utils;
 import com.google.common.collect.Iterables;
 import com.gryffindor.Config;
 import com.gryffindor.DictionaryApplication;
+import com.gryffindor.Language;
+import com.gryffindor.backend.api.FireStore;
+import com.gryffindor.backend.api.GoogleTranslator;
 import com.gryffindor.backend.entities.Dictionary;
 import com.gryffindor.backend.entities.ExampleSentence;
 import com.gryffindor.backend.entities.Translation;
@@ -15,6 +18,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.ArrayList;
@@ -261,5 +266,35 @@ public class DictionaryManagement {
     } else {
       System.out.println("Failed saving file");
     }
+  }
+
+  public Word searchWordFromFireBase(String wordTarget) {
+    Word ans = null; // answer
+    try {
+      ans = FireStore.find(wordTarget);
+    } catch (InterruptedException | ExecutionException | TimeoutException | NullPointerException e) {
+      DictionaryApplication.INSTANCE.exceptionHandler.add(e);
+    }
+
+    return ans;
+  }
+
+  public Word searchWordFromGoogleTranslator(String wordTarget) {
+    Word ans = null; // answer
+    try {
+      ans = new Word(wordTarget, GoogleTranslator.translate(wordTarget, Language.ENGLISH, Language.VIETNAMESE));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    return ans;
+  }
+
+  public Word searchWordOnline(String wordTarget) {
+    Word ans = null;
+    ans = searchWordFromFireBase(wordTarget);
+    if (ans == null) {
+      ans = searchWordFromGoogleTranslator(wordTarget);
+    }
+    return ans;
   }
 }
