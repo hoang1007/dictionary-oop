@@ -2,71 +2,51 @@ package com.gryffindor.backend.utils;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Locale;
 
-import javax.speech.AudioException;
-import javax.speech.Central;
-import javax.speech.EngineException;
-import javax.speech.EngineStateError;
-import javax.speech.synthesis.Synthesizer;
-import javax.speech.synthesis.SynthesizerModeDesc;
+import javax.sound.sampled.AudioInputStream;
 
-import com.gryffindor.Config;
+import com.asprise.ocr.Ocr;
 import com.gryffindor.DictionaryApplication;
 
-import net.sourceforge.tess4j.Tesseract;
-import net.sourceforge.tess4j.TesseractException;
+import marytts.LocalMaryInterface;
+import marytts.exceptions.MaryConfigurationException;
+import marytts.exceptions.SynthesisException;
+import marytts.util.data.audio.AudioPlayer;
 
 public class TextUtils {
-  private static final Tesseract tesseract;
-  private static Synthesizer synthesizer;
+  private static final Ocr ocr;
+  private static LocalMaryInterface marytts;
+  private static AudioPlayer player;
 
   static {
-    Config config = DictionaryApplication.INSTANCE.config;
+    ///////////// Init image to text /////////////////////////////////
+    Ocr.setUp();
+    ocr = new Ocr();
+    ocr.startEngine("eng", Ocr.SPEED_FAST);
 
-    tesseract = new Tesseract();
+    //////////// Init text to speech ////////////////////////
 
-    String folderTess = config.getRootPath() + "/tessdata";
-    if (Files.notExists(Paths.get(folderTess))) {
-      File tessdata = new File(config.getRootPath() + "/tessdata.zip");
-
-      System.out.println("Unzipping tessdata...");
-      FileUtils.copy(config.getTessDataStream(), tessdata);
-
-      try {
-        FileUtils.unzip(tessdata.getAbsolutePath(), folderTess);
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    }
-
-    tesseract.setDatapath(folderTess);
-    tesseract.setLanguage("eng");
-
-    System.setProperty("freetts.voices", "com.sun.speech.freetts.en.us" + ".cmu_us_kal.KevinVoiceDirectory");
     try {
-      SynthesizerModeDesc dModeDesc = new SynthesizerModeDesc(Locale.US);
-      Central.registerEngineCentral("com.sun.speech.freetts" + ".jsapi.FreeTTSEngineCentral");
-
-      synthesizer = Central.createSynthesizer(dModeDesc);
-      synthesizer.allocate();
-    } catch (Exception e) {
-      e.printStackTrace();
+      marytts = new LocalMaryInterface();
+    } catch (MaryConfigurationException e) {
+      DictionaryApplication.INSTANCE.exceptionHandler.add(
+          new Exception("Could not initialize voice"));
     }
   }
 
-  public static String fromImage(String imgPath) throws TesseractException {
-    return tesseract.doOCR(new File(imgPath));
+  public static String fromImage(String imgPath) {
+    return fromImage(new File(imgPath));
   }
 
-  public static String fromImage(File imgFile) throws TesseractException {
-    return tesseract.doOCR(imgFile);
+  public static String fromImage(File imgFile) {
+    String s = ocr.recognize(new File[]{imgFile}, Ocr.RECOGNIZE_TYPE_ALL, Ocr.OUTPUT_FORMAT_PLAINTEXT);
+
+    return format(s);
   }
 
   /**
    * Text to speech.
+   * @throws SynthesisException
    * 
    * @throws EngineStateError         State error
    * @throws AudioException           Audio error
@@ -74,26 +54,32 @@ public class TextUtils {
    * @throws InterruptedException     Interrupted error
    * @throws EngineException          engine error
    */
-  public static void toSpeech(String content)
-      throws AudioException, EngineStateError, IllegalArgumentException, InterruptedException {
-    synthesizer.resume();
+  public static void toSpeech(String content) throws SynthesisException {
+    stopSpeaking();
 
-    synthesizer.speakPlainText(content, null);
+    try (AudioInputStream audio = marytts.generateAudio(content)) {
+      player = new AudioPlayer(audio);
 
-    synthesizer.waitEngineState(Synthesizer.QUEUE_EMPTY);
-  }
-
-  /** Free api. */
-  public static void free() {
-    try {
-      synthesizer.deallocate();
-    } catch (EngineException | EngineStateError e) {
+      player.setDaemon(true);
+      player.start();
+    } catch (IOException e) {
       e.printStackTrace();
     }
   }
 
+  private static void stopSpeaking() {
+    if (player != null) {
+      player.cancel();
+    }
+  }
+
+  /** Free api. */
+  public static void free() {
+    stopSpeaking();
+  }
+
   public static String format(String arg) {
-    return arg.replaceAll("[-_]", " ").trim();
+    return arg.replaceAll("[-_\n]", " ").trim().toLowerCase();
   }
 
   public static String[] format(String[] args) {
