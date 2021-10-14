@@ -33,7 +33,12 @@ public class ExceptionHandler extends TimerTask implements Thread.UncaughtExcept
 
   @Override
   public void uncaughtException(Thread t, Throwable e) {
-    Platform.runLater(() -> new AlertDialog(AlertType.ERROR).setContent("Unexpected error!").show());
+    if (e instanceof IndexOutOfBoundsException) {
+      // do nothing
+    } else {
+      Platform.runLater(() -> new AlertDialog(AlertType.ERROR).setContent("Unexpected error!").show());
+      e.printStackTrace();
+    }
   }
 
   public void free() {

@@ -1,5 +1,5 @@
 package com.gryffindor;
 
-public enum Mode {
+public enum Status {
   ONLINE, OFFLINE
 }

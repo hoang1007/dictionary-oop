@@ -79,6 +79,12 @@ public class Dictionary {
     return synonyms;
   }
 
+  public void clear() {
+    for (List<Word> list : dataset) {
+      list.clear();
+    }
+  }
+
   /** Lấy tất cả các từ có trong từ điển. */
   public List<Word> getAllWords() {
     List<Word> allWords = dataset.get(0);

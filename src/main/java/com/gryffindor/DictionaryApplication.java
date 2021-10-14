@@ -1,6 +1,7 @@
 package com.gryffindor;
 
 import com.gryffindor.backend.utils.DictionaryManagement;
+import com.gryffindor.backend.utils.NetworkUtils;
 import com.gryffindor.frontend.ApplicationUI;
 
 import javafx.application.Application;
@@ -16,10 +17,12 @@ public final class DictionaryApplication {
   public final ResourcesManager resourcesManager;
   public final ExceptionHandler exceptionHandler;
 
+  private Status status;
+
   DictionaryApplication() {
     exceptionHandler = new ExceptionHandler();
     Thread.setDefaultUncaughtExceptionHandler(exceptionHandler);
-
+    status = NetworkUtils.networkStatus();
     config = new Config();
     dictionaryManagement = new DictionaryManagement();
     resourcesManager = new ResourcesManager();
@@ -27,8 +30,6 @@ public final class DictionaryApplication {
 
   static {
     INSTANCE = new DictionaryApplication();
-    INSTANCE.dictionaryManagement.addDataFromFile();
-    System.out.println("SIZE OF LIST WORDS : = " + INSTANCE.dictionaryManagement.getDictionary().getAllWords().size());
   }
 
   /**
@@ -38,6 +39,12 @@ public final class DictionaryApplication {
    * @throws Exception lỗi khi khởi chạy
    */
   public static void main(String[] args) throws Exception {
+    if (INSTANCE.getStatus().equals(Status.OFFLINE)) {
+      INSTANCE.dictionaryManagement.addDataFromFile();
+      System.out.println("SIZE OF LIST WORDS : = " + 
+          INSTANCE.dictionaryManagement.getDictionary().getAllWords().size());
+    }
+
     INSTANCE.resourcesManager.loadSuggest();
     System.out.println(INSTANCE.config.getRootPath());
     INSTANCE.runApplication();
@@ -53,4 +60,12 @@ public final class DictionaryApplication {
   public DictionaryManagement getDictionaryManagement() {
     return dictionaryManagement;
   }
+
+  public Status getStatus() {
+    return status;
+  }
+
+  public void setStatus(Status st) {
+    this.status = st;
+  } 
 }

@@ -86,9 +86,6 @@
         <groupId>org.openjfx</groupId>
         <artifactId>javafx-maven-plugin</artifactId>
         <version>0.0.7</version>
-        <configuration>
-          <mainClass>com.gryffindor.DictionaryApplication</mainClass>
-        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>

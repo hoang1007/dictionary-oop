@@ -22,7 +22,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -163,8 +162,8 @@ public class DictionaryManagement {
       String word_class = "";
 
       for (String line = bufferedReader.readLine(); line != null; line = bufferedReader.readLine()) {
-        // if (words.size() > 200)
-        // break;
+        if (words.size() > 200)
+          break;
         // word target and word spelling is in the same line
         if (line.startsWith(config.getWordTargetSign())) {
           int posTarget = line.indexOf(config.getWordTargetSign());
@@ -230,6 +229,7 @@ public class DictionaryManagement {
     }
 
     // Add all words loaded to the dictionary
+    dictionary.clear();
     for (Word word : words) {
       try {
         dictionary.addWord(word);
@@ -272,7 +272,7 @@ public class DictionaryManagement {
     Word ans = null; // answer
     try {
       ans = FireStore.find(wordTarget);
-    } catch (InterruptedException | ExecutionException | TimeoutException | NullPointerException e) {
+    } catch (InterruptedException | ExecutionException | TimeoutException e) {
       DictionaryApplication.INSTANCE.exceptionHandler.add(e);
     }
 
@@ -282,7 +282,8 @@ public class DictionaryManagement {
   public Word searchWordFromGoogleTranslator(String wordTarget) {
     Word ans = null; // answer
     try {
-      ans = new Word(wordTarget, GoogleTranslator.translate(wordTarget, Language.ENGLISH, Language.VIETNAMESE));
+      ans = new Word(wordTarget);
+      ans.addTranslation(new Translation(GoogleTranslator.translate(wordTarget, Language.DETECT, Language.VIETNAMESE)));
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -290,8 +291,17 @@ public class DictionaryManagement {
   }
 
   public Word searchWordOnline(String wordTarget) {
+    // nếu số từ trong string >= 3 thì 
+    // string là một câu hoặc đoạn văn
+    // nên tìm kiếm bằng google
+    if (wordTarget.split(" ").length >= 3) {
+      return searchWordFromGoogleTranslator(wordTarget);
+    }
+
     Word ans = null;
     ans = searchWordFromFireBase(wordTarget);
+    // nếu không tìm thấy từ trong database
+    // tìm bằng google 
     if (ans == null) {
       ans = searchWordFromGoogleTranslator(wordTarget);
     }

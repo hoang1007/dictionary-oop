@@ -1,15 +1,12 @@
 package com.gryffindor.frontend.scenes.mainscene.field.search;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeoutException;
 
 import com.gryffindor.DictionaryApplication;
 import com.gryffindor.Language;
-import com.gryffindor.backend.api.FireStore;
+import com.gryffindor.Status;
 import com.gryffindor.backend.api.GoogleTranslator;
 import com.gryffindor.backend.entities.Translation;
 import com.gryffindor.backend.entities.Word;
@@ -118,10 +115,9 @@ public class SearchController implements IController {
           word.addTranslation(new Translation(trans));
 
           Platform.runLater(() -> searchField.getImageSearchButton().fireEvent(new WordEvent(word)));
-
-          throw new RuntimeException();
         } catch (Exception e) {
           DictionaryApplication.INSTANCE.exceptionHandler.add(e);
+          e.printStackTrace();
         } finally {
           Platform.runLater(() -> PageManager.INSTANCE.restorePage());
         }
@@ -144,9 +140,9 @@ public class SearchController implements IController {
     new Thread(() -> {
       try {
         Word word;
-        boolean statusOn = PageManager.INSTANCE.getSettingPage().getSwitchModeField().getSwitchButton().getState();
+        Status status = DictionaryApplication.INSTANCE.getStatus();
         // if ONLINE
-        if (statusOn == true) {
+        if (status.equals(Status.ONLINE)) {
           System.out.println("Searching online");
           word = DictionaryApplication.INSTANCE.dictionaryManagement.searchWordOnline(wordTarget);
 
@@ -155,12 +151,16 @@ public class SearchController implements IController {
           word = DictionaryApplication.INSTANCE.dictionaryManagement.dictionaryLookup(wordTarget);
         }
 
-        System.out.print("Found word: " + word.getWordClass());
-        history.add(word);
-        Platform.runLater(() -> node.fireEvent(new WordEvent(word)));
-
+        if (word != null) {
+          history.add(word);
+          Platform.runLater(() -> node.fireEvent(new WordEvent(word)));
+        } else {
+          DictionaryApplication.INSTANCE.exceptionHandler.add(
+            new NullPointerException("Không tìm thấy " + wordTarget + " trong từ điển"));
+        }
       } catch (NullPointerException e) {
         DictionaryApplication.INSTANCE.exceptionHandler.add(e);
+        e.printStackTrace();
       } finally {
         Platform.runLater(() -> PageManager.INSTANCE.restorePage());
       }
