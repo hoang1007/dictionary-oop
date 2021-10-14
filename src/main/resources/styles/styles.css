@@ -51,6 +51,7 @@
 .search-list {
   -fx-font-family: "Helvetica Neue";
   -fx-font-size: 16px;
+  -fx-min-height: 100px;
   -fx-background-radius: 4px;
   -fx-background-color: transparent;
 }

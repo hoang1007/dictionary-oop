@@ -5,10 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.gryffindor.DictionaryApplication;
-import com.gryffindor.Language;
 import com.gryffindor.Status;
-import com.gryffindor.backend.api.GoogleTranslator;
-import com.gryffindor.backend.entities.Translation;
 import com.gryffindor.backend.entities.Word;
 import com.gryffindor.backend.libraries.BinarySearch;
 import com.gryffindor.backend.utils.TextUtils;
@@ -58,6 +55,7 @@ public class SearchController implements IController {
   void actionOnSearching() {
     searchField.getSearchBox().textProperty().addListener((observable, oldValue, newValue) -> {
       searchField.getSearchList().setVisible(true); // enable search list
+
       // bat dau nhap
       if (oldValue.length() == 0 && newValue.length() == 1) {
         BinarySearch.setWordList(
@@ -103,25 +101,9 @@ public class SearchController implements IController {
       File img = new FileChooserWindow("Choose image", "image")
           .setExtensionFilter(new ExtensionFilter("PNG", "*.png"), new ExtensionFilter("JPEG", "*.jpg")).getOpenFile();
 
-      PageManager.INSTANCE.showPage(LoadingPage.class);
+      String content = TextUtils.fromImage(img);
 
-      new Thread(() -> {
-        try {
-          String content = TextUtils.fromImage(img);
-
-          String trans = GoogleTranslator.translate(content, Language.DETECT, Language.VIETNAMESE);
-
-          Word word = new Word(content);
-          word.addTranslation(new Translation(trans));
-
-          Platform.runLater(() -> searchField.getImageSearchButton().fireEvent(new WordEvent(word)));
-        } catch (Exception e) {
-          DictionaryApplication.INSTANCE.exceptionHandler.add(e);
-          e.printStackTrace();
-        } finally {
-          Platform.runLater(() -> PageManager.INSTANCE.restorePage());
-        }
-      }).start();
+      onSearchRequest(searchField.getImageSearchButton(), content);
     });
   }
 
@@ -155,8 +137,8 @@ public class SearchController implements IController {
           history.add(word);
           Platform.runLater(() -> node.fireEvent(new WordEvent(word)));
         } else {
-          DictionaryApplication.INSTANCE.exceptionHandler.add(
-            new NullPointerException("Không tìm thấy " + wordTarget + " trong từ điển"));
+          DictionaryApplication.INSTANCE.exceptionHandler
+              .add(new NullPointerException("Không tìm thấy " + wordTarget + " trong từ điển"));
         }
       } catch (NullPointerException e) {
         DictionaryApplication.INSTANCE.exceptionHandler.add(e);

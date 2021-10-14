@@ -3,18 +3,27 @@ package com.gryffindor.frontend.scenes.mainscene.field.switchmode;
 import com.gryffindor.DictionaryApplication;
 import com.gryffindor.Status;
 import com.gryffindor.backend.utils.NetworkUtils;
+import com.gryffindor.frontend.entities.AlertDialog;
 import com.gryffindor.frontend.entities.SwitchButton;
 import com.gryffindor.frontend.scenes.mainscene.field.IController;
+
+import javafx.application.Platform;
+import javafx.scene.control.Alert.AlertType;
 
 public class SwitchModeController implements IController {
   SwitchModeField switchMode;
 
-  // đánh dấu lần đầu click để load dữ liệu
-  boolean firstClick;
+  // đánh dấu lần đầu offline để load dữ liệu
+  boolean firstOffline;
 
   public SwitchModeController(SwitchModeField switchMode) {
     this.switchMode = switchMode;
-    this.firstClick = true;
+    this.firstOffline = true;
+    if (DictionaryApplication.INSTANCE.getStatus().equals(Status.OFFLINE)) {
+      firstOffline = false;
+      switchMode.getSwitchButton().setOff();
+    }
+
     onSwitchMode();
   }
 
@@ -29,15 +38,18 @@ public class SwitchModeController implements IController {
         Status status = NetworkUtils.networkStatus();
         if (status.equals(Status.OFFLINE)) {
           button.setOff();
+          new AlertDialog(AlertType.WARNING).setContent("You are offline").show();
         }
 
         DictionaryApplication.INSTANCE.setStatus(status);
       } else {
-        if (firstClick) {
+        if (firstOffline) {
           new Thread(() -> {
             DictionaryApplication.INSTANCE.dictionaryManagement.addDataFromFile();
-            firstClick = false;
+            firstOffline = false;
             DictionaryApplication.INSTANCE.setStatus(Status.OFFLINE);
+            Platform.runLater(() -> 
+                  new AlertDialog(AlertType.INFORMATION).setContent("Downloaded offline data").show());
           }).start();
         } else {
           DictionaryApplication.INSTANCE.setStatus(Status.OFFLINE);

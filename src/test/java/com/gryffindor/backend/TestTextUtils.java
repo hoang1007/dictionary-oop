@@ -9,6 +9,6 @@ import org.junit.jupiter.api.Test;
 public class TestTextUtils {
     @Test
     void testFormat() {
-        assertEquals("head and shoulder", TextUtils.format("head-and_shoulder"));
+        assertEquals("head and shoulder and arm", TextUtils.format("head-and_shoulder\nand\narm"));
     }
 }

@@ -162,8 +162,8 @@ public class DictionaryManagement {
       String word_class = "";
 
       for (String line = bufferedReader.readLine(); line != null; line = bufferedReader.readLine()) {
-        if (words.size() > 200)
-          break;
+        // if (words.size() > 200)
+        //   break;
         // word target and word spelling is in the same line
         if (line.startsWith(config.getWordTargetSign())) {
           int posTarget = line.indexOf(config.getWordTargetSign());

@@ -23,27 +23,37 @@
     <jacoco.unit-tests.limit.method-complexity>5</jacoco.unit-tests.limit.method-complexity>
   </properties>
 
+  <repositories>
+    <repository>
+      <id>central</id>
+      <url>https://jcenter.bintray.com</url>
+    </repository>
+  </repositories>
+
   <dependencies>
+    <!-- text to speech -->
+    <dependency>
+      <groupId>de.dfki.mary</groupId>
+      <artifactId>voice-cmu-slt-hsmm</artifactId>
+      <version>5.2</version>
+    </dependency>
+
+    <!-- image to text -->
+    <!-- https://mvnrepository.com/artifact/com.asprise.ocr/java-ocr-api -->
+    <dependency>
+      <groupId>com.asprise.ocr</groupId>
+      <artifactId>java-ocr-api</artifactId>
+      <version>15.3.0.3</version>
+    </dependency>
+
     <!-- firebase store -->
     <dependency>
       <groupId>com.google.firebase</groupId>
       <artifactId>firebase-admin</artifactId>
       <version>8.1.0</version>
     </dependency>
-    <!-- extjwnl library dependency -->
-    <dependency>
-      <groupId>net.sf.sociaal</groupId>
-      <artifactId>freetts</artifactId>
-      <version>1.2.2</version>
-    </dependency>
 
-    <dependency>
-      <groupId>net.lingala.zip4j</groupId>
-      <artifactId>zip4j</artifactId>
-      <version>2.9.0</version>
-    </dependency>
-
-    <!-- main library dependency -->
+    <!-- WordNet library dependency -->
     <dependency>
       <groupId>net.sf.extjwnl</groupId>
       <artifactId>extjwnl</artifactId>
@@ -56,12 +66,6 @@
       <version>1.2</version>
     </dependency>
 
-    <!-- https://mvnrepository.com/artifact/net.sourceforge.tess4j/tess4j -->
-    <dependency>
-      <groupId>net.sourceforge.tess4j</groupId>
-      <artifactId>tess4j</artifactId>
-      <version>4.5.5</version>
-    </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
@@ -203,8 +207,10 @@
         </executions>
       </plugin>
       <plugin>
+        <?m2e execute onConfiguration,onIncremental?>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
         <configuration>
           <source>9</source>
           <target>9</target>
