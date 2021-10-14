@@ -43,9 +43,13 @@ public final class DictionaryApplication {
       INSTANCE.dictionaryManagement.addDataFromFile();
       System.out.println("SIZE OF LIST WORDS : = " + 
           INSTANCE.dictionaryManagement.getDictionary().getAllWords().size());
+    } else {
+      // nếu online
+      // tải trước danh sách word target để hiện gợi ý
+      // sau đó tìm kiếm online
+      INSTANCE.resourcesManager.loadSuggest();
     }
 
-    INSTANCE.resourcesManager.loadSuggest();
     System.out.println(INSTANCE.config.getRootPath());
     INSTANCE.runApplication();
     INSTANCE.resourcesManager.free();
