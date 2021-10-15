@@ -9,18 +9,34 @@ public class Word {
     this.word_explain = word_explain;
   }
 
+  /**
+   * @param word_target
+   */
   public void setWordTarget(String word_target) {
     this.word_target = word_target;
   }
 
+  /**
+   * Từ tiếng Anh.
+   * 
+   * @return String
+   */
   public String getWordTarget() {
     return this.word_target;
   }
 
+  /**
+   * Nghĩa.
+   * 
+   * @param word_explain
+   */
   public void setWordExplain(String word_explain) {
     this.word_explain = word_explain;
   }
 
+  /**
+   * @return String
+   */
   public String getWordExplain() {
     return this.word_explain;
   }

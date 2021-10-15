@@ -19,6 +19,9 @@ public class Config {
     }
   }
 
+  /**
+   * @param properties
+   */
   void init(Properties properties) {
     googleAPIUrl = properties.getProperty("googleapiurl");
   }

@@ -11,10 +11,17 @@ import com.gryffindor.Language;
 import com.gryffindor.backend.AppData;
 
 public class GoogleTranslator {
+
+  /**
+   * @param word_target
+   * @param from
+   * @param to
+   * @return String
+   * @throws IOException
+   */
   public static String translate(String word_target, Language from, Language to) throws IOException {
-    String urlString = AppData.INSTANCE.config.getGoogleAPIUrl() + 
-                    "?q=" + URLEncoder.encode(word_target, "UTF-8") +
-                    "&target=" + to.toShortString() + "&from=" + from.toShortString();
+    String urlString = AppData.INSTANCE.config.getGoogleAPIUrl() + "?q=" + URLEncoder.encode(word_target, "UTF-8")
+        + "&target=" + to.toShortString() + "&from=" + from.toShortString();
 
     URL url = new URL(urlString);
 
@@ -25,7 +32,7 @@ public class GoogleTranslator {
 
     BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 
-    for (String inputLine; (inputLine = reader.readLine()) != null; ) {
+    for (String inputLine; (inputLine = reader.readLine()) != null;) {
       response.append(inputLine);
     }
 

@@ -13,6 +13,9 @@ public class DictionaryCommandline {
         dictionaryManagement = AppData.INSTANCE.dictionaryManagement;
     }
 
+    /**
+     * In toàn bộ từ trong từ điển.
+     */
     public void showAllWords() {
         System.out.println("No | English | Vietnamese");
         int i = 1;
@@ -22,12 +25,18 @@ public class DictionaryCommandline {
         }
     }
 
+    /**
+     * Từ điển cơ bản.
+     */
     public void dictionaryBasic() {
         dictionaryManagement.insertFromCommandline();
 
         showAllWords();
     }
 
+    /**
+     * Từ điển nâng cao.
+     */
     public void dictionaryAdvance() {
         dictionaryManagement.insertFromFile();
 
@@ -43,7 +52,7 @@ public class DictionaryCommandline {
                 while (true) {
                     dictionaryManagement.dictionaryLookup();
                     System.out.println("Bạn có muốn tiếp tục tìm kiếm từ (Y/N): ");
-                    start =  scannerTarget.nextLine();
+                    start = scannerTarget.nextLine();
                     if (!start.toUpperCase().equals("Y")) {
                         break;
                     }
@@ -71,6 +80,9 @@ public class DictionaryCommandline {
         scannerTarget.close();
     }
 
+    /**
+     * Menu trong từ điển nâng cao.
+     */
     public void menuCommandline() {
         System.out.println("Bạn muốn xử dụng chức năng nào ?");
         System.out.println("1. Tìm kếm từ.");
@@ -82,6 +94,12 @@ public class DictionaryCommandline {
         System.out.println("Mời bạn nhâp giá trị tương ứng với hành động: ");
     }
 
+    /**
+     * Tìm list các từ có điểm chung. Ex: Khi nhập tra tìn các từ translate,
+     * transformation.
+     * 
+     * @return List<Word>
+     */
     public List<Word> dictionarySearch() {
         System.out.println("Nhập từ cần tra: ");
         Scanner scanner = new Scanner(System.in);

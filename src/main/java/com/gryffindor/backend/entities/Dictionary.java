@@ -36,28 +36,31 @@ public class Dictionary {
     return null;
   }
 
+  /**
+   * @param wordTarget
+   * @return Word
+   */
   public Word searchWordBinary(String wordTarget) {
-      int low = 0;
-      int high = words.size();
-      int mid;
-      while (low <= high) {
-          mid = (low + high) / 2;
-          if (words.get(mid).getWordTarget().compareTo(wordTarget) < 0) {
-              low = mid + 1;
-          } else if (words.get(mid).getWordTarget().compareTo(wordTarget) > 0) {
-              high = mid ;
-          } else {
-              return words.get(mid);
-          }
+    int low = 0;
+    int high = words.size();
+    int mid;
+    while (low <= high) {
+      mid = (low + high) / 2;
+      if (words.get(mid).getWordTarget().compareTo(wordTarget) < 0) {
+        low = mid + 1;
+      } else if (words.get(mid).getWordTarget().compareTo(wordTarget) > 0) {
+        high = mid;
+      } else {
+        return words.get(mid);
       }
+    }
 
-      return null;
+    return null;
   }
 
   /**
-   * Tìm tất cả các từ liên quan.
-   * VD: "tra" trả về tradition, translate
-   * Tìm tất cả từ đồng âm.
+   * Tìm tất cả các từ liên quan. VD: "tra" trả về tradition, translate Tìm tất cả
+   * từ đồng âm.
    *
    * @param word_target từ mới muốn tìm
    * @return danh sách các từ tìm được

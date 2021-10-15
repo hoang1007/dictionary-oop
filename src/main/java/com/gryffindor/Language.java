@@ -1,9 +1,7 @@
 package com.gryffindor;
 
 public enum Language {
-  DETECT("", ""),
-  ENGLISH("en", "English"),
-  VIETNAMESE("vi", "Tiếng Việt");
+  DETECT("", ""), ENGLISH("en", "English"), VIETNAMESE("vi", "Tiếng Việt");
 
   private final String shortString;
   private final String longString;

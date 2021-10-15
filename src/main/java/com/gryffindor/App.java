@@ -15,7 +15,7 @@ public final class App {
    * @throws IOException
    */
   public static void main(String[] args) throws IOException {
-    //new DictionaryCommandline().dictionaryBasic();
+    // new DictionaryCommandline().dictionaryBasic();
     new DictionaryCommandline().dictionaryAdvance();
   }
 }
