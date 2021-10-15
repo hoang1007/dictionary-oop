@@ -71,7 +71,9 @@ public class SearchController implements IController {
       } else {
         List<Word> wordsSuggest = BinarySearch.searchAdvanced(newValue, newValue.length() - oldValue.length());
 
-        searchField.getSearchList().getItems().setAll(wordsSuggest);
+        if (wordsSuggest != null) {
+          searchField.getSearchList().getItems().setAll(wordsSuggest);
+        }
       }
     });
   }

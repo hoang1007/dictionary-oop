@@ -283,7 +283,9 @@ public class DictionaryManagement {
     Word ans = null; // answer
     try {
       ans = new Word(wordTarget);
-      ans.addTranslation(new Translation(GoogleTranslator.translate(wordTarget, Language.DETECT, Language.VIETNAMESE)));
+      String trans = GoogleTranslator.translate(wordTarget, Language.DETECT, Language.VIETNAMESE);
+      System.out.println("Translated: " + trans);
+      ans.addTranslation(new Translation(trans));
     } catch (IOException e) {
       e.printStackTrace();
     }

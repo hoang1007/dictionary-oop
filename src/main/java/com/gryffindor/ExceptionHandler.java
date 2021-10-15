@@ -35,6 +35,8 @@ public class ExceptionHandler extends TimerTask implements Thread.UncaughtExcept
   public void uncaughtException(Thread t, Throwable e) {
     if (e instanceof IndexOutOfBoundsException) {
       // ignore this exception
+    } else if (e instanceof NullPointerException) {
+      // ignore this exception
     } else {
       Platform.runLater(() -> new AlertDialog(AlertType.ERROR).setContent(e.getMessage()).show());
       e.printStackTrace();
