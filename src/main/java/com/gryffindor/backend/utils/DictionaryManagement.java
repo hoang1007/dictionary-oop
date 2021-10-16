@@ -1,6 +1,9 @@
 package com.gryffindor.backend.utils;
 
 import com.google.common.collect.Iterables;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.gryffindor.Config;
 import com.gryffindor.DictionaryApplication;
 import com.gryffindor.Language;
@@ -15,6 +18,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -147,8 +151,10 @@ public class DictionaryManagement {
   }
 
   /**
-   * Nhạp dât từ file nâng cao có giải thích ..... chưa xử lí hoàn toàn xong xâu
-   * nghĩa lỗi khi đọc vào dòng trống
+   * Đọc dữ liệu từ file text
+   * @deprecated 
+   * Hàm này đã không còn được sử dụng vì chương trình chuyển sang nạp dữ liệu từ json
+   * <p> Sử dụng {@link DictionaryManagement#insertFromJson()} để thay thế
    */
   public void addDataFromFile() {
     Config config = DictionaryApplication.INSTANCE.config;
@@ -308,5 +314,28 @@ public class DictionaryManagement {
       ans = searchWordFromGoogleTranslator(wordTarget);
     }
     return ans;
+  }
+
+  public void insertFromJson() {
+    JsonElement element = JsonParser.parseReader(
+      new InputStreamReader(DictionaryApplication.INSTANCE.config.getDictionaryJson()));
+
+    Word[] words = new Gson().fromJson(element, Word[].class);
+
+    dictionary.clear();
+    for (Word word : words) {
+      dictionary.addWord(word);
+    }
+  }
+
+  public void exportToJson() throws IOException {
+    List<Word> allWords = dictionary.getAllWords();
+
+    String jsonData = new Gson().toJson(allWords);
+
+    try (FileWriter writer = new FileWriter(DictionaryApplication.INSTANCE
+        .config.getRootPath() + "/dictionary.txt")) {
+          writer.write(jsonData);
+        }
   }
 }

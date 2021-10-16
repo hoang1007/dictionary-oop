@@ -45,7 +45,7 @@ public class SwitchModeController implements IController {
       } else {
         if (firstOffline) {
           new Thread(() -> {
-            DictionaryApplication.INSTANCE.dictionaryManagement.addDataFromFile();
+            DictionaryApplication.INSTANCE.dictionaryManagement.insertFromJson();
             firstOffline = false;
             DictionaryApplication.INSTANCE.setStatus(Status.OFFLINE);
             Platform.runLater(() -> 

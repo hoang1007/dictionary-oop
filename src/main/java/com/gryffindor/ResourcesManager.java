@@ -1,5 +1,6 @@
 package com.gryffindor;
 
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 import com.google.gson.Gson;
@@ -27,5 +28,10 @@ public class ResourcesManager {
   /** Free resources. */
   public void free() {
     TextUtils.free();
+    try {
+      DictionaryApplication.INSTANCE.dictionaryManagement.exportToJson();
+    } catch (IOException e) {
+      DictionaryApplication.INSTANCE.exceptionHandler.add(e);
+    }
   }
 }

@@ -40,7 +40,7 @@ public final class DictionaryApplication {
    */
   public static void main(String[] args) throws Exception {
     if (INSTANCE.getStatus().equals(Status.OFFLINE)) {
-      INSTANCE.dictionaryManagement.addDataFromFile();
+      INSTANCE.dictionaryManagement.insertFromJson();
       System.out.println("SIZE OF LIST WORDS : = " + 
           INSTANCE.dictionaryManagement.getDictionary().getAllWords().size());
     } else {
@@ -52,6 +52,7 @@ public final class DictionaryApplication {
 
     System.out.println(INSTANCE.config.getRootPath());
     INSTANCE.runApplication();
+
     INSTANCE.resourcesManager.free();
     INSTANCE.exceptionHandler.free();
   }
