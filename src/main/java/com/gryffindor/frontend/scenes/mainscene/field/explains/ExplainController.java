@@ -14,6 +14,7 @@ import javafx.scene.layout.HBox;
 public class ExplainController implements IController {
   ExplainField explainField;
   HBox synonymsPane;
+  Word word;
 
   /** Khởi tạo phần dịch. */
   public ExplainController(ExplainField explainField) {
@@ -21,6 +22,23 @@ public class ExplainController implements IController {
     synonymsPane = new HBox();
     // ManagedUtils.bindVisible(explainPane);
     explainField.getPane().setVisible(false);
+
+    onClickAddTransButton();
+  }
+
+  private void onClickAddTransButton() {
+    Button addTransButton = explainField.getAddTransButton();
+
+    addTransButton.setOnAction(event -> {
+      int addIndex = explainField.getPane().getChildren().size() - 2;
+      TranslationField transField = new TranslationField();
+      transField.getWordExplain().setPromptText("Click here to add a translation");
+      transField.getWordExplain().setEditable(true);
+
+      transField.getController().setTranslation(word, new Translation());
+
+      explainField.getPane().getChildren().add(addIndex, transField.getPane());
+    });
   }
 
   private void initSynoymsPane(Word word) {
@@ -57,6 +75,8 @@ public class ExplainController implements IController {
    */
   public void setWord(Word word) {
     clear();
+    this.word = word;
+
     explainField.getPane().setVisible(true);
 
     if (!word.getTranslations().isEmpty()) {
@@ -76,5 +96,7 @@ public class ExplainController implements IController {
       initSynoymsPane(word);
       explainField.getPane().getChildren().add(synonymsPane);
     }
+
+    explainField.getPane().getChildren().add(explainField.getAddTransButton());
   }
 }

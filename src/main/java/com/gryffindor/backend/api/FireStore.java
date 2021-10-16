@@ -16,13 +16,15 @@ import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
+import com.google.firebase.internal.NonNull;
 import com.gryffindor.DictionaryApplication;
 import com.gryffindor.backend.entities.Translation;
 import com.gryffindor.backend.entities.Word;
+import com.gryffindor.backend.utils.TextUtils;
 
 public class FireStore {
   private static Firestore database;
-  private static final long TIMEOUT = 10;
+  private static final long TIMEOUT = 1;
   static {
     try {
       GoogleCredentials credentials = GoogleCredentials
@@ -92,14 +94,27 @@ public class FireStore {
         .get(TIMEOUT, TimeUnit.MINUTES).getUpdateTime());
   }
 
-  public static void updateTranslation(Word word, Translation oldTrans, Translation newTrans) 
+  public static void updateTranslation(Word word, Translation oldTrans, @NonNull Translation newTrans) 
       throws InterruptedException, ExecutionException, TimeoutException {
     DocumentReference docRef = database.collection("dictionary").document(word.getWordTarget());
     WriteBatch batch = database.batch();
+    
+    if (oldTrans.getWordExplain().equals(TextUtils.empty()) || oldTrans == null) {
+      System.out.println("Old trans is null or empty");
+    } else {
+      batch.update(docRef, "translations", FieldValue.arrayRemove(oldTrans));
+    }
 
-    batch.update(docRef, "translations", FieldValue.arrayRemove(oldTrans));
     batch.update(docRef, "translations", FieldValue.arrayUnion(newTrans));
 
     System.out.println("Updated " + batch.commit().get(TIMEOUT, TimeUnit.SECONDS));
+  }
+
+  public static void addTranslation(Word word, Translation translation) 
+      throws InterruptedException, ExecutionException, TimeoutException {
+    DocumentReference docRef = database.collection("dictionary").document(word.getWordTarget());
+
+    System.out.println(docRef.update("translations", FieldValue.arrayUnion(translation))
+        .get(TIMEOUT, TimeUnit.MINUTES).getUpdateTime());
   }
 }

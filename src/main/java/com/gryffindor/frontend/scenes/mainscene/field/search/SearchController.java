@@ -139,6 +139,7 @@ public class SearchController implements IController {
         Platform.runLater(() -> node.fireEvent(new WordEvent(word)));
         System.out.println("Fired event.");
       } else {
+        Platform.runLater(() -> node.fireEvent(new WordEvent(new Word(wordTarget))));
         DictionaryApplication.INSTANCE.exceptionHandler
             .add(new NullPointerException("Không tìm thấy " + wordTarget + " trong từ điển"));
       }

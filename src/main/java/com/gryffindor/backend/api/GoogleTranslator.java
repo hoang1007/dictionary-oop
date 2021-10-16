@@ -11,6 +11,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 public class GoogleTranslator {
+  public static final int TIMEOUT = 4000;
   /**
    * Lấy bản dịch từ google translate.
    * @param wordTarget từ muốn dịch
@@ -30,6 +31,7 @@ public class GoogleTranslator {
     StringBuffer response = new StringBuffer();
 
     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+    conn.setConnectTimeout(TIMEOUT);
     conn.setRequestProperty("User-Agent", "Mozilla/5.0");
 
     BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));

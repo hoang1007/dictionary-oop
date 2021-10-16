@@ -351,13 +351,24 @@ public class DictionaryManagement {
   }
 
   public boolean updateTranslation(Word word, Translation oldTrans, Translation newTrans) {
+    System.out.println(word.getSource());
     switch (word.getSource()) {
       case LOCAL:
         int wordId = dictionary.getWordList(word.getWordTarget()).indexOf(word);
-        int transId = word.getTranslations().indexOf(oldTrans);
+        if (wordId == -1) {
+          dictionary.getWordList(word.getWordTarget()).add(word);
+          wordId = dictionary.getWordList(word.getWordTarget()).indexOf(word);
+          System.out.println("Not found word insert new word at " + wordId);
+        }
 
-        dictionary.getWordList(word.getWordTarget()).get(wordId)
-            .getTranslations().set(transId, newTrans);
+        int transId = word.getTranslations().indexOf(oldTrans);
+        System.out.println("Add trans to " + dictionary.getWordList(word.getWordTarget()).get(wordId).getWordTarget());
+
+        if (transId != -1) {
+          dictionary.getWordList(word.getWordTarget()).get(wordId).getTranslations().set(transId, newTrans);
+        } else {
+          dictionary.getWordList(word.getWordTarget()).get(wordId).getTranslations().add(newTrans);
+        }
         break;
       case FIRESTORE:
         try {
@@ -378,8 +389,7 @@ public class DictionaryManagement {
       case LOCAL:
         int wordId = dictionary.getWordList(word.getWordTarget()).indexOf(word);
 
-        dictionary.getWordList(word.getWordTarget()).get(wordId)
-          .getTranslations().remove(trans);
+        dictionary.getWordList(word.getWordTarget()).get(wordId).getTranslations().remove(trans);
         break;
       case FIRESTORE:
         try {
@@ -389,6 +399,27 @@ public class DictionaryManagement {
           return false;
         }
         break;
+      default:
+        break;
+    }
+
+    return true;
+  }
+
+  public boolean addTranslation(Word word, Translation translation) {
+    switch (word.getSource()) {
+      case LOCAL:
+        int wordId = dictionary.getWordList(word.getWordTarget()).indexOf(word);
+
+        dictionary.getWordList(word.getWordTarget()).get(wordId).addTranslation(translation);
+        break;
+      case FIRESTORE:
+        try {
+          FireStore.addTranslation(word, translation);
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+          DictionaryApplication.INSTANCE.exceptionHandler.add(e);
+          return false;
+        }
       default:
         break;
     }

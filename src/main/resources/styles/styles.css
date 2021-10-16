@@ -75,6 +75,7 @@
 
 .word-meaning {
   -fx-background-color: transparent;
+  -fx-prompt-text-fill: #002545;
 }
 
 .word-meaning .scroll-pane {
@@ -163,4 +164,8 @@
   -fx-max-height: 50px;
   -fx-min-height: 50px;
   fx-effect: dropshadow(three-pass-box, grey, 10, 0, 0, 15);
+}
+
+.add-trans-button {
+  -fx-background-color: transparent;
 }
