@@ -2,7 +2,6 @@ package com.gryffindor.frontend.scenes.mainscene.field.explains;
 
 
 import com.gryffindor.DictionaryApplication;
-import com.gryffindor.frontend.scenes.mainscene.field.IController;
 import com.gryffindor.frontend.scenes.mainscene.field.IField;
 import com.gryffindor.frontend.utils.ImageUtils;
 import com.gryffindor.frontend.utils.ManagedUtils;
@@ -136,7 +135,7 @@ public class TranslationField implements IField {
     return exampleSentences;
   }
 
-  class ExampleSentences implements IField {
+  class ExampleSentences {
     private VBox pane;
 
     private ObservableList<Label> sentences;
@@ -172,14 +171,8 @@ public class TranslationField implements IField {
       return sentences;
     }
 
-    @Override
     public Pane getPane() {
       return pane;
-    }
-
-    @Override
-    public IController getController() {
-      return null;
     }
   }
 }

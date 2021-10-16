@@ -22,6 +22,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 import java.nio.charset.StandardCharsets;
@@ -153,9 +155,11 @@ public class DictionaryManagement {
 
   /**
    * Đọc dữ liệu từ file text
-   * @deprecated 
-   * Hàm này đã không còn được sử dụng vì chương trình chuyển sang nạp dữ liệu từ json
-   * <p> Sử dụng {@link DictionaryManagement#insertFromJson()} để thay thế
+   * 
+   * @deprecated Hàm này đã không còn được sử dụng vì chương trình chuyển sang nạp
+   *             dữ liệu từ json
+   *             <p>
+   *             Sử dụng {@link DictionaryManagement#insertFromJson()} để thay thế
    */
   public void addDataFromFile() {
     Config config = DictionaryApplication.INSTANCE.config;
@@ -170,7 +174,7 @@ public class DictionaryManagement {
 
       for (String line = bufferedReader.readLine(); line != null; line = bufferedReader.readLine()) {
         // if (words.size() > 200)
-        //   break;
+        // break;
         // word target and word spelling is in the same line
         if (line.startsWith(config.getWordTargetSign())) {
           int posTarget = line.indexOf(config.getWordTargetSign());
@@ -280,8 +284,10 @@ public class DictionaryManagement {
     try {
       ans = FireStore.find(wordTarget);
       ans.setSource(Word.Source.FIRESTORE);
-    } catch (InterruptedException | ExecutionException | TimeoutException e) {
+    } catch (InterruptedException | ExecutionException e) {
       DictionaryApplication.INSTANCE.exceptionHandler.add(e);
+    } catch (TimeoutException e) {
+      System.out.println("Time out in firebase search");
     }
 
     return ans;
@@ -302,7 +308,7 @@ public class DictionaryManagement {
   }
 
   public Word searchWordOnline(String wordTarget) {
-    // nếu số từ trong string >= 3 thì 
+    // nếu số từ trong string >= 3 thì
     // string là một câu hoặc đoạn văn
     // nên tìm kiếm bằng google
     if (wordTarget.split(" ").length >= 3) {
@@ -312,7 +318,7 @@ public class DictionaryManagement {
     Word ans = null;
     ans = searchWordFromFireBase(wordTarget);
     // nếu không tìm thấy từ trong database
-    // tìm bằng google 
+    // tìm bằng google
     if (ans == null) {
       ans = searchWordFromGoogleTranslator(wordTarget);
     }
@@ -320,8 +326,8 @@ public class DictionaryManagement {
   }
 
   public void insertFromJson() {
-    JsonElement element = JsonParser.parseReader(
-      new InputStreamReader(DictionaryApplication.INSTANCE.config.getDictionaryJson()));
+    JsonElement element = JsonParser
+        .parseReader(new InputStreamReader(DictionaryApplication.INSTANCE.config.getDictionaryJson()));
 
     Word[] words = new Gson().fromJson(element, Word[].class);
 
@@ -336,9 +342,57 @@ public class DictionaryManagement {
 
     String jsonData = new Gson().toJson(allWords);
 
-    try (FileWriter writer = new FileWriter(DictionaryApplication.INSTANCE
-        .config.getRootPath() + "/dictionary.txt")) {
-          writer.write(jsonData);
+    try (FileWriter writer = new FileWriter(
+        new File(new URI(DictionaryApplication.INSTANCE.config.getRootPath() + "/dictionary.txt")))) {
+      writer.write(jsonData);
+    } catch (IOException | URISyntaxException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public boolean updateTranslation(Word word, Translation oldTrans, Translation newTrans) {
+    switch (word.getSource()) {
+      case LOCAL:
+        int wordId = dictionary.getWordList(word.getWordTarget()).indexOf(word);
+        int transId = word.getTranslations().indexOf(oldTrans);
+
+        dictionary.getWordList(word.getWordTarget()).get(wordId)
+            .getTranslations().set(transId, newTrans);
+        break;
+      case FIRESTORE:
+        try {
+          FireStore.updateTranslation(word, oldTrans, newTrans);
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+          DictionaryApplication.INSTANCE.exceptionHandler.add(e);
+          return false;
         }
+      default:
+        break;
+    }
+
+    return true;
+  }
+
+  public boolean deleteTranslation(Word word, Translation trans) {
+    switch (word.getSource()) {
+      case LOCAL:
+        int wordId = dictionary.getWordList(word.getWordTarget()).indexOf(word);
+
+        dictionary.getWordList(word.getWordTarget()).get(wordId)
+          .getTranslations().remove(trans);
+        break;
+      case FIRESTORE:
+        try {
+          FireStore.deleteTranslation(word, trans);
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
+          DictionaryApplication.INSTANCE.exceptionHandler.add(e);
+          return false;
+        }
+        break;
+      default:
+        break;
+    }
+
+    return true;
   }
 }

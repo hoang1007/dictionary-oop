@@ -144,6 +144,6 @@ public class SearchController implements IController {
       }
 
       Platform.runLater(() -> PageManager.INSTANCE.restorePage());
-    }).run();
+    }).start();
   }
 }

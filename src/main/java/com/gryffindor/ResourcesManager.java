@@ -28,10 +28,13 @@ public class ResourcesManager {
   /** Free resources. */
   public void free() {
     TextUtils.free();
-    try {
-      DictionaryApplication.INSTANCE.dictionaryManagement.exportToJson();
-    } catch (IOException e) {
-      DictionaryApplication.INSTANCE.exceptionHandler.add(e);
+    if (DictionaryApplication.INSTANCE.getStatus().equals(Status.OFFLINE)) {
+      try {
+        System.out.println("Writing change to datafile...");
+        DictionaryApplication.INSTANCE.dictionaryManagement.exportToJson();
+      } catch (IOException e) {
+        DictionaryApplication.INSTANCE.exceptionHandler.add(e);
+      }
     }
   }
 }
