@@ -24,7 +24,7 @@ import com.gryffindor.backend.utils.TextUtils;
 
 public class FireStore {
   private static Firestore database;
-  private static final long TIMEOUT = 1;
+  private static final long TIMEOUT = 3;
   static {
     try {
       GoogleCredentials credentials = GoogleCredentials
