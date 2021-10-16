@@ -122,32 +122,28 @@ public class SearchController implements IController {
     PageManager.INSTANCE.showPage(LoadingPage.class);
 
     new Thread(() -> {
-      try {
-        Word word;
-        Status status = DictionaryApplication.INSTANCE.getStatus();
-        // if ONLINE
-        if (status.equals(Status.ONLINE)) {
-          System.out.println("Searching online");
-          word = DictionaryApplication.INSTANCE.dictionaryManagement.searchWordOnline(wordTarget);
+      Word word;
+      Status status = DictionaryApplication.INSTANCE.getStatus();
+      // if ONLINE
+      if (status.equals(Status.ONLINE)) {
+        System.out.println("Searching online");
+        word = DictionaryApplication.INSTANCE.dictionaryManagement.searchWordOnline(wordTarget);
 
-        } else { // if OFFLINE
-          System.out.println("Searching offline");
-          word = DictionaryApplication.INSTANCE.dictionaryManagement.dictionaryLookup(wordTarget);
-        }
-
-        if (word != null) {
-          history.add(word);
-          Platform.runLater(() -> node.fireEvent(new WordEvent(word)));
-        } else {
-          DictionaryApplication.INSTANCE.exceptionHandler
-              .add(new NullPointerException("Không tìm thấy " + wordTarget + " trong từ điển"));
-        }
-      } catch (NullPointerException e) {
-        DictionaryApplication.INSTANCE.exceptionHandler.add(e);
-        e.printStackTrace();
-      } finally {
-        Platform.runLater(() -> PageManager.INSTANCE.restorePage());
+      } else { // if OFFLINE
+        System.out.println("Searching offline");
+        word = DictionaryApplication.INSTANCE.dictionaryManagement.dictionaryLookup(wordTarget);
       }
-    }).start();
+
+      if (word != null) {
+        history.add(word);
+        Platform.runLater(() -> node.fireEvent(new WordEvent(word)));
+        System.out.println("Fired event.");
+      } else {
+        DictionaryApplication.INSTANCE.exceptionHandler
+            .add(new NullPointerException("Không tìm thấy " + wordTarget + " trong từ điển"));
+      }
+
+      Platform.runLater(() -> PageManager.INSTANCE.restorePage());
+    }).run();
   }
 }

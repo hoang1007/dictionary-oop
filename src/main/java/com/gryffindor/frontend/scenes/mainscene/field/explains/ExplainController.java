@@ -62,7 +62,7 @@ public class ExplainController implements IController {
     if (!word.getTranslations().isEmpty()) {
       for (Translation translation : word.getTranslations()) {
         TranslationField translationField = new TranslationField();
-        translationField.getController().setTranslation(translation);
+        translationField.getController().setTranslation(word, translation);
 
         explainField.getTranslationFields().add(translationField);
 
@@ -72,7 +72,9 @@ public class ExplainController implements IController {
 
     explainField.getWordClass().setText(word.getWordClass());
 
-    initSynoymsPane(word);
-    explainField.getPane().getChildren().add(synonymsPane);
+    if (!word.getSource().equals(Word.Source.GOOGLE)) {
+      initSynoymsPane(word);
+      explainField.getPane().getChildren().add(synonymsPane);
+    }
   }
 }

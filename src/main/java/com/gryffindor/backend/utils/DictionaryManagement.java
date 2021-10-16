@@ -108,6 +108,7 @@ public class DictionaryManagement {
     Word ans = null;
     if (dictionary.searchWord(wordTarget) != null) {
       ans = dictionary.searchWord(wordTarget);
+      ans.setSource(Word.Source.LOCAL);
     } else {
       System.out.println("Chưa có từ " + wordTarget + " trong từ điển");
     }
@@ -278,6 +279,7 @@ public class DictionaryManagement {
     Word ans = null; // answer
     try {
       ans = FireStore.find(wordTarget);
+      ans.setSource(Word.Source.FIRESTORE);
     } catch (InterruptedException | ExecutionException | TimeoutException e) {
       DictionaryApplication.INSTANCE.exceptionHandler.add(e);
     }
@@ -292,6 +294,7 @@ public class DictionaryManagement {
       String trans = GoogleTranslator.translate(wordTarget, Language.DETECT, Language.VIETNAMESE);
       System.out.println("Translated: " + trans);
       ans.addTranslation(new Translation(trans));
+      ans.setSource(Word.Source.GOOGLE);
     } catch (IOException e) {
       e.printStackTrace();
     }

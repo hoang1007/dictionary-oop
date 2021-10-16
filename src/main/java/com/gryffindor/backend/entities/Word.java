@@ -6,75 +6,91 @@ import java.util.List;
 import com.gryffindor.backend.utils.TextUtils;
 
 public class Word implements Comparable<Word> {
-    private String wordTarget = TextUtils.empty();
-    private String wordSpelling = TextUtils.empty(); // phiên âm.
-    private String wordClass = TextUtils.empty();
-    private List<Translation> translations = new ArrayList<>();
+  private String wordTarget = TextUtils.empty();
+  private String wordSpelling = TextUtils.empty(); // phiên âm.
+  private String wordClass = TextUtils.empty();
+  private Source source = Source.LOCAL;
+  private List<Translation> translations = new ArrayList<>();
 
-    public Word() { }
+  public enum Source {
+    FIRESTORE, LOCAL, GOOGLE
+  }
 
-    public Word(String wordTarget) {
-        this.wordTarget = wordTarget;
+  public Word() {
+  }
+
+  public Word(String wordTarget) {
+    this.wordTarget = wordTarget;
+  }
+
+  /** Constructor have spelling */
+  public Word(String wordTarget, String wordSpelling) {
+    this.wordTarget = wordTarget;
+    this.wordSpelling = wordSpelling;
+  }
+
+  public Word(String wordTarget, String wordSpelling, List<Translation> translations, Source source) {
+    this.wordTarget = wordTarget;
+    this.wordSpelling = wordSpelling;
+    this.translations = translations;
+    this.source = source;
+  }
+
+  public Word setWordTarget(String wordTarget) {
+    this.wordTarget = wordTarget;
+    return this;
+  }
+
+  public String getWordTarget() {
+    return this.wordTarget;
+  }
+
+  public Word setWordSpelling(String wordSpelling) {
+    this.wordSpelling = wordSpelling;
+    return this;
+  }
+
+  public String getWordSpelling() {
+    return this.wordSpelling;
+  }
+
+  public Word setWordClass(String wordClass) {
+    this.wordClass = wordClass;
+    return this;
+  }
+
+  public String getWordClass() {
+    return this.wordClass;
+  }
+
+  public Word addTranslation(Translation... translations) {
+    for (Translation translation : translations) {
+      this.translations.add(translation);
     }
 
-    /** Constructor have spelling */
-    public Word(String wordTarget, String wordSpelling) {
-        this.wordTarget = wordTarget;
-        this.wordSpelling = wordSpelling;
-    }
+    return this;
+  }
 
-    public Word(String wordTarget, String wordSpelling, List<Translation> translations) {
-        this.wordTarget = wordTarget;
-        this.wordSpelling = wordSpelling;
-        this.translations = translations;
-    }
+  public List<Translation> getTranslations() {
+    return this.translations;
+  }
 
-    public Word setWordTarget(String wordTarget) {
-        this.wordTarget = wordTarget;
-        return this;
-    }
+  public Source getSource() {
+    return this.source;
+  }
 
-    public String getWordTarget() {
-        return this.wordTarget;
-    }
+  public Word setSource(Source source) {
+    this.source = source;
+    return this;
+  }
 
-    public Word setWordSpelling(String wordSpelling) {
-        this.wordSpelling = wordSpelling;
-        return this;
-    }
+  @Override
+  public String toString() {
+    return wordTarget;
+  }
 
-    public String getWordSpelling() {
-        return this.wordSpelling;
-    }
-
-    public Word setWordClass(String wordClass) {
-        this.wordClass = wordClass;
-        return this;
-    }
-
-    public String getWordClass() {
-        return this.wordClass;
-    }
-
-    public Word addTranslation(Translation... translations) {
-        for (Translation translation : translations) {
-            this.translations.add(translation);
-        }
-
-        return this;
-    }
-
-    public List<Translation> getTranslations() {
-        return this.translations;
-    }
-
-    @Override
-    public String toString() {
-      return wordTarget;
-    }
-
-    @Override
-    public int compareTo(Word o) {
-      return this.wordTarget.compareTo(o.wordTarget);
-    }
+  @Override
+  public int compareTo(Word o) {
+    return this.wordTarget.compareTo(o.wordTarget);
+  }
 }
