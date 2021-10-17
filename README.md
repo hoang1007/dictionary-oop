@@ -27,3 +27,7 @@ Thành viên nhóm Gryffindor:
 - Tự do chỉnh sửa, phát triển từ điển theo thời gian thực.
 
 ## Cài đặt
+- Tải [mã nguồn](https://gitlab.com/johnhoangsoftware/dictionary-oop/-/tree/graphic) về máy.
+- Tải và cài đặt [Visual studio code](https://code.visualstudio.com/download) hoặc [IntelliJ IDEA](https://www.jetbrains.com/idea/download/#section=windows).
+- Cài đặt [môi trường lập trình Java](https://www.youtube.com/watch?v=yldcFIqdGk8).
+- Mở mã nguồn trong Visual Studio Code hoặc IntelliJ và chạy.
