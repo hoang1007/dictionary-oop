@@ -9,7 +9,6 @@ import com.gryffindor.DictionaryApplication;
 import com.gryffindor.Language;
 import com.gryffindor.backend.api.FireStore;
 import com.gryffindor.backend.api.GoogleTranslator;
-import com.gryffindor.backend.api.WordNetDictionary;
 import com.gryffindor.backend.entities.Dictionary;
 import com.gryffindor.backend.entities.ExampleSentence;
 import com.gryffindor.backend.entities.Translation;
@@ -304,8 +303,8 @@ public class DictionaryManagement {
       ans.setSource(Word.Source.FIRESTORE);
     } catch (InterruptedException | ExecutionException e) {
       DictionaryApplication.INSTANCE.exceptionHandler.add(e);
-    } catch (TimeoutException e) {
-      System.out.println("Time out in firebase search");
+    } catch (TimeoutException | NullPointerException e) {
+      System.out.println("Not found in firebase");
     }
 
     return ans;
@@ -313,6 +312,7 @@ public class DictionaryManagement {
 
   /** Tìm kiếm từ nguồn google. */
   public Word searchWordFromGoogleTranslator(String wordTarget) {
+    System.out.println("Starting search from google translator...");
     wordTarget = wordTarget.trim();
 
     Word ans = null; // answer
@@ -330,10 +330,10 @@ public class DictionaryManagement {
 
   /** Tìm kiếm từ online. */
   public Word searchWordOnline(String wordTarget) {
-    // nếu số từ trong string >= 2 thì
+    // nếu số từ trong string >= 3 thì
     // string là một câu hoặc đoạn văn
     // nên tìm kiếm bằng google
-    if (wordTarget.split(" ").length >= 2) {
+    if (wordTarget.split(" ").length >= 3) {
       return searchWordFromGoogleTranslator(wordTarget.toLowerCase());
     }
 

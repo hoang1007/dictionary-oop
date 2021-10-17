@@ -94,20 +94,19 @@ public class FireStore {
    * @throws InterruptedException nếu luồng thực thi bị gián đoạn khi đang đợi request
    * @throws ExecutionException nếu máy chủ tính toán ném ra một ngoại lệ
    * @throws TimeoutException thời gian request quá lâu
+   * @throws NullPointerException không tìm thấy từ trong firebase
    */
   public static Word find(String wordTarget) 
-      throws InterruptedException, ExecutionException, TimeoutException {
+      throws InterruptedException, ExecutionException, TimeoutException, NullPointerException {
     ApiFuture<DocumentSnapshot> future = database.collection("dictionary")
         .document(wordTarget).get();
 
     Word wordFound = future.get(TIMEOUT, TimeUnit.SECONDS).toObject(Word.class);
-    // if (wordFound == null) {
-    // throw new NullPointerException("Not found");
-    // }
 
     if (wordFound == null) {
-      System.out.println("Not found on FireBase");
+      throw new NullPointerException("Not found");
     }
+
     return wordFound;
   }
 
