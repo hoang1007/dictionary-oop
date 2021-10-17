@@ -9,6 +9,7 @@ import com.gryffindor.DictionaryApplication;
 import com.gryffindor.Language;
 import com.gryffindor.backend.api.FireStore;
 import com.gryffindor.backend.api.GoogleTranslator;
+import com.gryffindor.backend.api.WordNetDictionary;
 import com.gryffindor.backend.entities.Dictionary;
 import com.gryffindor.backend.entities.ExampleSentence;
 import com.gryffindor.backend.entities.Translation;
@@ -110,9 +111,12 @@ public class DictionaryManagement {
 
   /** Tra cuu tu dien bang commandline. */
   public Word dictionaryLookup(String wordTarget) {
+    wordTarget = wordTarget.trim();
+
     Word ans = null;
-    if (dictionary.searchWord(wordTarget) != null) {
-      ans = dictionary.searchWord(wordTarget);
+    Word p = dictionary.searchWord(wordTarget.toLowerCase());
+    if (p != null) {
+      ans = p;
       ans.setSource(Word.Source.LOCAL);
     } else {
       System.out.println("Chưa có từ " + wordTarget + " trong từ điển");
@@ -292,6 +296,8 @@ public class DictionaryManagement {
 
   /** Tìm kiếm từ trong database. */
   public Word searchWordFromFireBase(String wordTarget) {
+    wordTarget = wordTarget.trim();
+
     Word ans = null; // answer
     try {
       ans = FireStore.find(wordTarget);
@@ -307,6 +313,8 @@ public class DictionaryManagement {
 
   /** Tìm kiếm từ nguồn google. */
   public Word searchWordFromGoogleTranslator(String wordTarget) {
+    wordTarget = wordTarget.trim();
+
     Word ans = null; // answer
     try {
       ans = new Word(wordTarget);
@@ -322,19 +330,19 @@ public class DictionaryManagement {
 
   /** Tìm kiếm từ online. */
   public Word searchWordOnline(String wordTarget) {
-    // nếu số từ trong string >= 3 thì
+    // nếu số từ trong string >= 2 thì
     // string là một câu hoặc đoạn văn
     // nên tìm kiếm bằng google
-    if (wordTarget.split(" ").length >= 3) {
-      return searchWordFromGoogleTranslator(wordTarget);
+    if (wordTarget.split(" ").length >= 2) {
+      return searchWordFromGoogleTranslator(wordTarget.toLowerCase());
     }
 
     Word ans = null;
-    ans = searchWordFromFireBase(wordTarget);
+    ans = searchWordFromFireBase(wordTarget.toLowerCase());
     // nếu không tìm thấy từ trong database
     // tìm bằng google
     if (ans == null) {
-      ans = searchWordFromGoogleTranslator(wordTarget);
+      ans = searchWordFromGoogleTranslator(wordTarget.toLowerCase());
     }
     return ans;
   }
