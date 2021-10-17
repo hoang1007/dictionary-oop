@@ -22,6 +22,7 @@ public class ToolsPage implements IPage {
     pane.getChildren().addAll(exportField.getPane());
   }
 
+  /** Khởi tạo vùng export. */
   void initExportField() {
     exportField = new ExportField();
     exportField.getPane().prefWidthProperty().bind(pane.widthProperty());

@@ -7,6 +7,7 @@ import javafx.event.EventType;
 
 /**
  * Sự kiện tìm thấy word.
+ * 
  * @note Event custom. Được phát ra khi tìm thấy một word.
  */
 public class WordEvent extends Event {
@@ -20,6 +21,11 @@ public class WordEvent extends Event {
     this.word = word;
   }
 
+  /**
+   * Trả về từ.
+   * 
+   * @return Word
+   */
   public Word getWord() {
     return word;
   }

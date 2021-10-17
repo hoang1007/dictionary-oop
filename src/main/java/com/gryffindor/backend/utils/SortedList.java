@@ -3,6 +3,13 @@ package com.gryffindor.backend.utils;
 import java.util.ArrayList;
 
 public class SortedList<T extends Comparable<T>> extends ArrayList<T> {
+
+  /**
+   * Ghi đè add.
+   *
+   * @param value
+   * @return boolean
+   */
   @Override
   public boolean add(T value) {
     if (this.isEmpty()) {
@@ -26,7 +33,7 @@ public class SortedList<T extends Comparable<T>> extends ArrayList<T> {
         }
       }
     }
-    
+
     return true;
   }
 }

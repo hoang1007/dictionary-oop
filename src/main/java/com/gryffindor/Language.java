@@ -2,9 +2,7 @@ package com.gryffindor;
 
 /** Các ngôn ngữ được hỗ trợ dịch. */
 public enum Language {
-  DETECT("", ""),
-  ENGLISH("en", "English"),
-  VIETNAMESE("vi", "Tiếng Việt");
+  DETECT("", ""), ENGLISH("en", "English"), VIETNAMESE("vi", "Tiếng Việt");
 
   private final String shortString;
   private final String longString;

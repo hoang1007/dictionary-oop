@@ -38,56 +38,75 @@ public class NavigationBar implements IField {
     controller = new NavigationBarController(this);
   }
 
+  /** Khởi tạo nút home. */
   private void initHomePage() {
     homeButton = new Button();
     homeButton.setTooltip(new Tooltip("Home"));
     homeButton.getStyleClass().add("nav-button");
 
-    ImageView homeImageView = ImageUtils.getFitSquareImage(
-            DictionaryApplication.INSTANCE.config.getImagesPath() + "/home.png", iconSize);
+    ImageView homeImageView = ImageUtils
+        .getFitSquareImage(DictionaryApplication.INSTANCE.config.getImagesPath() + "/home.png", iconSize);
 
     homeButton.setGraphic(homeImageView);
   }
+
+  /** Khởi tạo nút tools. */
 
   private void initToolsPage() {
     toolsButton = new Button();
     toolsButton.setTooltip(new Tooltip("Tools"));
     toolsButton.getStyleClass().add("nav-button");
 
-    ImageView toolsImageView = ImageUtils.getFitSquareImage(
-            DictionaryApplication.INSTANCE.config.getImagesPath() + "/tools.png", iconSize);
+    ImageView toolsImageView = ImageUtils
+        .getFitSquareImage(DictionaryApplication.INSTANCE.config.getImagesPath() + "/tools.png", iconSize);
 
     toolsButton.setGraphic(toolsImageView);
   }
 
+  /** Khởi tạo nut setting. */
   private void initSettingsPage() {
     settingsButton = new Button();
     settingsButton.setTooltip(new Tooltip("Settings"));
     settingsButton.getStyleClass().add("nav-button");
 
-    ImageView settingsImageView = ImageUtils.getFitSquareImage(
-            DictionaryApplication.INSTANCE.config.getImagesPath() + "/settings.png", iconSize);
-    
+    ImageView settingsImageView = ImageUtils
+        .getFitSquareImage(DictionaryApplication.INSTANCE.config.getImagesPath() + "/settings.png", iconSize);
+
     settingsButton.setGraphic(settingsImageView);
   }
 
+  /**
+   * @return Button
+   */
   public Button getHomeButton() {
     return homeButton;
   }
 
+  /**
+   * @return Button
+   */
   public Button getToolsButton() {
     return toolsButton;
   }
 
+  /**
+   * @return Button
+   */
   public Button getSettingsButton() {
     return settingsButton;
   }
 
+  /**
+   * @return NavigationBarController
+   */
   @Override
   public NavigationBarController getController() {
     return controller;
   }
 
+  /**
+   * @return Pane
+   */
   @Override
   public Pane getPane() {
     return navigationBarPane;

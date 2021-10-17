@@ -22,6 +22,7 @@ public class LoadingPage implements IPage {
     loadingPane.setAlignment(Pos.CENTER);
   }
 
+  /** Tạo animation. */
   void initAnimation() {
     animation = new LoadingAnimation(Color.valueOf("#12CBC4"));
     loadingPane.getChildren().add(animation);
@@ -31,7 +32,6 @@ public class LoadingPage implements IPage {
   public LoadingAnimation getAnimation() {
     return animation;
   }
-
 
   @Override
   public Pane getPane() {

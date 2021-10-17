@@ -28,12 +28,10 @@ public class HomePage implements IPage {
     translateField = new TranslateField();
     explainField = new ExplainField();
 
-    homePanel.getChildren().addAll(
-        searchField.getPane(), translateField.getPane(), explainField.getPane());
+    homePanel.getChildren().addAll(searchField.getPane(), translateField.getPane(), explainField.getPane());
 
     handleWordEvent();
   }
-
 
   private void handleWordEvent() {
     homePanel.addEventFilter(WordEvent.EVENTTYPE, new EventHandler<WordEvent>() {

@@ -8,7 +8,7 @@ import java.util.Properties;
 
 public class Config {
   private final String resourcesPath;
-  
+
   private String googleApiUrl;
   private String style;
   private String alertStyle;
@@ -100,7 +100,7 @@ public class Config {
     return contributeThanks;
   }
 
-  // Các kí tự đầu của file text dữ liệu 
+  // Các kí tự đầu của file text dữ liệu
   // để thực hiện decode file text
 
   public String getWordTargetSign() {

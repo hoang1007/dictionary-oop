@@ -10,8 +10,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
 /**
- * Button chuyển đổi giữa hai chế độ. 
- * Tham khảo code của meiswjn
+ * Button chuyển đổi giữa hai chế độ. Tham khảo code của meiswjn
  * 
  * @link https://gist.github.com/meiswjn/dd64f0706085cab336e30ac7e2ef59b1
  */
@@ -30,6 +29,11 @@ public class SwitchButton extends StackPane {
 
   private boolean state;
 
+  /**
+   * Hàm khởi tạo.
+   * 
+   * @param defaultBoolean
+   */
   private void init(boolean defaultBoolean) {
     this.state = defaultBoolean;
 
@@ -58,6 +62,7 @@ public class SwitchButton extends StackPane {
 
   /**
    * Khởi tạo switch button.
+   * 
    * @param defaultBoolean trạng thái on off của button
    */
   public SwitchButton(boolean defaultBoolean) {
@@ -99,6 +104,9 @@ public class SwitchButton extends StackPane {
     button.setOnMouseClicked(click);
   }
 
+  /**
+   * @return boolean
+   */
   public boolean getState() {
     return state;
   }

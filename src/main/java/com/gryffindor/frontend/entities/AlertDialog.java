@@ -10,12 +10,12 @@ public class AlertDialog {
 
   /**
    * Khởi tạo hộp thông báo.
+   * 
    * @param type loại thông báo
    */
   public AlertDialog(AlertType type) {
     alert = new Alert(type);
-    alert.getDialogPane().getStylesheets().add(
-          DictionaryApplication.INSTANCE.config.getAlertStyle());
+    alert.getDialogPane().getStylesheets().add(DictionaryApplication.INSTANCE.config.getAlertStyle());
     alert.getDialogPane().getStyleClass().add("alert-pane");
 
     alert.setHeaderText(null);
@@ -31,6 +31,9 @@ public class AlertDialog {
     alert.showAndWait();
   }
 
+  /**
+   * @param exception
+   */
   public void show(Exception exception) {
     alert.setContentText(exception.getMessage());
     alert.showAndWait();

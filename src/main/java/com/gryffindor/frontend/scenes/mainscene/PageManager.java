@@ -67,8 +67,10 @@ public class PageManager {
     }
   }
 
-  /** Khôi phục lại trang trước đó sau khi dùng 
-   * {@link PageManager#showIPage(Class)}. */
+  /**
+   * Khôi phục lại trang trước đó sau khi dùng
+   * {@link PageManager#showIPage(Class)}.
+   */
   public void restorePage() {
     if (oldPage != null) {
       showingPage.getPane().setVisible(false); // hide showing page

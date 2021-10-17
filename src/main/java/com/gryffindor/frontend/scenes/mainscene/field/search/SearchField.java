@@ -22,7 +22,7 @@ public class SearchField implements IField {
   private Button imageSearch;
   /** Lịch sử tìm kiếm và gợi ý khi nhập. */
   private ListView<Word> searchList;
-  
+
   /** Khởi tạo SearchField. */
   public SearchField() {
     searchPane = new GridPane();
@@ -35,6 +35,7 @@ public class SearchField implements IField {
     controller = new SearchController(this); // should be last since need to init other components
   }
 
+  /** Khởi tạo vùng tìm kiếm text. */
   private void initSearchBox() {
     searchBox = new TextField();
     searchBox.setPromptText("Tap to search...");
@@ -45,11 +46,12 @@ public class SearchField implements IField {
     GridPane.setHgrow(searchBox, Priority.ALWAYS);
   }
 
+  /** Khởi tạo vùng tìm kiếm hình ảnh. */
   private void initImageSearchButton() {
     imageSearch = new Button();
     imageSearch.getStyleClass().add("search-button");
     ImageView view = ImageUtils.getFitSquareImage(
-          DictionaryApplication.INSTANCE.config.getImagesPath() + "/copy.png", 30);
+      DictionaryApplication.INSTANCE.config.getImagesPath() + "/copy.png", 30);
     imageSearch.setGraphic(view);
     imageSearch.setTooltip(new Tooltip("Dịch bằng hình ảnh"));
 
@@ -57,6 +59,7 @@ public class SearchField implements IField {
     GridPane.setConstraints(imageSearch, 1, 0);
   }
 
+  /** Khởi tạo danh sách. */
   private void initSearchList() {
     searchList = new ListView<>();
     searchList.getStyleClass().add("search-list");
@@ -67,11 +70,17 @@ public class SearchField implements IField {
     GridPane.setConstraints(searchList, 0, 1);
   }
 
+  /**
+   * @return Pane
+   */
   @Override
   public Pane getPane() {
     return searchPane;
   }
 
+  /**
+   * @return TextField
+   */
   public TextField getSearchBox() {
     return searchBox;
   }
@@ -81,10 +90,16 @@ public class SearchField implements IField {
     return searchList;
   }
 
+  /**
+   * @return Button
+   */
   public Button getImageSearchButton() {
     return imageSearch;
   }
 
+  /**
+   * @return SearchController
+   */
   @Override
   public SearchController getController() {
     return controller;

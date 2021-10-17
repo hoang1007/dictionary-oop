@@ -42,6 +42,9 @@ public class TranslateController implements IController {
     translateField.getWordTarget().setText(word.getWordTarget());
   }
 
+  /**
+   * @return Word
+   */
   public Word getWord() {
     return word;
   }

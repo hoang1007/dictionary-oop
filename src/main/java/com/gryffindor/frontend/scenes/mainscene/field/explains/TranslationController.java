@@ -28,6 +28,7 @@ public class TranslationController implements IController {
     onTranslationEdited();
   }
 
+  /** Sửa bản dịch khi click vào nút. */
   private void onClickEditButton() {
     // chỉnh sửa bản dịch
     translationField.getEditExplainButton().setOnAction(event -> {
@@ -35,6 +36,7 @@ public class TranslationController implements IController {
     });
   }
 
+  /** Xóa bản dịch khi click xóa. */
   private void onClickDeleteButton() {
     // xóa bản dịch
     translationField.getDeleteExplainButton().setOnAction(event -> {
@@ -42,8 +44,7 @@ public class TranslationController implements IController {
       PageManager.INSTANCE.showPage(LoadingPage.class);
 
       new Thread(() -> {
-        if (DictionaryApplication.INSTANCE.dictionaryManagement
-              .deleteTranslation(this.word, this.translation)) {
+        if (DictionaryApplication.INSTANCE.dictionaryManagement.deleteTranslation(this.word, this.translation)) {
 
           Platform.runLater(() -> new AlertDialog(AlertType.INFORMATION)
               .setContent(DictionaryApplication.INSTANCE.config.getContributeThanks()).show());
@@ -72,6 +73,9 @@ public class TranslationController implements IController {
     }
   }
 
+  /**
+   * @param exampleSentence
+   */
   private void addExampleSentences(ExampleSentence exampleSentence) {
     Label label = new Label(exampleSentence.toString());
     translationField.getExamples().getList().add(label);
@@ -83,10 +87,10 @@ public class TranslationController implements IController {
         event.consume();
         translationField.getWordExplain().setEditable(false);
 
-        // bật loading page 
+        // bật loading page
         PageManager.INSTANCE.showPage(LoadingPage.class);
 
-        // Sau khi kết thúc chỉnh sửa 
+        // Sau khi kết thúc chỉnh sửa
         // tạo một luồng để gửi request chỉnh sửa tới nguồn
         new Thread(() -> {
           // Lấy vị trí của dấu nháy
@@ -105,9 +109,8 @@ public class TranslationController implements IController {
           Translation newTrans = this.translation.clone();
           newTrans.setWordExplain(newExplain);
 
-          if (DictionaryApplication.INSTANCE.dictionaryManagement
-              .updateTranslation(word, this.translation, newTrans)) {
-            
+          if (DictionaryApplication.INSTANCE.dictionaryManagement.updateTranslation(word, this.translation, newTrans)) {
+
             // đặt bản dịch hiện tại thành bản dịch mới
             this.translation = newTrans;
             Platform.runLater(() -> new AlertDialog(AlertType.INFORMATION)

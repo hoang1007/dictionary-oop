@@ -29,6 +29,7 @@ public class LoadingAnimation extends HBox {
     initAnimation();
   }
 
+  /** Khởi tạo animation. */
   void initAnimation() {
     animations = new FadeTransition[circles.length];
     for (int i = 0; i < circles.length; i++) {
@@ -42,6 +43,7 @@ public class LoadingAnimation extends HBox {
     }
   }
 
+  /** Bắt đầu animation. */
   public void play() {
     animations[0].play();
   }

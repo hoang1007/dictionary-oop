@@ -17,6 +17,12 @@ public class ApplicationUI extends Application {
     height = 600;
   }
 
+  
+  /** 
+   * Ghi đè bắt đầu.
+   * @param primaryStage
+   * @throws Exception
+   */
   @Override
   public void start(Stage primaryStage) throws Exception {
     primaryStage.setTitle(title);

@@ -31,7 +31,7 @@ public class NavigationBarController implements IController {
   void setPresentHomePageonClick() {
     homeButton.setOnAction(event -> PageManager.INSTANCE.showPage(HomePage.class));
   }
- 
+
   void setPresentToolsPageonClick() {
     toolsButton.setOnAction(event -> PageManager.INSTANCE.showPage(ToolsPage.class));
   }

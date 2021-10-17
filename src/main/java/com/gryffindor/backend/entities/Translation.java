@@ -9,9 +9,14 @@ public class Translation {
   private String wordExplain = TextUtils.empty();
   private List<ExampleSentence> exampleSentences = new ArrayList<>();
 
+  /** Constructor. */
   public Translation() {
   }
 
+  /**
+   * Constructor.
+   * @param wordExplain
+   */
   public Translation(String wordExplain) {
     this.wordExplain = wordExplain;
   }
@@ -29,15 +34,27 @@ public class Translation {
     return this;
   }
 
+  /**
+   * @return List<ExampleSentence>
+   */
   public List<ExampleSentence> getExampleSentences() {
     return this.exampleSentences;
   }
 
+  /**
+   * Set nghĩa của từ.
+   * @param wordExplain
+   * @return Translation
+   */
   public Translation setWordExplain(String wordExplain) {
     this.wordExplain = wordExplain;
     return this;
   }
 
+  /**
+   * Lấy nghĩa của từ.
+   * @return String
+   */
   public String getWordExplain() {
     return this.wordExplain;
   }

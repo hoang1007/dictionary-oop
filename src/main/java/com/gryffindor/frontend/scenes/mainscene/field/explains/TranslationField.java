@@ -33,7 +33,7 @@ public class TranslationField implements IField {
   public TranslationField() {
     pane = new GridPane();
     pane.getStyleClass().add("hover-pane");
-    
+
     initExampleSentences();
     initWordExplain();
     initButtons();
@@ -79,8 +79,8 @@ public class TranslationField implements IField {
 
     deleteExplainButton.setTooltip(new Tooltip("Xoá bản dịch này"));
 
-    ImageView imageView = ImageUtils.getFitSquareImage(
-        DictionaryApplication.INSTANCE.config.getImagesPath() + "/trash.png", 10);
+    ImageView imageView = ImageUtils
+        .getFitSquareImage(DictionaryApplication.INSTANCE.config.getImagesPath() + "/trash.png", 10);
 
     deleteExplainButton.setGraphic(imageView);
   }
@@ -92,12 +92,13 @@ public class TranslationField implements IField {
 
     editExplainButton.setTooltip(new Tooltip("Sửa bản dịch này"));
 
-    ImageView imageView = ImageUtils.getFitSquareImage(
-        DictionaryApplication.INSTANCE.config.getImagesPath() + "/pencil.png", 10);
+    ImageView imageView = ImageUtils
+        .getFitSquareImage(DictionaryApplication.INSTANCE.config.getImagesPath() + "/pencil.png", 10);
 
     editExplainButton.setGraphic(imageView);
   }
 
+  /** Khởi tạo nút. */
   private void initButtons() {
     VBox vbox = new VBox();
     initDeleteExplainButton();
@@ -109,28 +110,46 @@ public class TranslationField implements IField {
     GridPane.setConstraints(vbox, 1, 0);
   }
 
+  /**
+   * @return Pane
+   */
   @Override
   public Pane getPane() {
     return pane;
   }
 
+  /**
+   * @return TranslationController
+   */
   @Override
   public TranslationController getController() {
     return controller;
   }
 
+  /**
+   * @return Button
+   */
   public Button getEditExplainButton() {
     return editExplainButton;
   }
 
+  /**
+   * @return Button
+   */
   public Button getDeleteExplainButton() {
     return deleteExplainButton;
   }
 
+  /**
+   * @return TextArea
+   */
   public TextArea getWordExplain() {
     return wordExplain;
   }
 
+  /**
+   * @return ExampleSentences
+   */
   public ExampleSentences getExamples() {
     return exampleSentences;
   }
@@ -164,7 +183,7 @@ public class TranslationField implements IField {
             }
           }
         }
-      }); 
+      });
     }
 
     public ObservableList<Label> getList() {

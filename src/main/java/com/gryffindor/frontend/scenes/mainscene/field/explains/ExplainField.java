@@ -15,7 +15,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-
 /** Lớp chứa phần giải thích. */
 public class ExplainField implements IField {
   private final VBox explainPane;
@@ -38,6 +37,7 @@ public class ExplainField implements IField {
     controller = new ExplainController(this);
   }
 
+  /** Khởi tạo. */
   private void initWordClass() {
     wordClass = new Text();
     ManagedUtils.bindVisible(wordClass);
@@ -46,40 +46,57 @@ public class ExplainField implements IField {
     explainPane.getChildren().add(wordClass);
   }
 
+  /** Khởi tạo. */
   private void initTranslationFields() {
     translationFields = FXCollections.observableArrayList();
   }
 
+  /** Khởi tạo. */
   private void initAddTranslationButton() {
     addTranslationButton = new Button("Add translation to this word");
     addTranslationButton.getStyleClass().add("add-trans-button");
     addTranslationButton.setTooltip(new Tooltip("Thêm bản dịch cho từ này"));
 
-    ImageView img = ImageUtils.getFitSquareImage(
-        DictionaryApplication.INSTANCE.config.getImagesPath() + "/plus.png", 30);
+    ImageView img = ImageUtils.getFitSquareImage(DictionaryApplication.INSTANCE.config.getImagesPath() + "/plus.png",
+        30);
 
     addTranslationButton.setGraphic(img);
 
     explainPane.getChildren().add(addTranslationButton);
   }
 
+  /**
+   * @return Text
+   */
   public Text getWordClass() {
     return wordClass;
   }
 
+  /**
+   * @return ObservableList<TranslationField>
+   */
   public ObservableList<TranslationField> getTranslationFields() {
     return translationFields;
   }
 
+  /**
+   * @return Button
+   */
   public Button getAddTransButton() {
     return addTranslationButton;
   }
 
+  /**
+   * @return Pane
+   */
   @Override
   public Pane getPane() {
     return explainPane;
   }
 
+  /**
+   * @return ExplainController
+   */
   @Override
   public ExplainController getController() {
     return controller;

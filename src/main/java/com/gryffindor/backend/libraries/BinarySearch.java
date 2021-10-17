@@ -118,6 +118,13 @@ public class BinarySearch {
     return getNeightbors(history.peek().index, COUNT_WORD);
   }
 
+  /**
+   * Trả về danh sách từ từ vị trí index.
+   * 
+   * @param index
+   * @param count
+   * @return
+   */
   private static List<Word> getNeightbors(int index, int count) {
     List<Word> neighbors = new ArrayList<>();
     int left = index;

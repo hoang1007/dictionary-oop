@@ -36,7 +36,7 @@ public class TranslateField implements IField {
   private void initWordTarget() {
     wordTarget = new Label();
     wordTarget.setWrapText(true);
-    
+
     wordTarget.getStyleClass().add("word-header");
   }
 
@@ -49,29 +49,44 @@ public class TranslateField implements IField {
     pronouncedButton = new Button("Tap to listen");
     pronouncedButton.getStyleClass().add("pron-button");
 
-    ImageView imageView = ImageUtils.getFitSquareImage(
-        DictionaryApplication.INSTANCE.config.getImagesPath() + "/sound.png", 12);
+    ImageView imageView = ImageUtils
+        .getFitSquareImage(DictionaryApplication.INSTANCE.config.getImagesPath() + "/sound.png", 12);
 
     pronouncedButton.setGraphic(imageView);
   }
 
+  /**
+   * @return Pane
+   */
   @Override
   public Pane getPane() {
     return translatePane;
   }
 
+  /**
+   * @return Label
+   */
   public Label getWordTarget() {
     return wordTarget;
   }
 
+  /**
+   * @return Text
+   */
   public Text getPronouncedText() {
     return pronouncedText;
   }
 
+  /**
+   * @return Button
+   */
   public Button getPronouncedButton() {
     return pronouncedButton;
   }
 
+  /**
+   * @return TranslateController
+   */
   @Override
   public TranslateController getController() {
     return controller;

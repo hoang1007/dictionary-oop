@@ -1,30 +1,40 @@
 package com.gryffindor.backend.entities;
 
-/** Câu ví dụ của từ. */
 public class ExampleSentence {
-  private String langTo;
-  private String langFrom;
+    private String langTo;
+    private String langFrom;
 
-  public ExampleSentence(String langFrom, String langTo) {
-    this.langTo = langTo;
-    this.langFrom = langFrom;
-  }
+    /** Constructor. */
+    public ExampleSentence(String langFrom, String langTo) {
+        this.langTo = langTo;
+        this.langFrom = langFrom;
+    }
 
-  public ExampleSentence() {
-    langTo = "";
-    langFrom = "";
-  }
+    /** Constructor. */
+    public ExampleSentence() {
+        langTo = "";
+        langFrom = "";
+    }
 
-  public String getLangTo() {
-    return langTo;
-  }
+    /**
+     * @return String
+     */
+    public String getLangTo() {
+        return langTo;
+    }
 
-  public String getLangFrom() {
-    return langFrom;
-  }
+    /**
+     * @return String
+     */
+    public String getLangFrom() {
+        return langFrom;
+    }
 
-  @Override
-  public String toString() {
-    return langFrom + ":\t" + langTo;
-  }
+    /**
+     * @return String
+     */
+    @Override
+    public String toString() {
+        return langFrom + ":\t" + langTo;
+    }
 }

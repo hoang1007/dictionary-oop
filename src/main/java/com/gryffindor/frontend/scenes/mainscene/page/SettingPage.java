@@ -21,6 +21,7 @@ public class SettingPage implements IPage {
     settingPane.getChildren().addAll(switchModeField.getPane());
   }
 
+  /** Khởi tạo nút chuyển online - offline. */
   void initSwitchModeField() {
     switchModeField = new SwitchModeField();
     switchModeField.getPane().prefWidthProperty().bind(settingPane.widthProperty());

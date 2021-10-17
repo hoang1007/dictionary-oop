@@ -37,28 +37,25 @@ public class MainScene {
     settingPage = new SettingPage();
     loadingPage = new LoadingPage();
     navigationBarField = new NavigationBar();
-    
+
     // Đặt các page cho page manager quản lý
-    PageManager.INSTANCE.setHomePage(homePage).setSettingsPage(settingPage)
-        .setToolsPage(toolsPage).setLoadingPage(loadingPage);
+    PageManager.INSTANCE.setHomePage(homePage).setSettingsPage(settingPage).setToolsPage(toolsPage)
+        .setLoadingPage(loadingPage);
 
     setupLayout();
-
 
     mainScene = new Scene(rootPane);
     mainScene.getStylesheets().add(DictionaryApplication.INSTANCE.config.getStyle());
   }
 
+  /** Sắp xếp layout. */
   void setupLayout() {
     mainPane = new HBox();
     mainPane.setFillHeight(true);
 
-    mainPane.getChildren().addAll(
-        navigationBarField.getPane(), 
-        homePage.getPane(), 
-        toolsPage.getPane(),
+    mainPane.getChildren().addAll(navigationBarField.getPane(), homePage.getPane(), toolsPage.getPane(),
         settingPage.getPane());
-        
+
     HBox.setHgrow(homePage.getPane(), Priority.ALWAYS);
     HBox.setHgrow(toolsPage.getPane(), Priority.ALWAYS);
     HBox.setHgrow(settingPage.getPane(), Priority.ALWAYS);
@@ -68,7 +65,7 @@ public class MainScene {
     scroll.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
     scroll.setFitToHeight(true);
     scroll.setFitToWidth(true);
-    
+
     rootPane.getChildren().addAll(scroll, loadingPage.getPane());
   }
 

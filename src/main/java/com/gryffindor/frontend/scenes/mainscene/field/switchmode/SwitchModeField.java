@@ -46,20 +46,34 @@ public class SwitchModeField implements IField {
     pane.getChildren().add(switchButton);
   }
 
+  /**
+   * Ghi đè.
+   * @return Pane
+   */
   @Override
   public Pane getPane() {
     return pane;
   }
 
+  /**
+   * Ghi đè.
+   * @return SwitchModeController
+   */
   @Override
   public SwitchModeController getController() {
     return controller;
   }
 
+  /**
+   * @return Label
+   */
   public Label getDescription() {
     return description;
   }
 
+  /**
+   * @return SwitchButton
+   */
   public SwitchButton getSwitchButton() {
     return switchButton;
   }

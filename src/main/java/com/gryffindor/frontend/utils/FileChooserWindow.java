@@ -17,10 +17,16 @@ public class FileChooserWindow {
     fileChooser.setTitle(title);
   }
 
+  /**
+   * @return File
+   */
   public File getSaveFile() {
     return fileChooser.showSaveDialog(new Stage());
   }
 
+  /**
+   * @return File
+   */
   public File getOpenFile() {
     return fileChooser.showOpenDialog(new Stage());
   }

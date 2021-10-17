@@ -26,6 +26,7 @@ public class ExportField implements IField {
     controller = new ExportController(this);
   }
 
+  /** Khởi tạo nút export. */
   void initExportButton() {
     exportButton = new Button("Export word list to file");
     exportButton.getStyleClass().add("tool-button");
@@ -37,15 +38,27 @@ public class ExportField implements IField {
     exportButton.prefWidthProperty().bind(pane.widthProperty());
   }
 
+  
+  /** 
+   * @return Pane
+   */
   @Override
   public Pane getPane() {
     return pane;
   }
 
+  
+  /** 
+   * @return Button
+   */
   public Button getExportButton() {
     return exportButton;
   }
 
+  
+  /** 
+   * @return IController
+   */
   @Override
   public IController getController() {
     return controller;

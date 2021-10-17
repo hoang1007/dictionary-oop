@@ -10,8 +10,8 @@ import java.util.concurrent.LinkedBlockingQueue;
 import javafx.application.Platform;
 import javafx.scene.control.Alert.AlertType;
 
-/** Nơi nhận các ngoại lệ của chương trình
- * và hiển thị thông báo tới người dùng.
+/**
+ * Nơi nhận các ngoại lệ của chương trình và hiển thị thông báo tới người dùng.
  */
 public class ExceptionHandler extends TimerTask implements Thread.UncaughtExceptionHandler {
   private final BlockingQueue<Exception> queue;

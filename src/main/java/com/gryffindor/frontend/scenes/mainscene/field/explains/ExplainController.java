@@ -44,6 +44,11 @@ public class ExplainController implements IController {
     });
   }
 
+  /**
+   * Hàm khởi tạo.
+   * 
+   * @param word
+   */
   private void initSynoymsPane(Word word) {
     if (word == null) {
       return;
@@ -60,7 +65,12 @@ public class ExplainController implements IController {
     }
   }
 
-  // Khởi tạo các nút chứa từ đồng nghĩa
+  /**
+   * Khởi tạo các nút chứa từ đồng nghĩa.
+   * 
+   * @param syn
+   * @return Button
+   */
   private Button initSynonymButtons(String syn) {
     Button button = new Button(syn);
     button.getStyleClass().add("synonym-button");
@@ -101,7 +111,7 @@ public class ExplainController implements IController {
     // Đặt loại từ
     explainField.getWordClass().setText(word.getWordClass());
 
-    // Nếu nguồn tìm kiếm từ google 
+    // Nếu nguồn tìm kiếm từ google
     // Không thực hiện tìm kiếm các từ đồng nghĩa
     // vì có thể từ tìm kiếm là đoạn văn
     if (!word.getSource().equals(Word.Source.GOOGLE)) {
