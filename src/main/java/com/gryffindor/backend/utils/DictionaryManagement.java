@@ -111,8 +111,9 @@ public class DictionaryManagement {
     wordTarget = wordTarget.trim();
 
     Word ans = null;
-    if (dictionary.searchWord(wordTarget) != null) {
-      ans = dictionary.searchWord(wordTarget);
+    Word p = dictionary.searchWord(wordTarget.toLowerCase());
+    if (p != null) {
+      ans = p;
       ans.setSource(Word.Source.LOCAL);
     } else {
       System.out.println("Chưa có từ " + wordTarget + " trong từ điển");
@@ -319,15 +320,15 @@ public class DictionaryManagement {
     // string là một câu hoặc đoạn văn
     // nên tìm kiếm bằng google
     if (wordTarget.split(" ").length >= 2) {
-      return searchWordFromGoogleTranslator(wordTarget);
+      return searchWordFromGoogleTranslator(wordTarget.toLowerCase());
     }
 
     Word ans = null;
-    ans = searchWordFromFireBase(wordTarget);
+    ans = searchWordFromFireBase(wordTarget.toLowerCase());
     // nếu không tìm thấy từ trong database
     // tìm bằng google
     if (ans == null) {
-      ans = searchWordFromGoogleTranslator(wordTarget);
+      ans = searchWordFromGoogleTranslator(wordTarget.toLowerCase());
     }
     return ans;
   }
