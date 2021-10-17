@@ -24,5 +24,6 @@ Thành viên nhóm Gryffindor:
 - Chức năng dịch từ, đoạn văn qua hình ảnh.
 - Chức năng xuất từ điễn đã có ra File.
 - Với hai chế độ tìm kiếm Online - Offline tùy theo nhu cầu, điều kiện người dùng.
+- Tự do chỉnh sửa, phát triển từ điển theo thời gian thực.
 
 ## Cài đặt
