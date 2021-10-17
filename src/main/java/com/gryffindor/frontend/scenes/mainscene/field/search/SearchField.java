@@ -35,7 +35,7 @@ public class SearchField implements IField {
     controller = new SearchController(this); // should be last since need to init other components
   }
 
-  void initSearchBox() {
+  private void initSearchBox() {
     searchBox = new TextField();
     searchBox.setPromptText("Tap to search...");
     searchBox.getStyleClass().add("search-box");
@@ -45,7 +45,7 @@ public class SearchField implements IField {
     GridPane.setHgrow(searchBox, Priority.ALWAYS);
   }
 
-  void initImageSearchButton() {
+  private void initImageSearchButton() {
     imageSearch = new Button();
     imageSearch.getStyleClass().add("search-button");
     ImageView view = ImageUtils.getFitSquareImage(
@@ -57,7 +57,7 @@ public class SearchField implements IField {
     GridPane.setConstraints(imageSearch, 1, 0);
   }
 
-  void initSearchList() {
+  private void initSearchList() {
     searchList = new ListView<>();
     searchList.getStyleClass().add("search-list");
 

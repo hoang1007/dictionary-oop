@@ -38,7 +38,7 @@ public class ExplainField implements IField {
     controller = new ExplainController(this);
   }
 
-  void initWordClass() {
+  private void initWordClass() {
     wordClass = new Text();
     ManagedUtils.bindVisible(wordClass);
     wordClass.getStyleClass().add("word-class");
@@ -46,11 +46,11 @@ public class ExplainField implements IField {
     explainPane.getChildren().add(wordClass);
   }
 
-  void initTranslationFields() {
+  private void initTranslationFields() {
     translationFields = FXCollections.observableArrayList();
   }
 
-  void initAddTranslationButton() {
+  private void initAddTranslationButton() {
     addTranslationButton = new Button("Add translation to this word");
     addTranslationButton.getStyleClass().add("add-trans-button");
     addTranslationButton.setTooltip(new Tooltip("Thêm bản dịch cho từ này"));

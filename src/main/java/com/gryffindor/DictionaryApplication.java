@@ -41,8 +41,8 @@ public final class DictionaryApplication {
   public static void main(String[] args) throws Exception {
     if (INSTANCE.getStatus().equals(Status.OFFLINE)) {
       INSTANCE.dictionaryManagement.insertFromJson();
-      System.out.println("SIZE OF LIST WORDS : = " + 
-          INSTANCE.dictionaryManagement.getDictionary().getAllWords().size());
+      System.out.println("SIZE OF LIST WORDS : = " 
+          + INSTANCE.dictionaryManagement.getDictionary().getAllWords().size());
     } else {
       // nếu online
       // tải trước danh sách word target để hiện gợi ý

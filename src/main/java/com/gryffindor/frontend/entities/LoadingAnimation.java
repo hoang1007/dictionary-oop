@@ -11,13 +11,14 @@ public class LoadingAnimation extends HBox {
   Circle[] circles;
   FadeTransition[] animations;
 
+  /** Khởi tạo animation. */
   public LoadingAnimation(Color color) {
     this.setSpacing(10);
 
-    final int NO_CIRCLE = 3;
-    circles = new Circle[NO_CIRCLE];
+    final int No_Circle = 3;
+    circles = new Circle[No_Circle];
 
-    for (int i = 0; i < NO_CIRCLE; i++) {
+    for (int i = 0; i < No_Circle; i++) {
       circles[i] = new Circle(10f);
       circles[i].setFill(color);
     }
@@ -45,6 +46,7 @@ public class LoadingAnimation extends HBox {
     animations[0].play();
   }
 
+  /** Dừng phát animation. */
   public void stop() {
     for (FadeTransition ft : animations) {
       ft.stop();

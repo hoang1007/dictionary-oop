@@ -30,8 +30,8 @@ public class ExportField implements IField {
     exportButton = new Button("Export word list to file");
     exportButton.getStyleClass().add("tool-button");
 
-    ImageView toolsImageView = ImageUtils
-        .getFitSquareImage(DictionaryApplication.INSTANCE.config.getImagesPath() + "/export.png", 50);
+    ImageView toolsImageView = ImageUtils.getFitSquareImage(
+        DictionaryApplication.INSTANCE.config.getImagesPath() + "/export.png", 50);
     exportButton.setGraphic(toolsImageView);
 
     exportButton.prefWidthProperty().bind(pane.widthProperty());

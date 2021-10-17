@@ -1,5 +1,6 @@
 package com.gryffindor;
 
+/** Các ngôn ngữ được hỗ trợ dịch. */
 public enum Language {
   DETECT("", ""),
   ENGLISH("en", "English"),

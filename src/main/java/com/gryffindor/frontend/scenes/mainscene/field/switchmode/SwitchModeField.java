@@ -10,7 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 
 /**
- * Chuyển đổi giữa hai chế độ offline và online search
+ * Chuyển đổi giữa hai chế độ offline và online search.
  */
 public class SwitchModeField implements IField {
   private HBox pane;
@@ -20,6 +20,7 @@ public class SwitchModeField implements IField {
 
   private SwitchModeController controller;
 
+  /** Khởi tạo. */
   public SwitchModeField() {
     pane = new HBox();
     pane.setSpacing(100);
@@ -31,7 +32,7 @@ public class SwitchModeField implements IField {
     controller = new SwitchModeController(this);
   }
 
-  void initDescription() {
+  private void initDescription() {
     description = new Label("Enable online search mode");
     description.getStyleClass().add("setting-label");
     description.setAlignment(Pos.TOP_CENTER);
@@ -40,7 +41,7 @@ public class SwitchModeField implements IField {
     HBox.setHgrow(description, Priority.ALWAYS);
   }
 
-  void initSwitchButton() {
+  private void initSwitchButton() {
     switchButton = new SwitchButton(true);
     pane.getChildren().add(switchButton);
   }

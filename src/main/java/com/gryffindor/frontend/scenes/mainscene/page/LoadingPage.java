@@ -7,10 +7,12 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
+/** Trang để hiển thị loading animation. */
 public class LoadingPage implements IPage {
   StackPane loadingPane;
   private LoadingAnimation animation;
 
+  /** Khởi tạo trang loading. */
   public LoadingPage() {
     loadingPane = new StackPane();
     loadingPane.setStyle("-fx-background-color: rgba(172, 172, 172, 0.3)");

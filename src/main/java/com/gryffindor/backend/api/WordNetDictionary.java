@@ -2,7 +2,6 @@ package com.gryffindor.backend.api;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -25,6 +24,13 @@ public class WordNetDictionary {
     }
   }
 
+  /**
+   * Tìm các từ đồng nghĩa trong từ điển WordNet.
+   * @param word từ muốn tìm
+   * @param pos loại từ
+   * @see net.sf.extjwnl.data.POS
+   * @return danh sách các từ đồng nghĩa
+   */
   public static List<String> getSynonyms(String word, POS pos) {
     Synset synset = Util.getCommonSynset(word, pos);
 
@@ -35,6 +41,12 @@ public class WordNetDictionary {
     }
   }
 
+  /**
+   * Tìm từ đồng nghĩa trong từ điển WordNet.
+   * @param word từ muốn tìm 
+   * @see com.gryffindor.backend.entities.Word
+   * @return danh sách các từ đồng nghĩa
+   */
   public static List<String> getSynonyms(com.gryffindor.backend.entities.Word word) {
     List<String> adj = getSynonyms(word.getWordTarget(), POS.ADJECTIVE);
     List<String> noun = getSynonyms(word.getWordTarget(), POS.NOUN);
@@ -44,21 +56,6 @@ public class WordNetDictionary {
     
 
     return Stream.of(adj, noun, adv, verb).flatMap(Collection::stream).collect(Collectors.toList());
-  }
-
-  public static List<String> getAllWords() {
-    List<String> words = new ArrayList<>();
-
-    try {
-      Iterator<IndexWord> wordItr = dictionary.getIndexWordIterator(POS.NOUN);
-      for (IndexWord word = wordItr.next(); word != null; word = wordItr.next()) {
-        words.add(word.getLemma());
-      }
-    } catch (JWNLException e) {
-      e.printStackTrace();
-    }
-
-    return words;
   }
 
   static class Util {

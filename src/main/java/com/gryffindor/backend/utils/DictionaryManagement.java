@@ -22,14 +22,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeoutException;
+
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
+
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 
 public class DictionaryManagement {
   public final Dictionary dictionary;
@@ -50,12 +53,12 @@ public class DictionaryManagement {
       System.out.println(String.format("Đang nhập từ thứ %d...", i));
       System.out.println("Nhập từ mới:");
 
-      String word_target = scanner.nextLine();
+      String wordTarget = scanner.nextLine();
 
       System.out.println("Nhập nghĩa:");
-      String word_explain = scanner.nextLine();
+      String wordExplain = scanner.nextLine();
 
-      dictionary.addWord(new Word(word_target, word_explain));
+      dictionary.addWord(new Word(wordTarget, wordExplain));
     }
 
     scanner.close();
@@ -83,10 +86,10 @@ public class DictionaryManagement {
         // Xử lí xâu từ file text truyền vào mảng Word.
         for (int i = 1; i < line.length(); i++) {
           if (line.charAt(i) == '\t') {
-            String word_target = line.substring(0, i);
-            String word_explain = line.substring(i + 1);
+            String wordTarget = line.substring(0, i);
+            String wordExplain = line.substring(i + 1);
 
-            dictionary.addWord(new Word(word_target, word_explain));
+            dictionary.addWord(new Word(wordTarget, wordExplain));
             break;
           }
         }
@@ -117,7 +120,7 @@ public class DictionaryManagement {
     return ans;
   }
 
-  /** Xóa word từ dòng lệnh */
+  /** Xóa word từ dòng lệnh. */
   public void deleteWordFromCommandline() {
     System.out.println("Nhập từ cần xóa: ");
     Scanner sc = new Scanner(System.in);
@@ -154,25 +157,27 @@ public class DictionaryManagement {
   }
 
   /**
-   * Đọc dữ liệu từ file text
+   * Đọc dữ liệu từ file text.
    * 
    * @deprecated Hàm này đã không còn được sử dụng vì chương trình chuyển sang nạp
    *             dữ liệu từ json
-   *             <p>
-   *             Sử dụng {@link DictionaryManagement#insertFromJson()} để thay thế
+   *            
+   * @see DictionaryManagement#insertFromJson()
    */
   public void addDataFromFile() {
     Config config = DictionaryApplication.INSTANCE.config;
     Stack<Word> words = new Stack<>();
 
-    try (InputStreamReader reader = new InputStreamReader(config.getDataDictionaryStream(), StandardCharsets.UTF_8);
+    try (InputStreamReader reader = new InputStreamReader(
+                  config.getDataDictionaryStream(), StandardCharsets.UTF_8);
         BufferedReader bufferedReader = new BufferedReader(reader)) {
 
-      String word_target = "";
-      String word_spelling = "";
-      String word_class = "";
+      String wordTarget = "";
+      String wordSpelling = "";
+      String wordClass = "";
 
-      for (String line = bufferedReader.readLine(); line != null; line = bufferedReader.readLine()) {
+      for (String line = bufferedReader.readLine(); line != null; 
+                                          line = bufferedReader.readLine()) {
         // if (words.size() > 200)
         // break;
         // word target and word spelling is in the same line
@@ -181,58 +186,59 @@ public class DictionaryManagement {
           int posSpelling = line.indexOf(config.getWordSpellingSign());
 
           try {
-            word_target = line.substring(posTarget + 1, posSpelling);
-            word_spelling = line.substring(posSpelling);
+            wordTarget = line.substring(posTarget + 1, posSpelling);
+            wordSpelling = line.substring(posSpelling);
 
-            word_target = TextUtils.format(word_target);
-            word_spelling = TextUtils.format(word_spelling);
+            wordTarget = TextUtils.format(wordTarget);
+            wordSpelling = TextUtils.format(wordSpelling);
           } catch (Exception e) {
-            word_target = line.substring(posTarget + 1);
-            word_spelling = TextUtils.empty();
+            wordTarget = line.substring(posTarget + 1);
+            wordSpelling = TextUtils.empty();
           }
 
-          System.out.println("Found spelling: " + word_spelling);
-          System.out.println("Found word target: " + word_target);
+          System.out.println("Found spelling: " + wordSpelling);
+          System.out.println("Found word target: " + wordTarget);
 
         } else if (line.startsWith(config.getWordClassSign())) { // word class
           // mỗi loại từ là một từ
-          words.add(new Word(word_target, word_spelling));
+          words.add(new Word(wordTarget, wordSpelling));
 
-          word_class = line.substring(line.indexOf(config.getWordClassSign()) + 1);
-          word_class = TextUtils.format(word_class);
+          wordClass = line.substring(line.indexOf(config.getWordClassSign()) + 1);
+          wordClass = TextUtils.format(wordClass);
 
-          System.out.println("Found word type " + word_class);
+          System.out.println("Found word type " + wordClass);
 
           if (!words.empty()) {
-            words.peek().setWordClass(word_class);
+            words.peek().setWordClass(wordClass);
           }
         } else if (line.startsWith(config.getWordExplainSign())) {
           // mỗi từ giải thích bắt đầu 1 phần giải thích
 
-          String word_explain = line.substring(line.indexOf(config.getWordExplainSign()) + 1);
-          word_explain = TextUtils.format(word_explain);
+          String wordExplain = line.substring(line.indexOf(config.getWordExplainSign()) + 1);
+          wordExplain = TextUtils.format(wordExplain);
 
-          System.out.println("Found explain: " + word_explain);
+          System.out.println("Found explain: " + wordExplain);
 
-          words.peek().addTranslation(new Translation(word_explain));
+          words.peek().addTranslation(new Translation(wordExplain));
 
           if (words.peek().getWordClass().length() == 0) {
-            words.peek().setWordClass(word_class);
+            words.peek().setWordClass(wordClass);
           }
           if (words.peek().getWordTarget().length() == 0) {
-            words.peek().setWordTarget(word_target);
+            words.peek().setWordTarget(wordTarget);
           }
           if (words.peek().getWordSpelling().length() == 0) {
-            words.peek().setWordSpelling(word_spelling);
+            words.peek().setWordSpelling(wordSpelling);
           }
         } else if (line.startsWith(config.getExampleSign())) {
-          String[] example = line.substring(line.indexOf(config.getExampleSign()) + 1).split(config.getExampleDelim());
+          String[] example = line.substring(line.indexOf(config.getExampleSign()) + 1)
+                                                      .split(config.getExampleDelim());
 
           example = TextUtils.format(example);
-          ExampleSentence eSentence = new ExampleSentence(example[0], example[1]);
-          System.out.println("Found example " + eSentence);
+          ExampleSentence exSentence = new ExampleSentence(example[0], example[1]);
+          System.out.println("Found example " + exSentence);
 
-          Iterables.getLast(words.peek().getTranslations()).addExampleSentences(eSentence);
+          Iterables.getLast(words.peek().getTranslations()).addExampleSentences(exSentence);
         }
       }
     } catch (IOException e) {
@@ -251,7 +257,10 @@ public class DictionaryManagement {
     }
   }
 
-  // export to file chooser
+  /**
+   * Xuất dữ liệu từ điển ra file.
+   * @param file file muốn ghi dữ liệu
+   */
   public void dictionaryExportToFile(File file) {
     if (file != null) {
       System.out.println("Start saving file");
@@ -260,9 +269,11 @@ public class DictionaryManagement {
         pw = new PrintWriter(file);
 
         // get All Word in dictionary
-        List<Word> ls = DictionaryApplication.INSTANCE.getDictionaryManagement().getDictionary().getAllWords();
-        int list_size = ls.size();
-        for (int i = 0; i < list_size; i++) {
+        List<Word> ls = DictionaryApplication.INSTANCE.getDictionaryManagement()
+                                        .getDictionary().getAllWords();
+                                        
+        int listSize = ls.size();
+        for (int i = 0; i < listSize; i++) {
           pw.write(ls.get(i).toString());
           pw.write("\n");
         }
@@ -279,6 +290,7 @@ public class DictionaryManagement {
     }
   }
 
+  /** Tìm kiếm từ trong database. */
   public Word searchWordFromFireBase(String wordTarget) {
     Word ans = null; // answer
     try {
@@ -293,6 +305,7 @@ public class DictionaryManagement {
     return ans;
   }
 
+  /** Tìm kiếm từ nguồn google. */
   public Word searchWordFromGoogleTranslator(String wordTarget) {
     Word ans = null; // answer
     try {
@@ -307,6 +320,7 @@ public class DictionaryManagement {
     return ans;
   }
 
+  /** Tìm kiếm từ online. */
   public Word searchWordOnline(String wordTarget) {
     // nếu số từ trong string >= 3 thì
     // string là một câu hoặc đoạn văn
@@ -325,9 +339,10 @@ public class DictionaryManagement {
     return ans;
   }
 
+  /** Nhập dữ liệu từ file json và từ điển. */
   public void insertFromJson() {
-    JsonElement element = JsonParser
-        .parseReader(new InputStreamReader(DictionaryApplication.INSTANCE.config.getDictionaryJson()));
+    JsonElement element = JsonParser.parseReader(
+          new InputStreamReader(DictionaryApplication.INSTANCE.config.getDictionaryJson()));
 
     Word[] words = new Gson().fromJson(element, Word[].class);
 
@@ -337,19 +352,27 @@ public class DictionaryManagement {
     }
   }
 
+  /** Xuất dữ liệu từ điển dưới dạng json. */
   public void exportToJson() throws IOException {
     List<Word> allWords = dictionary.getAllWords();
 
     String jsonData = new Gson().toJson(allWords);
 
-    try (FileWriter writer = new FileWriter(
-        new File(new URI(DictionaryApplication.INSTANCE.config.getRootPath() + "/dictionary.txt")))) {
+    try (FileWriter writer = new FileWriter(new File(
+        new URI(DictionaryApplication.INSTANCE.config.getRootPath() + "/dictionary.txt")))) {
       writer.write(jsonData);
     } catch (IOException | URISyntaxException e) {
       e.printStackTrace();
     }
   }
 
+  /**
+   * Cập nhật bản dịch của từ.
+   * @param word từ chứa bản dịch
+   * @param oldTrans bản dịch cũ
+   * @param newTrans bản dịch mới
+   * @return true nếu không có lỗi
+   */
   public boolean updateTranslation(Word word, Translation oldTrans, Translation newTrans) {
     System.out.println(word.getSource());
     switch (word.getSource()) {
@@ -362,10 +385,12 @@ public class DictionaryManagement {
         }
 
         int transId = word.getTranslations().indexOf(oldTrans);
-        System.out.println("Add trans to " + dictionary.getWordList(word.getWordTarget()).get(wordId).getWordTarget());
+        System.out.println("Add trans to "
+            + dictionary.getWordList(word.getWordTarget()).get(wordId).getWordTarget());
 
         if (transId != -1) {
-          dictionary.getWordList(word.getWordTarget()).get(wordId).getTranslations().set(transId, newTrans);
+          dictionary.getWordList(word.getWordTarget()).get(wordId)
+                .getTranslations().set(transId, newTrans);
         } else {
           dictionary.getWordList(word.getWordTarget()).get(wordId).getTranslations().add(newTrans);
         }
@@ -377,6 +402,7 @@ public class DictionaryManagement {
           DictionaryApplication.INSTANCE.exceptionHandler.add(e);
           return false;
         }
+        break;
       default:
         break;
     }
@@ -384,6 +410,12 @@ public class DictionaryManagement {
     return true;
   }
 
+  /**
+   * Xóa bản dịch của một từ.
+   * @param word từ chứa bản dịch
+   * @param trans bản dịch muốn xóa
+   * @return true nếu không có lỗi
+   */
   public boolean deleteTranslation(Word word, Translation trans) {
     switch (word.getSource()) {
       case LOCAL:
@@ -406,6 +438,12 @@ public class DictionaryManagement {
     return true;
   }
 
+  /**
+   * Thêm bản dịch của một từ.
+   * @param word từ muốn thêm bản dịch
+   * @param translation bản dịch muốn thêm
+   * @return true nếu không có lỗi
+   */
   public boolean addTranslation(Word word, Translation translation) {
     switch (word.getSource()) {
       case LOCAL:
@@ -420,6 +458,8 @@ public class DictionaryManagement {
           DictionaryApplication.INSTANCE.exceptionHandler.add(e);
           return false;
         }
+
+        break;
       default:
         break;
     }

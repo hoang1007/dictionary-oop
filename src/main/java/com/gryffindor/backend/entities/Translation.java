@@ -1,9 +1,9 @@
 package com.gryffindor.backend.entities;
 
+import com.gryffindor.backend.utils.TextUtils;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.gryffindor.backend.utils.TextUtils;
 
 public class Translation {
   private String wordExplain = TextUtils.empty();
@@ -16,6 +16,11 @@ public class Translation {
     this.wordExplain = wordExplain;
   }
 
+  /**
+   * Thêm các câu ví dụ cho từ.
+   * @param exampleSentences các câu ví dụ
+   * @return trả về đối tượng hiện tại
+   */
   public Translation addExampleSentences(ExampleSentence... exampleSentences) {
     for (ExampleSentence exampleSentence : exampleSentences) {
       this.exampleSentences.add(exampleSentence);
@@ -37,6 +42,7 @@ public class Translation {
     return this.wordExplain;
   }
 
+  /** Tạo một bản sao của đối tượng hiện tại. */
   public Translation clone() {
     Translation o = new Translation();
     o.setWordExplain(this.wordExplain);

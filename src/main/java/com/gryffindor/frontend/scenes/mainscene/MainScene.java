@@ -38,6 +38,7 @@ public class MainScene {
     loadingPage = new LoadingPage();
     navigationBarField = new NavigationBar();
     
+    // Đặt các page cho page manager quản lý
     PageManager.INSTANCE.setHomePage(homePage).setSettingsPage(settingPage)
         .setToolsPage(toolsPage).setLoadingPage(loadingPage);
 

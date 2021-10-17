@@ -8,14 +8,20 @@ import javafx.scene.control.Alert.AlertType;
 public class AlertDialog {
   Alert alert;
 
+  /**
+   * Khởi tạo hộp thông báo.
+   * @param type loại thông báo
+   */
   public AlertDialog(AlertType type) {
     alert = new Alert(type);
-    alert.getDialogPane().getStylesheets().add(DictionaryApplication.INSTANCE.config.getAlertStyle());
+    alert.getDialogPane().getStylesheets().add(
+          DictionaryApplication.INSTANCE.config.getAlertStyle());
     alert.getDialogPane().getStyleClass().add("alert-pane");
 
     alert.setHeaderText(null);
   }
 
+  /** Đặt tin nhắn. */
   public AlertDialog setContent(String content) {
     alert.setContentText(content);
     return this;

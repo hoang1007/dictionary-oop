@@ -61,30 +61,37 @@ public class Config {
     dictionaryJsonStream = getClass().getResourceAsStream("/dictionary.txt");
   }
 
+  /** Link google api để tìm kiếm từ. */
   public String getGoogleApiUrl() {
     return googleApiUrl;
   }
 
+  /** Lấy dữ liệu từ điển dưới dạng stream. */
   public InputStream getDataDictionaryStream() {
     return dictionaryDataStream;
   }
 
+  /** Lấy account service dưới dạng stream để kết nối với database. */
   public InputStream getGoogleServiceStream() {
     return googleServiceStream;
   }
 
+  /** Dữ liệu gợi ý dưới dạng stream. */
   public InputStream getSuggestDataStream() {
     return suggestDataStream;
   }
 
+  /** Lấy dữ liệu từ điển dưới dạng json stream. */
   public InputStream getDictionaryJson() {
     return dictionaryJsonStream;
   }
 
+  /** Lấy đường dẫn của file style.css */
   public String getStyle() {
     return style;
   }
 
+  /** Đường dẫn của tài nguyên ảnh. */
   public String getImagesPath() {
     return imagesPath;
   }
@@ -92,6 +99,9 @@ public class Config {
   public String getContributeThanks() {
     return contributeThanks;
   }
+
+  // Các kí tự đầu của file text dữ liệu 
+  // để thực hiện decode file text
 
   public String getWordTargetSign() {
     return wordTargetSign;
@@ -117,10 +127,12 @@ public class Config {
     return exampleDelim;
   }
 
+  /** Đường dẫn của thư mục chứa tài nguyên. */
   public String getRootPath() {
     return resourcesPath;
   }
 
+  /** Đường dẫn của alert.css */
   public String getAlertStyle() {
     return alertStyle;
   }

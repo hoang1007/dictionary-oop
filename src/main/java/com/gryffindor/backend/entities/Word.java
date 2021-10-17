@@ -1,9 +1,9 @@
 package com.gryffindor.backend.entities;
 
+import com.gryffindor.backend.utils.TextUtils;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.gryffindor.backend.utils.TextUtils;
 
 public class Word implements Comparable<Word> {
   private String wordTarget = TextUtils.empty();
@@ -23,13 +23,22 @@ public class Word implements Comparable<Word> {
     this.wordTarget = wordTarget;
   }
 
-  /** Constructor have spelling */
+  /** Constructor have spelling. */
   public Word(String wordTarget, String wordSpelling) {
     this.wordTarget = wordTarget;
     this.wordSpelling = wordSpelling;
   }
 
-  public Word(String wordTarget, String wordSpelling, List<Translation> translations, Source source) {
+  /**
+   * Khởi tạo word.
+   * @param wordTarget từ muốn dịch
+   * @param wordSpelling phiên âm của từ
+   * @param translations các bản dịch của từ
+   * @see Translation
+   * @param source nguồn tìm kiếm của từ [Local, Database, Google Translate]
+   */
+  public Word(String wordTarget, String wordSpelling, 
+        List<Translation> translations, Source source) {
     this.wordTarget = wordTarget;
     this.wordSpelling = wordSpelling;
     this.translations = translations;
@@ -63,6 +72,12 @@ public class Word implements Comparable<Word> {
     return this.wordClass;
   }
 
+  /**
+   * Thêm các bản dịch cho từ.
+   * @param translations các bản dịch muốn thêm
+   * @return trả về đối tượng hiện tại
+   * @see Translation
+   */
   public Word addTranslation(Translation... translations) {
     for (Translation translation : translations) {
       this.translations.add(translation);

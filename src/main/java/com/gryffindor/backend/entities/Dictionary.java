@@ -1,9 +1,9 @@
 package com.gryffindor.backend.entities;
 
+import com.gryffindor.backend.utils.SortedList;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.gryffindor.backend.utils.SortedList;
 
 public class Dictionary {
   /* Tập dữ liệu từ các kí tự từ a-z
@@ -11,6 +11,7 @@ public class Dictionary {
   */
   private List<SortedList<Word>> dataset;
 
+  /** Tạo từ điển. */
   public Dictionary() {
     dataset = new ArrayList<>();
 
@@ -70,15 +71,16 @@ public class Dictionary {
 
   /**
    * Tìm tất cả các từ đồng nghĩa.
-   * @param word_explain nghĩa muốn tìm
+   * @param wordExplain nghĩa muốn tìm
    * @return danh sách các từ tìm được
    */
-  public List<Word> getSynonyms(String word_explain) {
+  public List<Word> getSynonyms(String wordExplain) {
     List<Word> synonyms = new ArrayList<>();
 
     return synonyms;
   }
 
+  /** Xóa tất cả các từ trong từ điển. */
   public void clear() {
     for (List<Word> list : dataset) {
       list.clear();

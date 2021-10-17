@@ -10,7 +10,8 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 
 /**
- * Button chuyển đổi giữa hai chế độ Tham khảo code của @author meiswjn
+ * Button chuyển đổi giữa hai chế độ. 
+ * Tham khảo code của meiswjn
  * 
  * @link https://gist.github.com/meiswjn/dd64f0706085cab336e30ac7e2ef59b1
  */
@@ -18,9 +19,11 @@ public class SwitchButton extends StackPane {
   private final Rectangle back = new Rectangle(30, 10, Color.WHITE);
   private final Button button = new Button();
 
-  private String buttonStyleOff = "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 0.2, 0.0, 0.0, 2); -fx-background-color: WHITE;";
+  private final String buttonStyleOff = "-fx-effect: dropshadow(three-pass-box,"
+      + "rgba(0,0,0,0.2), 0.2, 0.0, 0.0, 2); -fx-background-color: WHITE;";
 
-  private String buttonStyleOn = "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 0.2, 0.0, 0.0, 2); -fx-background-color: #3fa8d9";
+  private final String buttonStyleOn = "-fx-effect: dropshadow(three-pass-box,"
+      + "rgba(0,0,0,0.2), 0.2, 0.0, 0.0, 2); -fx-background-color: #3fa8d9";
 
   private String colorOn = "#6bc4ed";
   private String colorOff = "#ced5da";
@@ -53,16 +56,21 @@ public class SwitchButton extends StackPane {
     button.setStyle(state ? buttonStyleOn : buttonStyleOff);
   }
 
+  /**
+   * Khởi tạo switch button.
+   * @param defaultBoolean trạng thái on off của button
+   */
   public SwitchButton(boolean defaultBoolean) {
     init(defaultBoolean);
 
     EventHandler<Event> click = new EventHandler<Event>() {
       @Override
       public void handle(Event event) {
-        if (state)
+        if (state) {
           setOff();
-        else
+        } else {
           setOn();
+        }
       }
     };
 
@@ -72,14 +80,16 @@ public class SwitchButton extends StackPane {
     button.setOnMouseClicked(click);
   }
 
+  /** Thêm event handler cho button. */
   public void addOnMouseClicked(EventHandler<Event> value) {
     EventHandler<Event> click = new EventHandler<Event>() {
       @Override
       public void handle(Event event) {
-        if (state)
+        if (state) {
           setOff();
-        else
+        } else {
           setOn();
+        }
 
         value.handle(event);
       }
@@ -93,6 +103,7 @@ public class SwitchButton extends StackPane {
     return state;
   }
 
+  /** Trạng thái on của button. */
   public void setOn() {
     button.setStyle(buttonStyleOn);
     back.setFill(Color.valueOf(colorOn));
@@ -100,6 +111,7 @@ public class SwitchButton extends StackPane {
     state = true;
   }
 
+  /** Trạng thái off của button. */
   public void setOff() {
     button.setStyle(buttonStyleOff);
     back.setFill(Color.valueOf(colorOff));

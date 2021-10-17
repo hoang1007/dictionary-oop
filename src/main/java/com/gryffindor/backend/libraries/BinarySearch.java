@@ -1,20 +1,24 @@
 package com.gryffindor.backend.libraries;
 
+import com.gryffindor.backend.entities.Word;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import com.gryffindor.backend.entities.Word;
-
 public class BinarySearch {
   private static int COUNT_WORD = 5;
   private static List<Word> wordList;
-  private static Stack<Result>  history = new Stack<>();
+  private static Stack<Result> history = new Stack<>();
 
   /**
-   * Hàm tìm kiếm nhị phân compareTo(): hàm so sánh xâu theo thứ tự bảng chữ cái
+   * Hàm tìm kiếm nhị phân.
    * 
-   * @return chi so cua tu tim thay
+   * @param wordTarget từ muốn tìm trong danh sách
+   * @param low        biên dưới của tìm kiếm bị phân
+   * @param high       biên trên của tìm kiếm nhị phân
+   * @return chỉ số của từ tìm kiếm hoặc gần nhất với từ tìm kiếm trong danh sách
+   *         đã cho được đặt bởi hàm {@link BinarySearch#setWordList(List)}
    */
   public static int search(String wordTarget, int low, int high) {
     if (low < 0) {
@@ -52,23 +56,23 @@ public class BinarySearch {
     return mid + 1;
   }
 
+  /** Đặt số từ trả về của một tìm kiếm. */
   public static void setCountWord(int count) {
     COUNT_WORD = count;
   }
 
+  /** Đặt danh sách muốn tìm kiếm. */
   public static void setWordList(List<Word> list) {
     wordList = list;
     history.clear();
   }
 
   /**
-   * Hàm tìm kiếm từ liên tục
-   * dựa trên các vùng tìm kiếm trước đó
+   * Hàm tìm kiếm từ liên tục dựa trên các vùng tìm kiếm trước đó.
+   * 
    * @param wordTarget từ muốn tìm kiếm
-   * @param dir hướng tìm kiếm 
-   *  dir = 1: thêm một kí tự
-   *  dir = -1: bớt một kí tự
-   * @param num số từ muốn lấy
+   * @param dir        hướng tìm kiếm dir = 1: thêm một kí tự dir = -1: bớt một kí
+   *                   tự
    * @return danh cách các từ bắt đầu bằng {@link wordTarget}
    */
   public static List<Word> searchAdvanced(String wordTarget, int dir) {
@@ -135,6 +139,8 @@ public class BinarySearch {
     return neighbors;
   }
 
+  // Lưu biên và index của từ tìm được
+  // để dùng cho truy vết từ
   private static class Result {
     int low;
     int high;

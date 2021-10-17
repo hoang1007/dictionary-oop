@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+/** Thanh công cụ. */
 public class NavigationBar implements IField {
   private final VBox navigationBarPane;
 
@@ -37,7 +38,7 @@ public class NavigationBar implements IField {
     controller = new NavigationBarController(this);
   }
 
-  void initHomePage() {
+  private void initHomePage() {
     homeButton = new Button();
     homeButton.setTooltip(new Tooltip("Home"));
     homeButton.getStyleClass().add("nav-button");
@@ -48,7 +49,7 @@ public class NavigationBar implements IField {
     homeButton.setGraphic(homeImageView);
   }
 
-  void initToolsPage() {
+  private void initToolsPage() {
     toolsButton = new Button();
     toolsButton.setTooltip(new Tooltip("Tools"));
     toolsButton.getStyleClass().add("nav-button");
@@ -59,7 +60,7 @@ public class NavigationBar implements IField {
     toolsButton.setGraphic(toolsImageView);
   }
 
-  void initSettingsPage() {
+  private void initSettingsPage() {
     settingsButton = new Button();
     settingsButton.setTooltip(new Tooltip("Settings"));
     settingsButton.getStyleClass().add("nav-button");

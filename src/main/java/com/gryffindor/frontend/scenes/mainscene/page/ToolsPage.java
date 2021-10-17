@@ -5,6 +5,7 @@ import com.gryffindor.frontend.scenes.mainscene.field.export.ExportField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+/** Trang hiển thị các công cụ của chương trình. */
 public class ToolsPage implements IPage {
   private final VBox pane;
 

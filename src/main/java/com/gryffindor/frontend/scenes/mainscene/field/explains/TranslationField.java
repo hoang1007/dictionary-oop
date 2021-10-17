@@ -1,6 +1,5 @@
 package com.gryffindor.frontend.scenes.mainscene.field.explains;
 
-
 import com.gryffindor.DictionaryApplication;
 import com.gryffindor.frontend.scenes.mainscene.field.IField;
 import com.gryffindor.frontend.utils.ImageUtils;
@@ -30,6 +29,7 @@ public class TranslationField implements IField {
 
   private TranslationController controller;
 
+  /** Khởi tạo vùng dịch. */
   public TranslationField() {
     pane = new GridPane();
     pane.getStyleClass().add("hover-pane");
@@ -64,7 +64,7 @@ public class TranslationField implements IField {
     GridPane.setConstraints(wordExplain, 0, 0);
   }
 
-  void initExampleSentences() {
+  private void initExampleSentences() {
     exampleSentences = new ExampleSentences();
 
     pane.getChildren().add(exampleSentences.getPane());
@@ -72,28 +72,28 @@ public class TranslationField implements IField {
     GridPane.setHgrow(exampleSentences.getPane(), Priority.ALWAYS);
   }
 
-  void initDeleteExplainButton() {
+  private void initDeleteExplainButton() {
     deleteExplainButton = new Button();
     ManagedUtils.bindVisible(deleteExplainButton);
     deleteExplainButton.getStyleClass().add("transparent-button");
 
     deleteExplainButton.setTooltip(new Tooltip("Xoá bản dịch này"));
 
-    ImageView imageView = ImageUtils
-        .getFitSquareImage(DictionaryApplication.INSTANCE.config.getImagesPath() + "/trash.png", 10);
+    ImageView imageView = ImageUtils.getFitSquareImage(
+        DictionaryApplication.INSTANCE.config.getImagesPath() + "/trash.png", 10);
 
     deleteExplainButton.setGraphic(imageView);
   }
 
-  void initEditExplainButton() {
+  private void initEditExplainButton() {
     editExplainButton = new Button();
     ManagedUtils.bindVisible(editExplainButton);
     editExplainButton.getStyleClass().add("transparent-button");
 
     editExplainButton.setTooltip(new Tooltip("Sửa bản dịch này"));
 
-    ImageView imageView = ImageUtils
-        .getFitSquareImage(DictionaryApplication.INSTANCE.config.getImagesPath() + "/pencil.png", 10);
+    ImageView imageView = ImageUtils.getFitSquareImage(
+        DictionaryApplication.INSTANCE.config.getImagesPath() + "/pencil.png", 10);
 
     editExplainButton.setGraphic(imageView);
   }
@@ -146,11 +146,11 @@ public class TranslationField implements IField {
       initExampleSentences();
     }
 
-    void initExampleSentences() {
+    private void initExampleSentences() {
       sentences = FXCollections.observableArrayList();
 
       // format label when add to list
-      sentences.addListener(new ListChangeListener<Label>(){
+      sentences.addListener(new ListChangeListener<Label>() {
         @Override
         public void onChanged(Change<? extends Label> c) {
           while (c.next()) {

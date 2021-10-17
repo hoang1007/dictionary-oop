@@ -16,18 +16,20 @@ public class SwitchModeController implements IController {
   // đánh dấu lần đầu offline để load dữ liệu
   boolean firstOffline;
 
+  /** Khởi tạo controller. */
   public SwitchModeController(SwitchModeField switchMode) {
     this.switchMode = switchMode;
     this.firstOffline = true;
     if (DictionaryApplication.INSTANCE.getStatus().equals(Status.OFFLINE)) {
       firstOffline = false;
+      // mặc định off
       switchMode.getSwitchButton().setOff();
     }
 
     onSwitchMode();
   }
 
-  void onSwitchMode() {
+  private void onSwitchMode() {
     SwitchButton button = switchMode.getSwitchButton();
 
     button.addOnMouseClicked(event -> {
@@ -44,14 +46,17 @@ public class SwitchModeController implements IController {
         DictionaryApplication.INSTANCE.setStatus(status);
       } else {
         if (firstOffline) {
+          // nếu lần đầu offline tải dữ liệu
           new Thread(() -> {
             DictionaryApplication.INSTANCE.dictionaryManagement.insertFromJson();
             firstOffline = false;
             DictionaryApplication.INSTANCE.setStatus(Status.OFFLINE);
-            Platform.runLater(() -> 
-                  new AlertDialog(AlertType.INFORMATION).setContent("Downloaded offline data").show());
+            Platform.runLater(() -> new AlertDialog(
+                  AlertType.INFORMATION).setContent("Downloaded offline data").show());
           }).start();
         } else {
+          // nếu không chỉ cần dặt status
+          // mà không cần tải dữ liệu
           DictionaryApplication.INSTANCE.setStatus(Status.OFFLINE);
         }
       }

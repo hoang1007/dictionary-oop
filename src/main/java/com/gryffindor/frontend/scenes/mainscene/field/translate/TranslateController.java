@@ -18,7 +18,7 @@ public class TranslateController implements IController {
     onClickPronouncedButton();
   }
 
-  void onClickPronouncedButton() {
+  private void onClickPronouncedButton() {
     translateField.getPronouncedButton().setOnAction(event -> {
       System.out.println("pron clicked");
       try {

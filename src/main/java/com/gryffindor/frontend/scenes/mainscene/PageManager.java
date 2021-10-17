@@ -18,6 +18,7 @@ public class PageManager {
   private SettingPage settingPage;
   private ToolsPage toolsPage;
 
+  /** Đặt trang chủ và đặt các hiển thị mặc định. */
   public PageManager setHomePage(HomePage homePage) {
     ManagedUtils.bindVisible(homePage.getPane());
     this.homePage = homePage;
@@ -27,6 +28,7 @@ public class PageManager {
     return this;
   }
 
+  /** Đặt trang công cụ và đặt các hiển thị mặc định. */
   public PageManager setToolsPage(ToolsPage toolsPage) {
     ManagedUtils.bindVisible(toolsPage.getPane());
     this.toolsPage = toolsPage;
@@ -34,6 +36,7 @@ public class PageManager {
     return this;
   }
 
+  /** Đặt trang cài đặt và đặt các hiển thị mặc định. */
   public PageManager setSettingsPage(SettingPage settingPage) {
     ManagedUtils.bindVisible(settingPage.getPane());
     this.settingPage = settingPage;
@@ -41,6 +44,7 @@ public class PageManager {
     return this;
   }
 
+  /** Đặt trang loading và đặt các hiển thị mặc định. */
   public PageManager setLoadingPage(LoadingPage loadingPage) {
     ManagedUtils.bindVisible(loadingPage.getPane());
     this.loadingPage = loadingPage;
@@ -48,20 +52,23 @@ public class PageManager {
     return this;
   }
 
+  /** Hiển thị một trang có trong page manager. */
   public void showPage(Class<? extends IPage> page) {
     System.out.println("showing " + page.getName());
 
     if (page.isAssignableFrom(HomePage.class)) {
-      showPage(homePage);
+      showIPage(homePage);
     } else if (page.isAssignableFrom(LoadingPage.class)) {
-      showPage(loadingPage);
+      showIPage(loadingPage);
     } else if (page.isAssignableFrom(SettingPage.class)) {
-      showPage(settingPage);
+      showIPage(settingPage);
     } else if (page.isAssignableFrom(ToolsPage.class)) {
-      showPage(toolsPage);
+      showIPage(toolsPage);
     }
   }
 
+  /** Khôi phục lại trang trước đó sau khi dùng 
+   * {@link PageManager#showIPage(Class)}. */
   public void restorePage() {
     if (oldPage != null) {
       showingPage.getPane().setVisible(false); // hide showing page
@@ -71,7 +78,7 @@ public class PageManager {
     }
   }
 
-  private void showPage(IPage newPage) {
+  private void showIPage(IPage newPage) {
     oldPage = showingPage; // backup old page
 
     if (!(newPage instanceof LoadingPage)) {

@@ -7,11 +7,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLEncoder;
 
 public class GoogleTranslator {
   public static final int TIMEOUT = 4000;
+
   /**
    * Lấy bản dịch từ google translate.
    * @param wordTarget từ muốn dịch
@@ -32,15 +34,17 @@ public class GoogleTranslator {
 
     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
     conn.setConnectTimeout(TIMEOUT);
+    conn.setReadTimeout(TIMEOUT);
     conn.setRequestProperty("User-Agent", "Mozilla/5.0");
 
-    BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+    try (BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
+      for (String inputLine; (inputLine = reader.readLine()) != null; ) {
+        response.append(inputLine);
+      }
 
-    for (String inputLine; (inputLine = reader.readLine()) != null; ) {
-      response.append(inputLine);
+      return response.toString();
+    } catch (SocketTimeoutException e) {
+      throw new RuntimeException("Request time out");
     }
-
-    reader.close();
-    return response.toString();
   }
 }

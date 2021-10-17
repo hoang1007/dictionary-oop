@@ -5,11 +5,13 @@ import com.gryffindor.frontend.scenes.mainscene.field.switchmode.SwitchModeField
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+/** Hiển thị các cài đặt cửa chương trình. */
 public class SettingPage implements IPage {
   private final VBox settingPane;
 
   SwitchModeField switchModeField;
 
+  /** Khởi tạo trang cài đặt. */
   public SettingPage() {
     settingPane = new VBox();
     settingPane.getStyleClass().add("padding-pane");

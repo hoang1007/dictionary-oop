@@ -9,6 +9,7 @@ import javafx.event.EventHandler;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+/** Trang chính nơi để dịch từ. */
 public class HomePage implements IPage {
   private final VBox homePanel;
 
@@ -34,7 +35,7 @@ public class HomePage implements IPage {
   }
 
 
-  void handleWordEvent() {
+  private void handleWordEvent() {
     homePanel.addEventFilter(WordEvent.EVENTTYPE, new EventHandler<WordEvent>() {
       @Override
       public void handle(WordEvent event) {
