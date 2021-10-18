@@ -4,7 +4,6 @@ import com.gryffindor.DictionaryApplication;
 import com.gryffindor.frontend.scenes.mainscene.field.IField;
 import com.gryffindor.frontend.utils.ImageUtils;
 import com.gryffindor.frontend.utils.ManagedUtils;
-
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -54,11 +53,14 @@ public class TranslationField implements IField {
     wordExplain.prefHeightProperty().bindBidirectional(count);
     wordExplain.minHeightProperty().bindBidirectional(count);
 
-    wordExplain.scrollTopProperty().addListener((observable, oldValue, newValue) -> {
-      if (newValue.intValue() > rowHeight) {
-        count.setValue(count.get() + newValue.intValue());
-      }
-    });
+    wordExplain
+        .scrollTopProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              if (newValue.intValue() > rowHeight) {
+                count.setValue(count.get() + newValue.intValue());
+              }
+            });
 
     pane.getChildren().add(wordExplain);
     GridPane.setConstraints(wordExplain, 0, 0);
@@ -79,8 +81,9 @@ public class TranslationField implements IField {
 
     deleteExplainButton.setTooltip(new Tooltip("Xoá bản dịch này"));
 
-    ImageView imageView = ImageUtils
-        .getFitSquareImage(DictionaryApplication.INSTANCE.config.getImagesPath() + "/trash.png", 10);
+    ImageView imageView =
+        ImageUtils.getFitSquareImage(
+            DictionaryApplication.INSTANCE.config.getImagesPath() + "/trash.png", 10);
 
     deleteExplainButton.setGraphic(imageView);
   }
@@ -92,8 +95,9 @@ public class TranslationField implements IField {
 
     editExplainButton.setTooltip(new Tooltip("Sửa bản dịch này"));
 
-    ImageView imageView = ImageUtils
-        .getFitSquareImage(DictionaryApplication.INSTANCE.config.getImagesPath() + "/pencil.png", 10);
+    ImageView imageView =
+        ImageUtils.getFitSquareImage(
+            DictionaryApplication.INSTANCE.config.getImagesPath() + "/pencil.png", 10);
 
     editExplainButton.setGraphic(imageView);
   }
@@ -110,46 +114,34 @@ public class TranslationField implements IField {
     GridPane.setConstraints(vbox, 1, 0);
   }
 
-  /**
-   * @return Pane
-   */
+  /** @return Pane */
   @Override
   public Pane getPane() {
     return pane;
   }
 
-  /**
-   * @return TranslationController
-   */
+  /** @return TranslationController */
   @Override
   public TranslationController getController() {
     return controller;
   }
 
-  /**
-   * @return Button
-   */
+  /** @return Button */
   public Button getEditExplainButton() {
     return editExplainButton;
   }
 
-  /**
-   * @return Button
-   */
+  /** @return Button */
   public Button getDeleteExplainButton() {
     return deleteExplainButton;
   }
 
-  /**
-   * @return TextArea
-   */
+  /** @return TextArea */
   public TextArea getWordExplain() {
     return wordExplain;
   }
 
-  /**
-   * @return ExampleSentences
-   */
+  /** @return ExampleSentences */
   public ExampleSentences getExamples() {
     return exampleSentences;
   }
@@ -169,21 +161,22 @@ public class TranslationField implements IField {
       sentences = FXCollections.observableArrayList();
 
       // format label when add to list
-      sentences.addListener(new ListChangeListener<Label>() {
-        @Override
-        public void onChanged(Change<? extends Label> c) {
-          while (c.next()) {
-            if (c.wasAdded()) {
-              for (Label label : c.getAddedSubList()) {
-                label.setWrapText(true);
-                pane.getChildren().add(label);
+      sentences.addListener(
+          new ListChangeListener<Label>() {
+            @Override
+            public void onChanged(Change<? extends Label> c) {
+              while (c.next()) {
+                if (c.wasAdded()) {
+                  for (Label label : c.getAddedSubList()) {
+                    label.setWrapText(true);
+                    pane.getChildren().add(label);
+                  }
+                } else if (c.wasRemoved()) {
+                  pane.getChildren().removeAll(c.getRemoved());
+                }
               }
-            } else if (c.wasRemoved()) {
-              pane.getChildren().removeAll(c.getRemoved());
             }
-          }
-        }
-      });
+          });
     }
 
     public ObservableList<Label> getList() {

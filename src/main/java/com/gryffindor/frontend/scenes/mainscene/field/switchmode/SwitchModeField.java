@@ -2,16 +2,13 @@ package com.gryffindor.frontend.scenes.mainscene.field.switchmode;
 
 import com.gryffindor.frontend.entities.SwitchButton;
 import com.gryffindor.frontend.scenes.mainscene.field.IField;
-
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 
-/**
- * Chuyển đổi giữa hai chế độ offline và online search.
- */
+/** Chuyển đổi giữa hai chế độ offline và online search. */
 public class SwitchModeField implements IField {
   private HBox pane;
 
@@ -48,6 +45,7 @@ public class SwitchModeField implements IField {
 
   /**
    * Ghi đè.
+   *
    * @return Pane
    */
   @Override
@@ -57,6 +55,7 @@ public class SwitchModeField implements IField {
 
   /**
    * Ghi đè.
+   *
    * @return SwitchModeController
    */
   @Override
@@ -64,16 +63,12 @@ public class SwitchModeField implements IField {
     return controller;
   }
 
-  /**
-   * @return Label
-   */
+  /** @return Label */
   public Label getDescription() {
     return description;
   }
 
-  /**
-   * @return SwitchButton
-   */
+  /** @return SwitchButton */
   public SwitchButton getSwitchButton() {
     return switchButton;
   }

@@ -1,18 +1,15 @@
 package com.gryffindor;
 
 import com.gryffindor.frontend.entities.AlertDialog;
+import javafx.application.Platform;
+import javafx.scene.control.Alert.AlertType;
 
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-import javafx.application.Platform;
-import javafx.scene.control.Alert.AlertType;
-
-/**
- * Nơi nhận các ngoại lệ của chương trình và hiển thị thông báo tới người dùng.
- */
+/** Nơi nhận các ngoại lệ của chương trình và hiển thị thông báo tới người dùng. */
 public class ExceptionHandler extends TimerTask implements Thread.UncaughtExceptionHandler {
   private final BlockingQueue<Exception> queue;
   Timer timer = new Timer();

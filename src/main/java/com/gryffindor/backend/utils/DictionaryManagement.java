@@ -14,23 +14,13 @@ import com.gryffindor.backend.entities.ExampleSentence;
 import com.gryffindor.backend.entities.Translation;
 import com.gryffindor.backend.entities.Word;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-
+import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
-
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Stack;
-
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
@@ -64,9 +54,7 @@ public class DictionaryManagement {
     scanner.close();
   }
 
-  /**
-   * @return Dictionary
-   */
+  /** @return Dictionary */
   public Dictionary getDictionary() {
     return dictionary;
   }
@@ -164,24 +152,25 @@ public class DictionaryManagement {
 
   /**
    * Đọc dữ liệu từ file text.
-   * 
-   * @deprecated Hàm này đã không còn được sử dụng vì chương trình chuyển sang nạp
-   *             dữ liệu từ json
-   * 
+   *
+   * @deprecated Hàm này đã không còn được sử dụng vì chương trình chuyển sang nạp dữ liệu từ json
    * @see DictionaryManagement#insertFromJson()
    */
   public void addDataFromFile() {
     Config config = DictionaryApplication.INSTANCE.config;
     Stack<Word> words = new Stack<>();
 
-    try (InputStreamReader reader = new InputStreamReader(config.getDataDictionaryStream(), StandardCharsets.UTF_8);
+    try (InputStreamReader reader =
+            new InputStreamReader(config.getDataDictionaryStream(), StandardCharsets.UTF_8);
         BufferedReader bufferedReader = new BufferedReader(reader)) {
 
       String wordTarget = "";
       String wordSpelling = "";
       String wordClass = "";
 
-      for (String line = bufferedReader.readLine(); line != null; line = bufferedReader.readLine()) {
+      for (String line = bufferedReader.readLine();
+          line != null;
+          line = bufferedReader.readLine()) {
         // if (words.size() > 200)
         // break;
         // word target and word spelling is in the same line
@@ -235,7 +224,9 @@ public class DictionaryManagement {
             words.peek().setWordSpelling(wordSpelling);
           }
         } else if (line.startsWith(config.getExampleSign())) {
-          String[] example = line.substring(line.indexOf(config.getExampleSign()) + 1).split(config.getExampleDelim());
+          String[] example =
+              line.substring(line.indexOf(config.getExampleSign()) + 1)
+                  .split(config.getExampleDelim());
 
           example = TextUtils.format(example);
           ExampleSentence exSentence = new ExampleSentence(example[0], example[1]);
@@ -262,7 +253,7 @@ public class DictionaryManagement {
 
   /**
    * Xuất dữ liệu từ điển ra file.
-   * 
+   *
    * @param file file muốn ghi dữ liệu
    */
   public void dictionaryExportToFile(File file) {
@@ -273,7 +264,8 @@ public class DictionaryManagement {
         pw = new PrintWriter(file);
 
         // get All Word in dictionary
-        List<Word> ls = DictionaryApplication.INSTANCE.getDictionaryManagement().getDictionary().getAllWords();
+        List<Word> ls =
+            DictionaryApplication.INSTANCE.getDictionaryManagement().getDictionary().getAllWords();
 
         int listSize = ls.size();
         for (int i = 0; i < listSize; i++) {
@@ -349,8 +341,9 @@ public class DictionaryManagement {
 
   /** Nhập dữ liệu từ file json và từ điển. */
   public void insertFromJson() {
-    JsonElement element = JsonParser
-        .parseReader(new InputStreamReader(DictionaryApplication.INSTANCE.config.getDictionaryJson()));
+    JsonElement element =
+        JsonParser.parseReader(
+            new InputStreamReader(DictionaryApplication.INSTANCE.config.getDictionaryJson()));
 
     Word[] words = new Gson().fromJson(element, Word[].class);
 
@@ -366,8 +359,11 @@ public class DictionaryManagement {
 
     String jsonData = new Gson().toJson(allWords);
 
-    try (FileWriter writer = new FileWriter(
-        new File(new URI(DictionaryApplication.INSTANCE.config.getRootPath() + "/dictionary.txt")))) {
+    try (FileWriter writer =
+        new FileWriter(
+            new File(
+                new URI(
+                    DictionaryApplication.INSTANCE.config.getRootPath() + "/dictionary.txt")))) {
       writer.write(jsonData);
     } catch (IOException | URISyntaxException e) {
       e.printStackTrace();
@@ -376,8 +372,8 @@ public class DictionaryManagement {
 
   /**
    * Cập nhật bản dịch của từ.
-   * 
-   * @param word     từ chứa bản dịch
+   *
+   * @param word từ chứa bản dịch
    * @param oldTrans bản dịch cũ
    * @param newTrans bản dịch mới
    * @return true nếu không có lỗi
@@ -394,10 +390,16 @@ public class DictionaryManagement {
         }
 
         int transId = word.getTranslations().indexOf(oldTrans);
-        System.out.println("Add trans to " + dictionary.getWordList(word.getWordTarget()).get(wordId).getWordTarget());
+        System.out.println(
+            "Add trans to "
+                + dictionary.getWordList(word.getWordTarget()).get(wordId).getWordTarget());
 
         if (transId != -1) {
-          dictionary.getWordList(word.getWordTarget()).get(wordId).getTranslations().set(transId, newTrans);
+          dictionary
+              .getWordList(word.getWordTarget())
+              .get(wordId)
+              .getTranslations()
+              .set(transId, newTrans);
         } else {
           dictionary.getWordList(word.getWordTarget()).get(wordId).getTranslations().add(newTrans);
         }
@@ -419,8 +421,8 @@ public class DictionaryManagement {
 
   /**
    * Xóa bản dịch của một từ.
-   * 
-   * @param word  từ chứa bản dịch
+   *
+   * @param word từ chứa bản dịch
    * @param trans bản dịch muốn xóa
    * @return true nếu không có lỗi
    */
@@ -448,8 +450,8 @@ public class DictionaryManagement {
 
   /**
    * Thêm bản dịch của một từ.
-   * 
-   * @param word        từ muốn thêm bản dịch
+   *
+   * @param word từ muốn thêm bản dịch
    * @param translation bản dịch muốn thêm
    * @return true nếu không có lỗi
    */

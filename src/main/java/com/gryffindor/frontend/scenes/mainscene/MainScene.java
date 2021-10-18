@@ -6,7 +6,6 @@ import com.gryffindor.frontend.scenes.mainscene.page.HomePage;
 import com.gryffindor.frontend.scenes.mainscene.page.LoadingPage;
 import com.gryffindor.frontend.scenes.mainscene.page.SettingPage;
 import com.gryffindor.frontend.scenes.mainscene.page.ToolsPage;
-
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
@@ -39,7 +38,10 @@ public class MainScene {
     navigationBarField = new NavigationBar();
 
     // Đặt các page cho page manager quản lý
-    PageManager.INSTANCE.setHomePage(homePage).setSettingsPage(settingPage).setToolsPage(toolsPage)
+    PageManager.INSTANCE
+        .setHomePage(homePage)
+        .setSettingsPage(settingPage)
+        .setToolsPage(toolsPage)
         .setLoadingPage(loadingPage);
 
     setupLayout();
@@ -53,8 +55,13 @@ public class MainScene {
     mainPane = new HBox();
     mainPane.setFillHeight(true);
 
-    mainPane.getChildren().addAll(navigationBarField.getPane(), homePage.getPane(), toolsPage.getPane(),
-        settingPage.getPane());
+    mainPane
+        .getChildren()
+        .addAll(
+            navigationBarField.getPane(),
+            homePage.getPane(),
+            toolsPage.getPane(),
+            settingPage.getPane());
 
     HBox.setHgrow(homePage.getPane(), Priority.ALWAYS);
     HBox.setHgrow(toolsPage.getPane(), Priority.ALWAYS);

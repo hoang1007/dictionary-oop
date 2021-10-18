@@ -7,8 +7,8 @@ import java.util.List;
 
 public class Dictionary {
   /* Tập dữ liệu từ các kí tự từ a-z
-  * đến danh sách các từ bắt đầu bằng kí tự đó
-  */
+   * đến danh sách các từ bắt đầu bằng kí tự đó
+   */
   private List<SortedList<Word>> dataset;
 
   /** Tạo từ điển. */
@@ -37,6 +37,7 @@ public class Dictionary {
 
   /**
    * Tìm một từ trong từ điển.
+   *
    * @param wordTarget từ mới muốn tìm
    * @return trả về từ mới nếu tìm thấy, null nếu không tìm được
    */
@@ -51,9 +52,8 @@ public class Dictionary {
   }
 
   /**
-   * Tìm tất cả các từ liên quan.
-   * VD: "tra" trả về tradition, translate
-   * Tìm tất cả từ đồng âm.
+   * Tìm tất cả các từ liên quan. VD: "tra" trả về tradition, translate Tìm tất cả từ đồng âm.
+   *
    * @param wordTarget từ mới muốn tìm
    * @return danh sách các từ tìm được
    */
@@ -71,6 +71,7 @@ public class Dictionary {
 
   /**
    * Tìm tất cả các từ đồng nghĩa.
+   *
    * @param wordExplain nghĩa muốn tìm
    * @return danh sách các từ tìm được
    */

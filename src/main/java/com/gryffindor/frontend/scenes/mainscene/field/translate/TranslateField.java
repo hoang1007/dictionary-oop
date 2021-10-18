@@ -3,7 +3,6 @@ package com.gryffindor.frontend.scenes.mainscene.field.translate;
 import com.gryffindor.DictionaryApplication;
 import com.gryffindor.frontend.scenes.mainscene.field.IField;
 import com.gryffindor.frontend.utils.ImageUtils;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -49,44 +48,35 @@ public class TranslateField implements IField {
     pronouncedButton = new Button("Tap to listen");
     pronouncedButton.getStyleClass().add("pron-button");
 
-    ImageView imageView = ImageUtils
-        .getFitSquareImage(DictionaryApplication.INSTANCE.config.getImagesPath() + "/sound.png", 12);
+    ImageView imageView =
+        ImageUtils.getFitSquareImage(
+            DictionaryApplication.INSTANCE.config.getImagesPath() + "/sound.png", 12);
 
     pronouncedButton.setGraphic(imageView);
   }
 
-  /**
-   * @return Pane
-   */
+  /** @return Pane */
   @Override
   public Pane getPane() {
     return translatePane;
   }
 
-  /**
-   * @return Label
-   */
+  /** @return Label */
   public Label getWordTarget() {
     return wordTarget;
   }
 
-  /**
-   * @return Text
-   */
+  /** @return Text */
   public Text getPronouncedText() {
     return pronouncedText;
   }
 
-  /**
-   * @return Button
-   */
+  /** @return Button */
   public Button getPronouncedButton() {
     return pronouncedButton;
   }
 
-  /**
-   * @return TranslateController
-   */
+  /** @return TranslateController */
   @Override
   public TranslateController getController() {
     return controller;

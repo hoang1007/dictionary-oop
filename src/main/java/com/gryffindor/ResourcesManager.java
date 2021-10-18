@@ -3,7 +3,6 @@ package com.gryffindor;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-
 import com.gryffindor.backend.entities.Word;
 import com.gryffindor.backend.utils.TextUtils;
 
@@ -14,14 +13,17 @@ public class ResourcesManager {
   /** Tải dữ liệu gợi ý nếu thực hiện tìm kiếm online. */
   public void loadSuggest() {
     try {
-      JsonElement element = JsonParser.parseReader(
-          new InputStreamReader(DictionaryApplication.INSTANCE.config.getSuggestDataStream()));
+      JsonElement element =
+          JsonParser.parseReader(
+              new InputStreamReader(DictionaryApplication.INSTANCE.config.getSuggestDataStream()));
 
       String[] suggest = new Gson().fromJson(element, String[].class);
 
       for (String target : suggest) {
-        DictionaryApplication.INSTANCE.getDictionaryManagement()
-            .getDictionary().addWord(new Word(target));
+        DictionaryApplication.INSTANCE
+            .getDictionaryManagement()
+            .getDictionary()
+            .addWord(new Word(target));
       }
     } catch (Exception e) {
       System.out.println("Unexpected error while load suggestion");

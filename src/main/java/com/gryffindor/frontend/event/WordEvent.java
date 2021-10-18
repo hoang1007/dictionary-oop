@@ -1,13 +1,12 @@
 package com.gryffindor.frontend.event;
 
 import com.gryffindor.backend.entities.Word;
-
 import javafx.event.Event;
 import javafx.event.EventType;
 
 /**
  * Sự kiện tìm thấy word.
- * 
+ *
  * @note Event custom. Được phát ra khi tìm thấy một word.
  */
 public class WordEvent extends Event {
@@ -23,7 +22,7 @@ public class WordEvent extends Event {
 
   /**
    * Trả về từ.
-   * 
+   *
    * @return Word
    */
   public Word getWord() {

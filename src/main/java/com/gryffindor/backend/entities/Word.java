@@ -13,11 +13,12 @@ public class Word implements Comparable<Word> {
   private List<Translation> translations = new ArrayList<>();
 
   public enum Source {
-    FIRESTORE, LOCAL, GOOGLE
+    FIRESTORE,
+    LOCAL,
+    GOOGLE
   }
 
-  public Word() {
-  }
+  public Word() {}
 
   public Word(String wordTarget) {
     this.wordTarget = wordTarget;
@@ -31,14 +32,15 @@ public class Word implements Comparable<Word> {
 
   /**
    * Khởi tạo word.
-   * 
-   * @param wordTarget   từ muốn dịch
+   *
+   * @param wordTarget từ muốn dịch
    * @param wordSpelling phiên âm của từ
    * @param translations các bản dịch của từ
    * @see Translation
    * @param source nguồn tìm kiếm của từ [Local, Database, Google Translate]
    */
-  public Word(String wordTarget, String wordSpelling, List<Translation> translations, Source source) {
+  public Word(
+      String wordTarget, String wordSpelling, List<Translation> translations, Source source) {
     this.wordTarget = wordTarget;
     this.wordSpelling = wordSpelling;
     this.translations = translations;
@@ -54,9 +56,7 @@ public class Word implements Comparable<Word> {
     return this;
   }
 
-  /**
-   * @return String
-   */
+  /** @return String */
   public String getWordTarget() {
     return this.wordTarget;
   }
@@ -70,9 +70,7 @@ public class Word implements Comparable<Word> {
     return this;
   }
 
-  /**
-   * @return String
-   */
+  /** @return String */
   public String getWordSpelling() {
     return this.wordSpelling;
   }
@@ -86,16 +84,14 @@ public class Word implements Comparable<Word> {
     return this;
   }
 
-  /**
-   * @return String
-   */
+  /** @return String */
   public String getWordClass() {
     return this.wordClass;
   }
 
   /**
    * Thêm các bản dịch cho từ.
-   * 
+   *
    * @param translations các bản dịch muốn thêm
    * @return trả về đối tượng hiện tại
    * @see Translation
@@ -110,16 +106,14 @@ public class Word implements Comparable<Word> {
 
   /**
    * Lấy danh sách các bản dịch.
-   * 
+   *
    * @return List<Translation>
    */
   public List<Translation> getTranslations() {
     return this.translations;
   }
 
-  /**
-   * @return Source
-   */
+  /** @return Source */
   public Source getSource() {
     return this.source;
   }
@@ -135,7 +129,7 @@ public class Word implements Comparable<Word> {
 
   /**
    * Ghi đè toString.
-   * 
+   *
    * @return String
    */
   @Override
@@ -145,7 +139,7 @@ public class Word implements Comparable<Word> {
 
   /**
    * Ghi đè compareTo.
-   * 
+   *
    * @param o
    * @return int
    */

@@ -1,7 +1,6 @@
 package com.gryffindor.frontend.scenes.mainscene.page;
 
 import com.gryffindor.frontend.scenes.mainscene.field.export.ExportField;
-
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
@@ -18,7 +17,7 @@ public class ToolsPage implements IPage {
     pane.getStyleClass().add("tools-pane");
 
     initExportField();
-    
+
     pane.getChildren().addAll(exportField.getPane());
   }
 

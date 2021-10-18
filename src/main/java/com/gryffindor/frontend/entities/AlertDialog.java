@@ -1,7 +1,6 @@
 package com.gryffindor.frontend.entities;
 
 import com.gryffindor.DictionaryApplication;
-
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
@@ -10,12 +9,15 @@ public class AlertDialog {
 
   /**
    * Khởi tạo hộp thông báo.
-   * 
+   *
    * @param type loại thông báo
    */
   public AlertDialog(AlertType type) {
     alert = new Alert(type);
-    alert.getDialogPane().getStylesheets().add(DictionaryApplication.INSTANCE.config.getAlertStyle());
+    alert
+        .getDialogPane()
+        .getStylesheets()
+        .add(DictionaryApplication.INSTANCE.config.getAlertStyle());
     alert.getDialogPane().getStyleClass().add("alert-pane");
 
     alert.setHeaderText(null);
@@ -31,9 +33,7 @@ public class AlertDialog {
     alert.showAndWait();
   }
 
-  /**
-   * @param exception
-   */
+  /** Show.*/
   public void show(Exception exception) {
     alert.setContentText(exception.getMessage());
     alert.showAndWait();

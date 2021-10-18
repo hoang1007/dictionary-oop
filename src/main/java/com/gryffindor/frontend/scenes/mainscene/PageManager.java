@@ -1,10 +1,6 @@
 package com.gryffindor.frontend.scenes.mainscene;
 
-import com.gryffindor.frontend.scenes.mainscene.page.HomePage;
-import com.gryffindor.frontend.scenes.mainscene.page.IPage;
-import com.gryffindor.frontend.scenes.mainscene.page.LoadingPage;
-import com.gryffindor.frontend.scenes.mainscene.page.SettingPage;
-import com.gryffindor.frontend.scenes.mainscene.page.ToolsPage;
+import com.gryffindor.frontend.scenes.mainscene.page.*;
 import com.gryffindor.frontend.utils.ManagedUtils;
 
 public class PageManager {
@@ -67,10 +63,7 @@ public class PageManager {
     }
   }
 
-  /**
-   * Khôi phục lại trang trước đó sau khi dùng
-   * {@link PageManager#showIPage(Class)}.
-   */
+  /** Khôi phục lại trang trước đó sau khi dùng {@link PageManager#showIPage(Class)}. */
   public void restorePage() {
     if (oldPage != null) {
       showingPage.getPane().setVisible(false); // hide showing page

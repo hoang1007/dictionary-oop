@@ -13,12 +13,12 @@ public class BinarySearch {
 
   /**
    * Hàm tìm kiếm nhị phân.
-   * 
+   *
    * @param wordTarget từ muốn tìm trong danh sách
-   * @param low        biên dưới của tìm kiếm bị phân
-   * @param high       biên trên của tìm kiếm nhị phân
-   * @return chỉ số của từ tìm kiếm hoặc gần nhất với từ tìm kiếm trong danh sách
-   *         đã cho được đặt bởi hàm {@link BinarySearch#setWordList(List)}
+   * @param low biên dưới của tìm kiếm bị phân
+   * @param high biên trên của tìm kiếm nhị phân
+   * @return chỉ số của từ tìm kiếm hoặc gần nhất với từ tìm kiếm trong danh sách đã cho được đặt
+   *     bởi hàm {@link BinarySearch#setWordList(List)}
    */
   public static int search(String wordTarget, int low, int high) {
     if (low < 0) {
@@ -69,10 +69,9 @@ public class BinarySearch {
 
   /**
    * Hàm tìm kiếm từ liên tục dựa trên các vùng tìm kiếm trước đó.
-   * 
+   *
    * @param wordTarget từ muốn tìm kiếm
-   * @param dir        hướng tìm kiếm dir = 1: thêm một kí tự dir = -1: bớt một kí
-   *                   tự
+   * @param dir hướng tìm kiếm dir = 1: thêm một kí tự dir = -1: bớt một kí tự
    * @return danh cách các từ bắt đầu bằng {@link wordTarget}
    */
   public static List<Word> searchAdvanced(String wordTarget, int dir) {
@@ -120,7 +119,7 @@ public class BinarySearch {
 
   /**
    * Trả về danh sách từ từ vị trí index.
-   * 
+   *
    * @param index
    * @param count
    * @return

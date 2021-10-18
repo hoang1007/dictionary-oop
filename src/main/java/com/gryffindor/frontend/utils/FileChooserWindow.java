@@ -1,10 +1,10 @@
 package com.gryffindor.frontend.utils;
 
-import java.io.File;
-
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
+
+import java.io.File;
 
 /** Cửa sổ chọn file. */
 public class FileChooserWindow {
@@ -17,23 +17,17 @@ public class FileChooserWindow {
     fileChooser.setTitle(title);
   }
 
-  /**
-   * @return File
-   */
+  /** @return File */
   public File getSaveFile() {
     return fileChooser.showSaveDialog(new Stage());
   }
 
-  /**
-   * @return File
-   */
+  /** @return File */
   public File getOpenFile() {
     return fileChooser.showOpenDialog(new Stage());
   }
 
-  /**
-   * Lọc các file muốn chọn.
-   */
+  /** Lọc các file muốn chọn. */
   public FileChooserWindow setExtensionFilter(ExtensionFilter... filters) {
     fileChooser.getExtensionFilters().addAll(filters);
 

@@ -8,7 +8,6 @@ import com.gryffindor.frontend.entities.AlertDialog;
 import com.gryffindor.frontend.scenes.mainscene.PageManager;
 import com.gryffindor.frontend.scenes.mainscene.field.IController;
 import com.gryffindor.frontend.scenes.mainscene.page.LoadingPage;
-
 import javafx.application.Platform;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
@@ -31,28 +30,42 @@ public class TranslationController implements IController {
   /** Sửa bản dịch khi click vào nút. */
   private void onClickEditButton() {
     // chỉnh sửa bản dịch
-    translationField.getEditExplainButton().setOnAction(event -> {
-      translationField.getWordExplain().setEditable(true);
-    });
+    translationField
+        .getEditExplainButton()
+        .setOnAction(
+            event -> {
+              translationField.getWordExplain().setEditable(true);
+            });
   }
 
   /** Xóa bản dịch khi click xóa. */
   private void onClickDeleteButton() {
     // xóa bản dịch
-    translationField.getDeleteExplainButton().setOnAction(event -> {
-      translationField.getPane().setVisible(false);
-      PageManager.INSTANCE.showPage(LoadingPage.class);
+    translationField
+        .getDeleteExplainButton()
+        .setOnAction(
+            event -> {
+              translationField.getPane().setVisible(false);
+              PageManager.INSTANCE.showPage(LoadingPage.class);
 
-      new Thread(() -> {
-        if (DictionaryApplication.INSTANCE.dictionaryManagement.deleteTranslation(this.word, this.translation)) {
+              new Thread(
+                      () -> {
+                        if (DictionaryApplication.INSTANCE.dictionaryManagement.deleteTranslation(
+                            this.word, this.translation)) {
 
-          Platform.runLater(() -> new AlertDialog(AlertType.INFORMATION)
-              .setContent(DictionaryApplication.INSTANCE.config.getContributeThanks()).show());
-        }
+                          Platform.runLater(
+                              () ->
+                                  new AlertDialog(AlertType.INFORMATION)
+                                      .setContent(
+                                          DictionaryApplication.INSTANCE.config
+                                              .getContributeThanks())
+                                      .show());
+                        }
 
-        Platform.runLater(() -> PageManager.INSTANCE.restorePage());
-      }).start();
-    });
+                        Platform.runLater(() -> PageManager.INSTANCE.restorePage());
+                      })
+                  .start();
+            });
   }
 
   /** Đặt các thuộc tính liên quan đến word. */
@@ -73,53 +86,64 @@ public class TranslationController implements IController {
     }
   }
 
-  /**
-   * @param exampleSentence
-   */
+  /** @param exampleSentence */
   private void addExampleSentences(ExampleSentence exampleSentence) {
     Label label = new Label(exampleSentence.toString());
     translationField.getExamples().getList().add(label);
   }
 
   private void onTranslationEdited() {
-    translationField.getWordExplain().setOnKeyPressed(event -> {
-      if (event.getCode().equals(KeyCode.ENTER)) {
-        event.consume();
-        translationField.getWordExplain().setEditable(false);
+    translationField
+        .getWordExplain()
+        .setOnKeyPressed(
+            event -> {
+              if (event.getCode().equals(KeyCode.ENTER)) {
+                event.consume();
+                translationField.getWordExplain().setEditable(false);
 
-        // bật loading page
-        PageManager.INSTANCE.showPage(LoadingPage.class);
+                // bật loading page
+                PageManager.INSTANCE.showPage(LoadingPage.class);
 
-        // Sau khi kết thúc chỉnh sửa
-        // tạo một luồng để gửi request chỉnh sửa tới nguồn
-        new Thread(() -> {
-          // Lấy vị trí của dấu nháy
-          int caretPos = translationField.getWordExplain().getCaretPosition();
-          System.out.println("caret pos: " + caretPos);
-          StringBuilder newExStrb = new StringBuilder(translationField.getWordExplain().getText());
+                // Sau khi kết thúc chỉnh sửa
+                // tạo một luồng để gửi request chỉnh sửa tới nguồn
+                new Thread(
+                        () -> {
+                          // Lấy vị trí của dấu nháy
+                          int caretPos = translationField.getWordExplain().getCaretPosition();
+                          System.out.println("caret pos: " + caretPos);
+                          StringBuilder newExStrb =
+                              new StringBuilder(translationField.getWordExplain().getText());
 
-          // Xóa kí tự enter vừa nhấn
-          String newExplain = newExStrb.deleteCharAt(caretPos - 1).toString();
+                          // Xóa kí tự enter vừa nhấn
+                          String newExplain = newExStrb.deleteCharAt(caretPos - 1).toString();
 
-          System.out.println("Changed: " + newExplain);
-          // Vì textarea tự xuống dòng khi nhấn enter nên set lại text
-          Platform.runLater(() -> translationField.getWordExplain().setText(newExplain));
+                          System.out.println("Changed: " + newExplain);
+                          // Vì textarea tự xuống dòng khi nhấn enter nên set lại text
+                          Platform.runLater(
+                              () -> translationField.getWordExplain().setText(newExplain));
 
-          // tạo bản dịch mới và cập nhật
-          Translation newTrans = this.translation.clone();
-          newTrans.setWordExplain(newExplain);
+                          // tạo bản dịch mới và cập nhật
+                          Translation newTrans = this.translation.clone();
+                          newTrans.setWordExplain(newExplain);
 
-          if (DictionaryApplication.INSTANCE.dictionaryManagement.updateTranslation(word, this.translation, newTrans)) {
+                          if (DictionaryApplication.INSTANCE.dictionaryManagement.updateTranslation(
+                              word, this.translation, newTrans)) {
 
-            // đặt bản dịch hiện tại thành bản dịch mới
-            this.translation = newTrans;
-            Platform.runLater(() -> new AlertDialog(AlertType.INFORMATION)
-                .setContent(DictionaryApplication.INSTANCE.config.getContributeThanks()).show());
-          }
+                            // đặt bản dịch hiện tại thành bản dịch mới
+                            this.translation = newTrans;
+                            Platform.runLater(
+                                () ->
+                                    new AlertDialog(AlertType.INFORMATION)
+                                        .setContent(
+                                            DictionaryApplication.INSTANCE.config
+                                                .getContributeThanks())
+                                        .show());
+                          }
 
-          Platform.runLater(() -> PageManager.INSTANCE.restorePage());
-        }).start();
-      }
-    });
+                          Platform.runLater(() -> PageManager.INSTANCE.restorePage());
+                        })
+                    .start();
+              }
+            });
   }
 }

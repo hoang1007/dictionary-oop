@@ -5,11 +5,10 @@ import com.gryffindor.backend.entities.Translation;
 import com.gryffindor.backend.entities.Word;
 import com.gryffindor.frontend.scenes.mainscene.field.IController;
 import com.gryffindor.frontend.scenes.mainscene.field.search.SearchController;
-
-import java.util.List;
-
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+
+import java.util.List;
 
 public class ExplainController implements IController {
   ExplainField explainField;
@@ -30,23 +29,24 @@ public class ExplainController implements IController {
   private void onClickAddTransButton() {
     Button addTransButton = explainField.getAddTransButton();
 
-    addTransButton.setOnAction(event -> {
-      // Tạo một vùng dịch mới
-      TranslationField transField = new TranslationField();
-      transField.getWordExplain().setPromptText("Click here to add a translation");
-      transField.getWordExplain().setEditable(true);
+    addTransButton.setOnAction(
+        event -> {
+          // Tạo một vùng dịch mới
+          TranslationField transField = new TranslationField();
+          transField.getWordExplain().setPromptText("Click here to add a translation");
+          transField.getWordExplain().setEditable(true);
 
-      transField.getController().setTranslation(word, new Translation());
+          transField.getController().setTranslation(word, new Translation());
 
-      // thêm vùng dịch mới vào trước nút thêm bản dịch
-      int addIndex = explainField.getPane().getChildren().size() - 2;
-      explainField.getPane().getChildren().add(addIndex, transField.getPane());
-    });
+          // thêm vùng dịch mới vào trước nút thêm bản dịch
+          int addIndex = explainField.getPane().getChildren().size() - 2;
+          explainField.getPane().getChildren().add(addIndex, transField.getPane());
+        });
   }
 
   /**
    * Hàm khởi tạo.
-   * 
+   *
    * @param word
    */
   private void initSynoymsPane(Word word) {
@@ -67,7 +67,7 @@ public class ExplainController implements IController {
 
   /**
    * Khởi tạo các nút chứa từ đồng nghĩa.
-   * 
+   *
    * @param syn
    * @return Button
    */
@@ -87,9 +87,7 @@ public class ExplainController implements IController {
     explainField.getPane().getChildren().clear();
   }
 
-  /**
-   * Khởi tạo các thuộc tính liên quan đến {@link Word}.
-   */
+  /** Khởi tạo các thuộc tính liên quan đến {@link Word}. */
   public void setWord(Word word) {
     clear();
     this.word = word;

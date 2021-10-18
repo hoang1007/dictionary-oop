@@ -9,7 +9,7 @@ import java.net.URLConnection;
 public class NetworkUtils {
   /**
    * Kiểm tra kết nối internet của máy.
-   * 
+   *
    * @return trạng thái kết nối của máy
    * @see Status
    */

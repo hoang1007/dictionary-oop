@@ -4,7 +4,6 @@ import com.gryffindor.DictionaryApplication;
 import com.gryffindor.backend.entities.Word;
 import com.gryffindor.frontend.scenes.mainscene.field.IField;
 import com.gryffindor.frontend.utils.ImageUtils;
-
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -50,8 +49,9 @@ public class SearchField implements IField {
   private void initImageSearchButton() {
     imageSearch = new Button();
     imageSearch.getStyleClass().add("search-button");
-    ImageView view = ImageUtils.getFitSquareImage(
-      DictionaryApplication.INSTANCE.config.getImagesPath() + "/copy.png", 30);
+    ImageView view =
+        ImageUtils.getFitSquareImage(
+            DictionaryApplication.INSTANCE.config.getImagesPath() + "/copy.png", 30);
     imageSearch.setGraphic(view);
     imageSearch.setTooltip(new Tooltip("Dịch bằng hình ảnh"));
 
@@ -70,17 +70,13 @@ public class SearchField implements IField {
     GridPane.setConstraints(searchList, 0, 1);
   }
 
-  /**
-   * @return Pane
-   */
+  /** @return Pane */
   @Override
   public Pane getPane() {
     return searchPane;
   }
 
-  /**
-   * @return TextField
-   */
+  /** @return TextField */
   public TextField getSearchBox() {
     return searchBox;
   }
@@ -90,16 +86,12 @@ public class SearchField implements IField {
     return searchList;
   }
 
-  /**
-   * @return Button
-   */
+  /** @return Button */
   public Button getImageSearchButton() {
     return imageSearch;
   }
 
-  /**
-   * @return SearchController
-   */
+  /** @return SearchController */
   @Override
   public SearchController getController() {
     return controller;

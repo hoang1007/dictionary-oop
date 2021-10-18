@@ -2,16 +2,14 @@ package com.gryffindor.backend.utils;
 
 import com.asprise.ocr.Ocr;
 import com.gryffindor.DictionaryApplication;
-
-import java.io.File;
-import java.io.IOException;
-
-import javax.sound.sampled.AudioInputStream;
-
 import marytts.LocalMaryInterface;
 import marytts.exceptions.MaryConfigurationException;
 import marytts.exceptions.SynthesisException;
 import marytts.util.data.audio.AudioPlayer;
+
+import javax.sound.sampled.AudioInputStream;
+import java.io.File;
+import java.io.IOException;
 
 public class TextUtils {
   private static final Ocr ocr;
@@ -29,13 +27,14 @@ public class TextUtils {
     try {
       marytts = new LocalMaryInterface();
     } catch (MaryConfigurationException e) {
-      DictionaryApplication.INSTANCE.exceptionHandler.add(new Exception("Could not initialize voice"));
+      DictionaryApplication.INSTANCE.exceptionHandler.add(
+          new Exception("Could not initialize voice"));
     }
   }
 
   /**
    * Lấy chữ trong ảnh.
-   * 
+   *
    * @param imgPath
    * @return String
    */
@@ -45,19 +44,20 @@ public class TextUtils {
 
   /**
    * Phát hiện chữ trong ảnh.
-   * 
+   *
    * @param imgFile file ảnh
    * @return văn bản có trong ảnh
    */
   public static String fromImage(File imgFile) {
-    String s = ocr.recognize(new File[] { imgFile }, Ocr.RECOGNIZE_TYPE_ALL, Ocr.OUTPUT_FORMAT_PLAINTEXT);
+    String s =
+        ocr.recognize(new File[] {imgFile}, Ocr.RECOGNIZE_TYPE_ALL, Ocr.OUTPUT_FORMAT_PLAINTEXT);
 
     return format(s);
   }
 
   /**
    * Chuyển văn bản thành giọng nói.
-   * 
+   *
    * @param content văn bản muốn chuyển
    * @throws SynthesisException lỗi khởi tạo audio
    */
@@ -101,7 +101,7 @@ public class TextUtils {
 
   /**
    * Xâu rỗng.
-   * 
+   *
    * @return String
    */
   public static String empty() {

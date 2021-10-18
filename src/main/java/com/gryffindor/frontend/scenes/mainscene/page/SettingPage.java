@@ -1,7 +1,6 @@
 package com.gryffindor.frontend.scenes.mainscene.page;
 
 import com.gryffindor.frontend.scenes.mainscene.field.switchmode.SwitchModeField;
-
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 

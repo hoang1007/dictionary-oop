@@ -11,18 +11,20 @@ import javafx.scene.shape.Rectangle;
 
 /**
  * Button chuyển đổi giữa hai chế độ. Tham khảo code của meiswjn
- * 
+ *
  * @link https://gist.github.com/meiswjn/dd64f0706085cab336e30ac7e2ef59b1
  */
 public class SwitchButton extends StackPane {
   private final Rectangle back = new Rectangle(30, 10, Color.WHITE);
   private final Button button = new Button();
 
-  private final String buttonStyleOff = "-fx-effect: dropshadow(three-pass-box,"
-      + "rgba(0,0,0,0.2), 0.2, 0.0, 0.0, 2); -fx-background-color: WHITE;";
+  private final String buttonStyleOff =
+      "-fx-effect: dropshadow(three-pass-box,"
+          + "rgba(0,0,0,0.2), 0.2, 0.0, 0.0, 2); -fx-background-color: WHITE;";
 
-  private final String buttonStyleOn = "-fx-effect: dropshadow(three-pass-box,"
-      + "rgba(0,0,0,0.2), 0.2, 0.0, 0.0, 2); -fx-background-color: #3fa8d9";
+  private final String buttonStyleOn =
+      "-fx-effect: dropshadow(three-pass-box,"
+          + "rgba(0,0,0,0.2), 0.2, 0.0, 0.0, 2); -fx-background-color: #3fa8d9";
 
   private String colorOn = "#6bc4ed";
   private String colorOff = "#ced5da";
@@ -31,7 +33,7 @@ public class SwitchButton extends StackPane {
 
   /**
    * Hàm khởi tạo.
-   * 
+   *
    * @param defaultBoolean
    */
   private void init(boolean defaultBoolean) {
@@ -62,22 +64,23 @@ public class SwitchButton extends StackPane {
 
   /**
    * Khởi tạo switch button.
-   * 
+   *
    * @param defaultBoolean trạng thái on off của button
    */
   public SwitchButton(boolean defaultBoolean) {
     init(defaultBoolean);
 
-    EventHandler<Event> click = new EventHandler<Event>() {
-      @Override
-      public void handle(Event event) {
-        if (state) {
-          setOff();
-        } else {
-          setOn();
-        }
-      }
-    };
+    EventHandler<Event> click =
+        new EventHandler<Event>() {
+          @Override
+          public void handle(Event event) {
+            if (state) {
+              setOff();
+            } else {
+              setOn();
+            }
+          }
+        };
 
     button.setFocusTraversable(false);
 
@@ -87,26 +90,25 @@ public class SwitchButton extends StackPane {
 
   /** Thêm event handler cho button. */
   public void addOnMouseClicked(EventHandler<Event> value) {
-    EventHandler<Event> click = new EventHandler<Event>() {
-      @Override
-      public void handle(Event event) {
-        if (state) {
-          setOff();
-        } else {
-          setOn();
-        }
+    EventHandler<Event> click =
+        new EventHandler<Event>() {
+          @Override
+          public void handle(Event event) {
+            if (state) {
+              setOff();
+            } else {
+              setOn();
+            }
 
-        value.handle(event);
-      }
-    };
+            value.handle(event);
+          }
+        };
 
     this.setOnMouseClicked(click);
     button.setOnMouseClicked(click);
   }
 
-  /**
-   * @return boolean
-   */
+  /** @return boolean */
   public boolean getState() {
     return state;
   }

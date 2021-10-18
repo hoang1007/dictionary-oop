@@ -4,7 +4,6 @@ import com.gryffindor.frontend.event.WordEvent;
 import com.gryffindor.frontend.scenes.mainscene.field.explains.ExplainField;
 import com.gryffindor.frontend.scenes.mainscene.field.search.SearchField;
 import com.gryffindor.frontend.scenes.mainscene.field.translate.TranslateField;
-
 import javafx.event.EventHandler;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -28,19 +27,23 @@ public class HomePage implements IPage {
     translateField = new TranslateField();
     explainField = new ExplainField();
 
-    homePanel.getChildren().addAll(searchField.getPane(), translateField.getPane(), explainField.getPane());
+    homePanel
+        .getChildren()
+        .addAll(searchField.getPane(), translateField.getPane(), explainField.getPane());
 
     handleWordEvent();
   }
 
   private void handleWordEvent() {
-    homePanel.addEventFilter(WordEvent.EVENTTYPE, new EventHandler<WordEvent>() {
-      @Override
-      public void handle(WordEvent event) {
-        translateField.getController().setWord(event.getWord());
-        explainField.getController().setWord(event.getWord());
-      }
-    });
+    homePanel.addEventFilter(
+        WordEvent.EVENTTYPE,
+        new EventHandler<WordEvent>() {
+          @Override
+          public void handle(WordEvent event) {
+            translateField.getController().setWord(event.getWord());
+            explainField.getController().setWord(event.getWord());
+          }
+        });
   }
 
   public SearchField getSearchField() {

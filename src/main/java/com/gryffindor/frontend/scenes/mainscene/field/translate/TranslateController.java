@@ -19,19 +19,22 @@ public class TranslateController implements IController {
   }
 
   private void onClickPronouncedButton() {
-    translateField.getPronouncedButton().setOnAction(event -> {
-      System.out.println("pron clicked");
-      try {
-        TextUtils.toSpeech(translateField.getWordTarget().getText());
-      } catch (Exception e) {
-        DictionaryApplication.INSTANCE.exceptionHandler.add(e);
-      }
-    });
+    translateField
+        .getPronouncedButton()
+        .setOnAction(
+            event -> {
+              System.out.println("pron clicked");
+              try {
+                TextUtils.toSpeech(translateField.getWordTarget().getText());
+              } catch (Exception e) {
+                DictionaryApplication.INSTANCE.exceptionHandler.add(e);
+              }
+            });
   }
 
   /**
    * Khởi tạo các thuộc tính liên quan đến {@link Word}.
-   * 
+   *
    * @param word từ muốn đặt
    */
   public void setWord(Word word) {
@@ -42,9 +45,7 @@ public class TranslateController implements IController {
     translateField.getWordTarget().setText(word.getWordTarget());
   }
 
-  /**
-   * @return Word
-   */
+  /** @return Word */
   public Word getWord() {
     return word;
   }

@@ -4,14 +4,13 @@ import com.gryffindor.DictionaryApplication;
 import com.gryffindor.frontend.entities.AlertDialog;
 import com.gryffindor.frontend.scenes.mainscene.field.IController;
 import com.gryffindor.frontend.utils.FileChooserWindow;
-
-import java.io.File;
-
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.FileChooser.ExtensionFilter;
+
+import java.io.File;
 
 public class ExportController implements IController {
   ExportField exportField;
@@ -31,30 +30,37 @@ public class ExportController implements IController {
   }
 
   private void export() {
-    File file = new FileChooserWindow("Save file", "dictionary")
-          .setExtensionFilter(
-            // Định dạng file save
-            new ExtensionFilter("TEXT files", "*.txt"),
-            new ExtensionFilter("All Files", "*.*")
-          ).getSaveFile();
+    File file =
+        new FileChooserWindow("Save file", "dictionary")
+            .setExtensionFilter(
+                // Định dạng file save
+                new ExtensionFilter("TEXT files", "*.txt"), new ExtensionFilter("All Files", "*.*"))
+            .getSaveFile();
 
-    new Thread(() -> {
-      DictionaryApplication.INSTANCE.getDictionaryManagement().dictionaryExportToFile(file);
+    new Thread(
+            () -> {
+              DictionaryApplication.INSTANCE.getDictionaryManagement().dictionaryExportToFile(file);
 
-      Platform.runLater(() -> new AlertDialog(AlertType.INFORMATION)
-          .setContent("Xuất file thành công\nFile được lưu ở " + file.getAbsolutePath())
-          .show());
-
-    }).start();
+              Platform.runLater(
+                  () ->
+                      new AlertDialog(AlertType.INFORMATION)
+                          .setContent(
+                              "Xuất file thành công\nFile được lưu ở " + file.getAbsolutePath())
+                          .show());
+            })
+        .start();
   }
 
   private void onClickExport() {
     // sự kiện nhấn chuật vào Export button
-    exportField.getExportButton().setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent event) {
-        export();
-      }
-    });
+    exportField
+        .getExportButton()
+        .setOnAction(
+            new EventHandler<ActionEvent>() {
+              @Override
+              public void handle(ActionEvent event) {
+                export();
+              }
+            });
   }
 }

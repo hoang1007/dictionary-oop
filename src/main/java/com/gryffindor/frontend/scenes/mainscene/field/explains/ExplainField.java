@@ -4,7 +4,6 @@ import com.gryffindor.DictionaryApplication;
 import com.gryffindor.frontend.scenes.mainscene.field.IField;
 import com.gryffindor.frontend.utils.ImageUtils;
 import com.gryffindor.frontend.utils.ManagedUtils;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -57,46 +56,37 @@ public class ExplainField implements IField {
     addTranslationButton.getStyleClass().add("add-trans-button");
     addTranslationButton.setTooltip(new Tooltip("Thêm bản dịch cho từ này"));
 
-    ImageView img = ImageUtils.getFitSquareImage(DictionaryApplication.INSTANCE.config.getImagesPath() + "/plus.png",
-        30);
+    ImageView img =
+        ImageUtils.getFitSquareImage(
+            DictionaryApplication.INSTANCE.config.getImagesPath() + "/plus.png", 30);
 
     addTranslationButton.setGraphic(img);
 
     explainPane.getChildren().add(addTranslationButton);
   }
 
-  /**
-   * @return Text
-   */
+  /** @return Text */
   public Text getWordClass() {
     return wordClass;
   }
 
-  /**
-   * @return ObservableList<TranslationField>
-   */
+  /** @return ObservableList<TranslationField> */
   public ObservableList<TranslationField> getTranslationFields() {
     return translationFields;
   }
 
-  /**
-   * @return Button
-   */
+  /** @return Button */
   public Button getAddTransButton() {
     return addTranslationButton;
   }
 
-  /**
-   * @return Pane
-   */
+  /** @return Pane */
   @Override
   public Pane getPane() {
     return explainPane;
   }
 
-  /**
-   * @return ExplainController
-   */
+  /** @return ExplainController */
   @Override
   public ExplainController getController() {
     return controller;

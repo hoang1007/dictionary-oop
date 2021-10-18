@@ -10,11 +10,11 @@ public class Translation {
   private List<ExampleSentence> exampleSentences = new ArrayList<>();
 
   /** Constructor. */
-  public Translation() {
-  }
+  public Translation() {}
 
   /**
    * Constructor.
+   *
    * @param wordExplain
    */
   public Translation(String wordExplain) {
@@ -23,6 +23,7 @@ public class Translation {
 
   /**
    * Thêm các câu ví dụ cho từ.
+   *
    * @param exampleSentences các câu ví dụ
    * @return trả về đối tượng hiện tại
    */
@@ -34,15 +35,14 @@ public class Translation {
     return this;
   }
 
-  /**
-   * @return List<ExampleSentence>
-   */
+  /** @return List<ExampleSentence> */
   public List<ExampleSentence> getExampleSentences() {
     return this.exampleSentences;
   }
 
   /**
    * Set nghĩa của từ.
+   *
    * @param wordExplain
    * @return Translation
    */
@@ -53,6 +53,7 @@ public class Translation {
 
   /**
    * Lấy nghĩa của từ.
+   *
    * @return String
    */
   public String getWordExplain() {

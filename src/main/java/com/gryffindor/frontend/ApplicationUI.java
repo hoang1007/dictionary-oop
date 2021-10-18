@@ -1,7 +1,6 @@
 package com.gryffindor.frontend;
 
 import com.gryffindor.frontend.scenes.mainscene.MainScene;
-
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -17,9 +16,9 @@ public class ApplicationUI extends Application {
     height = 600;
   }
 
-  
-  /** 
+  /**
    * Ghi đè bắt đầu.
+   *
    * @param primaryStage
    * @throws Exception
    */
