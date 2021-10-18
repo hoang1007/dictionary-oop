@@ -30,8 +30,7 @@ Thành viên nhóm Gryffindor:
 
 ## Cài đặt
 
--
-Tải [mã nguồn](https://gitlab.com/johnhoangsoftware/dictionary-oop/-/tree/graphic)
+- Tải [mã nguồn](https://gitlab.com/johnhoangsoftware/dictionary-oop/-/tree/graphic)
 về máy.
 - Tải và cài đặt [Visual studio code](https://code.visualstudio.com/download)
   hoặc [IntelliJ IDEA](https://www.jetbrains.com/idea/download/#section=windows)
